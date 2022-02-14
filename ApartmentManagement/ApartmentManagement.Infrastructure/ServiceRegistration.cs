@@ -1,6 +1,12 @@
-﻿    using ApartmentManagement.Application.Contracts.Persistence.Repositories.Commons;
+﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Application.Contracts.Persistence.Repositories.Bills;
+using ApartmentManagement.Application.Contracts.Persistence.Repositories.Commons;
+using ApartmentManagement.Application.Contracts.Persistence.Repositories.Messages;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
+using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Bills;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Commons;
+using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +26,9 @@ namespace ApartmentManagement.Infrastructure
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
-           // services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IApartmentRepository, ApartmentRepository>();
+            services.AddScoped<IBillRepository, BillRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
 
             return services;
         }

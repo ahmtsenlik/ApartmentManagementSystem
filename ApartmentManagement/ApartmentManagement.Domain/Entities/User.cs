@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.Domain.Entities
 {
-    //user yerine resident kullanılır mı
+    
     public class User : IdentityUser<int>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TCIdentityNumber { get; set; }
         public string LicensePlate { get; set; }
-        public ICollection<Apartment> Apartments { get; set; }
+        public Apartment Apartment { get; set; }
         [InverseProperty("Sender")]
         public ICollection<Message> SentMessages { get; set; }
         [InverseProperty("Receiver")]

@@ -12,4 +12,16 @@
     <ProjectReference Include="..\ApartmentManagement.Domain\ApartmentManagement.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Commands\Apartments\" />
+    <Folder Include="Features\Commands\Bills\" />
+    <Folder Include="Features\Commands\Messages\" />
+    <Folder Include="Features\Commands\Authentication\" />
+    <Folder Include="Features\Commands\Users\" />
+    <Folder Include="Features\Queries\Apartments\" />
+    <Folder Include="Features\Queries\Bills\" />
+    <Folder Include="Features\Queries\Messages\" />
+    <Folder Include="Features\Queries\Users\" />
+  </ItemGroup>
+
 </Project>

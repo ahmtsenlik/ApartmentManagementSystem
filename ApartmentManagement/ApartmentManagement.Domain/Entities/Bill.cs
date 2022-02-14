@@ -5,12 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ApartmentManagement.Domain.Enum.BaseEnum;
 
 namespace ApartmentManagement.Domain.Entities
 {
     public class Bill:BaseEntity
     {
-        public string BillType { get; set; }
+        public BillType Type { get; set; }
         [Column(TypeName = "money")]
         public decimal Amount { get; set; }
         public int Month { get; set; }
