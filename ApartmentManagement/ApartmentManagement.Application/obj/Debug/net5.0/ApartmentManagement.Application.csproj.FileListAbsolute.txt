@@ -1,0 +1,15 @@
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ApartmentManagement.Application.deps.json
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ApartmentManagement.Application.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ref\ApartmentManagement.Application.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ApartmentManagement.Application.pdb
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ApartmentManagement.Domain.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ApartmentManagement.Domain.pdb
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.csproj.AssemblyReference.cache
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.AssemblyInfoInputs.cache
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.AssemblyInfo.cs
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.csproj.CoreCompileInputs.cache
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.csproj.CopyComplete
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ref\ApartmentManagement.Application.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.pdb

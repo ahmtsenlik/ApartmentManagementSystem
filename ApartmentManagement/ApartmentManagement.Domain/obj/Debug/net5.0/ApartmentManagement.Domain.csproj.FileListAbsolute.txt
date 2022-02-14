@@ -1,0 +1,12 @@
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\bin\Debug\net5.0\ApartmentManagement.Domain.deps.json
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\bin\Debug\net5.0\ApartmentManagement.Domain.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\bin\Debug\net5.0\ref\ApartmentManagement.Domain.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\bin\Debug\net5.0\ApartmentManagement.Domain.pdb
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ApartmentManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ApartmentManagement.Domain.AssemblyInfoInputs.cache
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ApartmentManagement.Domain.AssemblyInfo.cs
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ApartmentManagement.Domain.csproj.CoreCompileInputs.cache
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ApartmentManagement.Domain.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ref\ApartmentManagement.Domain.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ApartmentManagement.Domain.pdb
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Domain\obj\Debug\net5.0\ApartmentManagement.Domain.csproj.AssemblyReference.cache
