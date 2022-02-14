@@ -1,4 +1,4 @@
-﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Commons;
+﻿    using ApartmentManagement.Application.Contracts.Persistence.Repositories.Commons;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Commons;
 using Microsoft.EntityFrameworkCore;

@@ -10,9 +10,9 @@ namespace ApartmentManagement.Application
 {
      static public class ServiceRegistration
     {
-        public static void AddApplicationServices(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-         
+            return services;
         }
     }
 }

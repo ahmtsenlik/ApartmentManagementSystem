@@ -16,12 +16,11 @@ namespace ApartmentManagement.Domain.Entities
         public string LastName { get; set; }
         public string TCIdentityNumber { get; set; }
         public string LicensePlate { get; set; }
-
         public ICollection<Apartment> Apartments { get; set; }
         [InverseProperty("Sender")]
         public ICollection<Message> SentMessages { get; set; }
         [InverseProperty("Receiver")]
-        public ICollection<Message> ReceivedMessages{ get; set; }
+        public ICollection<Message> ReceivedMessages { get; set; }
 
     }
 }
