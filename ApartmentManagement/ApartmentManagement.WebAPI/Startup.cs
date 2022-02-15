@@ -1,7 +1,11 @@
+using ApartmentManagement.Application.Settings;
+using ApartmentManagement.Domain.Entities;
 using ApartmentManagement.Infrastructure;
+using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +33,19 @@ namespace ApartmentManagement.WebAPI
         {
             services.AddInfrastructureService(Configuration);
 
-            services.AddControllers();
+            services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
+            var jwt = Configuration.GetSection("JWT").Get<JwtSettings>();
+
+
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1d);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+            }).AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApartmentManagement.WebAPI", Version = "v1" });
@@ -49,6 +65,8 @@ namespace ApartmentManagement.WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
