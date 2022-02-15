@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
@@ -21,7 +22,6 @@
     <Folder Include="Features\Commands\Apartments\" />
     <Folder Include="Features\Commands\Bills\" />
     <Folder Include="Features\Commands\Messages\" />
-    <Folder Include="Features\Commands\Users\SignUp\" />
     <Folder Include="Features\Queries\Apartments\" />
     <Folder Include="Features\Queries\Bills\" />
     <Folder Include="Features\Queries\Messages\" />

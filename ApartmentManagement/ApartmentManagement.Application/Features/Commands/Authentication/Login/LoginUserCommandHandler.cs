@@ -1,6 +1,8 @@
-﻿using ApartmentManagement.Application.Settings;
+﻿using ApartmentManagement.Application.Models;
+using ApartmentManagement.Application.Settings;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -18,24 +20,29 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommandRequest, LoginUserCommandResponse>
     {
+        private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly JwtSettings _jwtSettings;
-
-        public LoginUserCommandHandler(UserManager<User> userManager, IOptionsSnapshot<JwtSettings> jwtSettings)
+        private readonly LoginUserCommandValidator _validator;
+        public LoginUserCommandHandler(UserManager<User> userManager, IOptionsSnapshot<JwtSettings> jwtSettings, IMapper mapper, LoginUserCommandValidator _validator)
         {
-            
+            _mapper = mapper;
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
         }
 
         public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
         {
+            
+            await _validator.ValidateAndThrowAsync(request);
+            LoginUserCommandResponse response = new LoginUserCommandResponse();
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == request.Username);
             if (user is null)
             {
-                return null;
+                response.IsSuccess = false;
+                return response;
             }
-            LoginUserCommandResponse response = new LoginUserCommandResponse();
+            
             var userLoginResult = await _userManager.CheckPasswordAsync(user, request.Password);
             if (userLoginResult)
             {
@@ -64,10 +71,15 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
+
                 response.Token = new JwtSecurityTokenHandler().WriteToken(token);
                 response.Roles = userRoles;
+                response.User = _mapper.Map<UserModel>(user);
+                response.IsSuccess = true;
+                
+                
     
-            }
+            }   
             return response;
         }
         

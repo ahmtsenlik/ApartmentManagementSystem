@@ -25,6 +25,10 @@ namespace ApartmentManagement.WebAPI.NewFolder
         {
             var result=await _mediator.Send(request);
 
+            if (result.IsSuccess)
+            {
+                return Ok("Login successful.");
+            }
             return result != null ? Created("", result) : (IActionResult)BadRequest(result);
         }
     }

@@ -78,3 +78,7 @@ D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.We
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
