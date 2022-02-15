@@ -31,7 +31,6 @@ D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.We
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.OpenApi.dll
-D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -73,3 +72,9 @@ D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.We
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Humanizer.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\FluentValidation.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\AutoMapper.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MediatR.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MediatR.Contracts.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll

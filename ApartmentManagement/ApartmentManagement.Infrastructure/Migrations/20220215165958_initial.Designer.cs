@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220214022236_initial")]
+    [Migration("20220215165958_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,12 +55,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<string>("NumberOfRooms")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Apartments");
                 });
@@ -78,9 +73,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<int?>("ApartmentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("BillType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -94,6 +86,9 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.Property<int>("Year")
@@ -185,6 +180,9 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ApartmentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -242,6 +240,8 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -355,15 +355,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ApartmentManagement.Domain.Entities.Apartment", b =>
-                {
-                    b.HasOne("ApartmentManagement.Domain.Entities.User", "User")
-                        .WithMany("Apartments")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ApartmentManagement.Domain.Entities.Bill", b =>
                 {
                     b.HasOne("ApartmentManagement.Domain.Entities.Apartment", "Apartment")
@@ -386,6 +377,15 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Navigation("Receiver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("ApartmentManagement.Domain.Entities.User", b =>
+                {
+                    b.HasOne("ApartmentManagement.Domain.Entities.Apartment", "Apartment")
+                        .WithMany()
+                        .HasForeignKey("ApartmentId");
+
+                    b.Navigation("Apartment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -446,8 +446,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("ApartmentManagement.Domain.Entities.User", b =>
                 {
-                    b.Navigation("Apartments");
-
                     b.Navigation("ReceivedMessages");
 
                     b.Navigation("SentMessages");

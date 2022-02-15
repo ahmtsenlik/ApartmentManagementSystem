@@ -1,0 +1,75 @@
+﻿using ApartmentManagement.Application.Settings;
+using ApartmentManagement.Domain.Entities;
+using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
+{
+    public class LoginUserCommandHandler : IRequestHandler<LoginUserCommandRequest, LoginUserCommandResponse>
+    {
+        private readonly UserManager<User> _userManager;
+        private readonly JwtSettings _jwtSettings;
+
+        public LoginUserCommandHandler(UserManager<User> userManager, IOptionsSnapshot<JwtSettings> jwtSettings)
+        {
+            
+            _userManager = userManager;
+            _jwtSettings = jwtSettings.Value;
+        }
+
+        public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.UserName == request.Username);
+            if (user is null)
+            {
+                return null;
+            }
+            LoginUserCommandResponse response = new LoginUserCommandResponse();
+            var userLoginResult = await _userManager.CheckPasswordAsync(user, request.Password);
+            if (userLoginResult)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                var authClaims = new List<Claim>
+                    {
+                        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                        new Claim(ClaimTypes.Name, user.FirstName),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+
+                    };
+
+                foreach (var userRole in userRoles)
+                {
+                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                }
+
+                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
+
+                var token = new JwtSecurityToken(
+                    issuer: _jwtSettings.Issuer,
+                    audience: _jwtSettings.Issuer,
+                    expires: DateTime.Now.AddHours(5),
+                    claims: authClaims,
+                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                    );
+                response.Token = new JwtSecurityTokenHandler().WriteToken(token);
+                response.Roles = userRoles;
+    
+            }
+            return response;
+        }
+        
+    }
+}

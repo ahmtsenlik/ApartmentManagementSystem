@@ -1,3 +1,4 @@
+using ApartmentManagement.Application;
 using ApartmentManagement.Application.Settings;
 using ApartmentManagement.Domain.Entities;
 using ApartmentManagement.Infrastructure;
@@ -32,7 +33,7 @@ namespace ApartmentManagement.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructureService(Configuration);
-
+            services.AddApplicationServices();
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             var jwt = Configuration.GetSection("JWT").Get<JwtSettings>();
 
@@ -46,6 +47,8 @@ namespace ApartmentManagement.WebAPI
                 options.Lockout.MaxFailedAccessAttempts = 5;
 
             }).AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApartmentManagement.WebAPI", Version = "v1" });

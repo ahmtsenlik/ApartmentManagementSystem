@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,15 @@ namespace ApartmentManagement.Domain.Entities
         public ICollection<Message> SentMessages { get; set; }
         [InverseProperty("Receiver")]
         public ICollection<Message> ReceivedMessages { get; set; }
+
+        [IgnoreDataMember]
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
 
     }
 }
