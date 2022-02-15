@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "GH8JsTO7gNdSSyk8vqUnCPVZLbb5kO0ihjkLgyhNjy6pTN6nrZ/ChIIq48Fazh2ufm5eIyV3qQX/9l3eN29Keg==",
+  "dgSpecHash": "RQQDPr2vUxAlIk8fdPKDDIRBAYaHO+Njy+1kbURliGwE7s6Z8mWJFGjlXF96Ho5MwtujaXjJJictAWH5IaiBZA==",
   "success": true,
   "projectFilePath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.Infrastructure\\ApartmentManagement.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
+    "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.6\\fluentvalidation.dependencyinjectionextensions.10.3.6.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\mediatr\\10.0.1\\mediatr.10.0.1.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",

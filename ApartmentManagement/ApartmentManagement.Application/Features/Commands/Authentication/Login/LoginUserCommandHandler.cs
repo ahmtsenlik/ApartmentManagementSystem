@@ -24,17 +24,18 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
         private readonly UserManager<User> _userManager;
         private readonly JwtSettings _jwtSettings;
         private readonly LoginUserCommandValidator _validator;
-        public LoginUserCommandHandler(UserManager<User> userManager, IOptionsSnapshot<JwtSettings> jwtSettings, IMapper mapper, LoginUserCommandValidator _validator)
+        public LoginUserCommandHandler(UserManager<User> userManager, IOptionsSnapshot<JwtSettings> jwtSettings, IMapper mapper, LoginUserCommandValidator validator)
         {
             _mapper = mapper;
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
+            _validator = validator;
         }
 
         public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
         {
             
-            await _validator.ValidateAndThrowAsync(request);
+            _validator.ValidateAndThrow(request);
             LoginUserCommandResponse response = new LoginUserCommandResponse();
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == request.Username);
             if (user is null)

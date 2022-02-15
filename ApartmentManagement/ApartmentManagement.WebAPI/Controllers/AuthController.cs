@@ -27,9 +27,10 @@ namespace ApartmentManagement.WebAPI.NewFolder
 
             if (result.IsSuccess)
             {
-                return Ok("Login successful.");
+                return Ok(result);
             }
-            return result != null ? Created("", result) : (IActionResult)BadRequest(result);
+            
+            return BadRequest("Username or Password is incorret.");
         }
     }
 }

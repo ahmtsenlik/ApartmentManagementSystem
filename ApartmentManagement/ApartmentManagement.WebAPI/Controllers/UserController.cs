@@ -28,7 +28,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             if (result.IsSuccess)
                 return Created("", result.Message);
 
-            return BadRequest("User not created.");
+            return BadRequest(result.Message);
         }
     }
 }

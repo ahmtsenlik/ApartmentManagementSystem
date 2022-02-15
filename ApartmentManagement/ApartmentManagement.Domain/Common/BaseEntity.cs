@@ -12,10 +12,10 @@ namespace ApartmentManagement.Domain.Common
         [Key]
         public int Id { get; set; }
         [Required]
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         [Required]
-        public DateTime LastModified { get; set; }
+        public DateTime LastModified { get; set; } = DateTime.Now;
         [Required]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

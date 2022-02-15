@@ -22,7 +22,9 @@ namespace ApartmentManagement.Domain.Entities
         public ICollection<Message> SentMessages { get; set; }
         [InverseProperty("Receiver")]
         public ICollection<Message> ReceivedMessages { get; set; }
-
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModified { get; set; } = DateTime.Now;
+        public bool IsActive { get; set; } = true;
         [IgnoreDataMember]
         public string FullName
         {
