@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Apartments.Create;
+using ApartmentManagement.Application.Features.Commands.Apartments.Update;
 using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Models;
@@ -22,6 +23,7 @@ namespace ApartmentManagement.Application.Mapping
             CreateMap<User, UpdateUserCommandRequest>().ReverseMap();
 
             CreateMap<Apartment, CreateApartmentCommandRequest>().ReverseMap();
+            CreateMap<Apartment, UpdateApartmentCommandRequest>().ReverseMap();
         }
     }
 }

@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Commands\Apartments\Update\" />
     <Folder Include="Features\Commands\Apartments\Remove\" />
     <Folder Include="Features\Commands\Bills\" />
     <Folder Include="Features\Commands\Messages\" />

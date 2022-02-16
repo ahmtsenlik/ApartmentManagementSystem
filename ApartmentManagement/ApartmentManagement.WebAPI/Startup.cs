@@ -73,7 +73,7 @@ namespace ApartmentManagement.WebAPI
             app.UseAuthentication();
 
             app.UseAuthorization();
-            app.UseMiddleware(typeof(CustumExceptionHandle));
+           // app.UseMiddleware(typeof(CustumExceptionHandle));
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

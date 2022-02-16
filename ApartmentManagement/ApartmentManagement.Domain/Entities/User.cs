@@ -17,7 +17,6 @@ namespace ApartmentManagement.Domain.Entities
         public string LastName { get; set; }
         public string TCIdentityNumber { get; set; }
         public string LicensePlate { get; set; }
-        public Apartment Apartment { get; set; }
         [InverseProperty("Sender")]
         public ICollection<Message> SentMessages { get; set; }
         [InverseProperty("Receiver")]

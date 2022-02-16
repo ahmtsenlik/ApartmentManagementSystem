@@ -15,7 +15,7 @@ namespace ApartmentManagement.WebAPI.Controllers
     public class UserController : ControllerBase
     {
         public readonly IMediator _mediator;
-        
+
         public UserController(IMediator mediator)
         {
             _mediator = mediator;
@@ -31,7 +31,7 @@ namespace ApartmentManagement.WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
-        [HttpPut("Update")]
+        [HttpPut]
         public async Task<IActionResult> UpdateUser(UpdateUserCommandRequest request)
         {
            var result= await _mediator.Send(request);
