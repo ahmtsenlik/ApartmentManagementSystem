@@ -3,6 +3,7 @@ using ApartmentManagement.Application.Settings;
 using ApartmentManagement.Domain.Entities;
 using ApartmentManagement.Infrastructure;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
+using ApartmentManagement.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -72,7 +73,7 @@ namespace ApartmentManagement.WebAPI
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+            app.UseMiddleware(typeof(CustumExceptionHandle));
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -13,9 +13,9 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Create
 {
     public class CreateApartmentCommandHandler : IRequestHandler<CreateApartmentCommandRequest, CreateApartmentCommandResponse>
     {
-        IApartmentRepository _apartmentRepository;
-        IMapper _mapper;
-        CreateApartmentCommandValidator _validator;
+        private readonly IApartmentRepository _apartmentRepository;
+        private readonly IMapper _mapper;
+        private readonly CreateApartmentCommandValidator _validator;
 
 
         public CreateApartmentCommandHandler(IApartmentRepository apartmentRepository,IMapper mapper, CreateApartmentCommandValidator validator)
