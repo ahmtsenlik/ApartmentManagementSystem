@@ -34,22 +34,22 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
                 response.Message = validateResult.ToString();
                 return response;
             }
-            
-           
+          
             var userExists = await _userManager.FindByNameAsync(request.Username);
-            
             if (userExists is not null)
             {
                 response.Message = "This username is already registered.";
                 response.IsSuccess = false;
                 return response;
             }
+
             var user= _mapper.Map<User>(request);
+            user.IsActive = true;
+            user.CreatedDate = DateTime.Now;
+
             var defaultpass = "User!123";
-            user.UserName = request.Username;
-
+            
             var userCreateResult = await _userManager.CreateAsync(user,defaultpass);
-
             if (userCreateResult.Succeeded)
             {
                 response.Message = "Registration successful.";

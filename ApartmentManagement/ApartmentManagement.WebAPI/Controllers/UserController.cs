@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Users.Signup;
+using ApartmentManagement.Application.Features.Commands.Users.Update;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +22,23 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpPost("Register")]
-        public async Task<IActionResult> SignUp(SignupUserCommandRequest request)
+        public async Task<IActionResult> SignUpUser([FromBody] SignupUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
 
             if (result.IsSuccess)
                 return Created("", result.Message);
 
+            return BadRequest(result.Message);
+        }
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest request)
+        {
+           var result= await _mediator.Send(request);
+            if (result.IsSuccess)
+            {
+                return NoContent();
+            }
             return BadRequest(result.Message);
         }
     }

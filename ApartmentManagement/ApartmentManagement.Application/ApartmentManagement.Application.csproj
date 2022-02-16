@@ -23,6 +23,7 @@
     <Folder Include="Features\Commands\Apartments\" />
     <Folder Include="Features\Commands\Bills\" />
     <Folder Include="Features\Commands\Messages\" />
+    <Folder Include="Features\Commands\Users\List\" />
     <Folder Include="Features\Queries\Apartments\" />
     <Folder Include="Features\Queries\Bills\" />
     <Folder Include="Features\Queries\Messages\" />
