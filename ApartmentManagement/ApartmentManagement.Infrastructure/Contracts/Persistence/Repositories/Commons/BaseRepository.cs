@@ -50,8 +50,6 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().AsNoTracking().ToListAsync();
-
-
         }
 
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)

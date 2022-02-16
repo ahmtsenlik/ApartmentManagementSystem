@@ -21,7 +21,7 @@ namespace ApartmentManagement.WebAPI.NewFolder
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginUser([FromBody]LoginUserCommandRequest request)
+        public async Task<IActionResult> LoginUser(LoginUserCommandRequest request)
         {
             var result=await _mediator.Send(request);
 

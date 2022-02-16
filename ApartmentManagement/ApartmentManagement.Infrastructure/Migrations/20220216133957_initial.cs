@@ -19,8 +19,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     NumberOfRooms = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Floor = table.Column<int>(type: "int", nullable: false),
                     IsOwner = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -54,8 +52,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     TCIdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LicensePlate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ApartmentId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -95,8 +91,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     Year = table.Column<int>(type: "int", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
                     ApartmentId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -227,8 +221,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
                     SenderId = table.Column<int>(type: "int", nullable: true),
                     ReceiverId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

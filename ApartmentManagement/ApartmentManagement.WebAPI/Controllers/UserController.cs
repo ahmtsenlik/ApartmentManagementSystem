@@ -22,7 +22,7 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpPost("Register")]
-        public async Task<IActionResult> SignUpUser([FromBody] SignupUserCommandRequest request)
+        public async Task<IActionResult> SignUpUser(SignupUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
 
@@ -32,13 +32,12 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPut("Update")]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest request)
+        public async Task<IActionResult> UpdateUser(UpdateUserCommandRequest request)
         {
            var result= await _mediator.Send(request);
             if (result.IsSuccess)
-            {
                 return NoContent();
-            }
+            
             return BadRequest(result.Message);
         }
     }

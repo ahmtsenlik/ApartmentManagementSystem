@@ -1,4 +1,4 @@
-﻿using ApartmentManagement.Domain.Entities;s
+﻿using ApartmentManagement.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -33,7 +33,16 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
                     IsSuccess = false
                 };
             }
-            
+            var validateResult = _validator.Validate(request);
+            if (!validateResult.IsValid)
+            {
+                return new UpdateUserCommandResponse
+                {
+                    Message = validateResult.ToString(),
+                    IsSuccess = false        
+                };
+            }
+
             updateUser.TCIdentityNumber = request.TCIdentityNumber;
             updateUser.FirstName = request.FirstName;
             updateUser.LastName = request.LastName;

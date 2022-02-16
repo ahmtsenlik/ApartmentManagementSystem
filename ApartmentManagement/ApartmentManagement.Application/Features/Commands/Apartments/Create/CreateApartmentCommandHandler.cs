@@ -1,0 +1,62 @@
+﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Domain.Entities;
+using AutoMapper;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace ApartmentManagement.Application.Features.Commands.Apartments.Create
+{
+    public class CreateApartmentCommandHandler : IRequestHandler<CreateApartmentCommandRequest, CreateApartmentCommandResponse>
+    {
+        IApartmentRepository _apartmentRepository;
+        IMapper _mapper;
+        CreateApartmentCommandValidator _validator;
+
+
+        public CreateApartmentCommandHandler(IApartmentRepository apartmentRepository,IMapper mapper, CreateApartmentCommandValidator validator)
+        {
+            _apartmentRepository = apartmentRepository;
+            _mapper = mapper;
+            _validator = validator; 
+        }
+
+        public async Task<CreateApartmentCommandResponse> Handle(CreateApartmentCommandRequest request, CancellationToken cancellationToken)
+        {
+            var validateResult = _validator.Validate(request);
+            if (!validateResult.IsValid)
+            {
+                return new CreateApartmentCommandResponse
+                {
+                    Message = validateResult.ToString(),
+                    IsSuccess = false
+                };      
+            }
+
+            var checkApartment= await _apartmentRepository.GetAsync(apt => apt.Block == request.Block && apt.No == request.No && apt.Floor == request.Floor);
+            if (checkApartment.Count!=0)
+            {
+                return new CreateApartmentCommandResponse
+                {
+                    Message = "This apartment has already been registered",
+                    IsSuccess = false
+                };
+            }
+            
+            var apartment = _mapper.Map<Apartment>(request);
+            apartment.IsActive = true;
+            apartment.IsEmpty = true;
+            await _apartmentRepository.AddAsync(apartment);
+
+            return new CreateApartmentCommandResponse
+            {
+                IsSuccess = true,
+                Message = "Apartment created."
+            };
+        }
+    }
+}
