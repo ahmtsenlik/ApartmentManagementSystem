@@ -28,10 +28,10 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
         {
             SignupUserCommandResponse response = new SignupUserCommandResponse();
 
-            var validateResult=_validator.Validate(request);
-            if (!validateResult.IsValid)
+            var validationResult=_validator.Validate(request);
+            if (!validationResult.IsValid)
             {
-                response.Message = validateResult.ToString();
+                response.Message = validationResult.ToString();
                 return response;
             }
           

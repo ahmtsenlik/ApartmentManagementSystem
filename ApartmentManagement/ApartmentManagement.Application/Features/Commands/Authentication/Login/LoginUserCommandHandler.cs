@@ -1,4 +1,5 @@
-﻿using ApartmentManagement.Application.Models;
+﻿using ApartmentManagement.Application.Exceptions;
+using ApartmentManagement.Application.Models;
 using ApartmentManagement.Application.Settings;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
@@ -33,15 +34,13 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
         }
 
         public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
-        {
-            
+        {          
             _validator.ValidateAndThrow(request);
             LoginUserCommandResponse response = new LoginUserCommandResponse();
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == request.Username);
             if (user is null)
             {
-                response.IsSuccess = false;
-                return response;
+                throw new NotFoundException(nameof(User), request.Username);
             }
             
             var userLoginResult = await _userManager.CheckPasswordAsync(user, request.Password);
@@ -55,7 +54,6 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
                         new Claim(ClaimTypes.Name, user.FirstName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-
                     };
 
                 foreach (var userRole in userRoles)
@@ -77,9 +75,7 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
                 response.Roles = userRoles;
                 response.User = _mapper.Map<UserModel>(user);
                 response.IsSuccess = true;
-                
-                
-    
+
             }   
             return response;
         }

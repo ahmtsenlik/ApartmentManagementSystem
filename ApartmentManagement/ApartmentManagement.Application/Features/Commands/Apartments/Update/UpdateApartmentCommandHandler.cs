@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Application.Exceptions;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using FluentValidation;
@@ -28,23 +29,12 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Update
 
         public async Task<UpdateApartmentCommandResponse> Handle(UpdateApartmentCommandRequest request, CancellationToken cancellationToken)
         {
-            var validateResult = _validator.Validate(request);
-            if (!validateResult.IsValid)
-            {
-                return new UpdateApartmentCommandResponse
-                {
-                    Message = validateResult.ToString(),
-                    IsSuccess = false
-                };
-            }
+            _validator.ValidateAndThrow(request);
+           
             var updateApartment = await _apartmentRepository.GetByIdAsync(request.Id);
             if (updateApartment is null)
             {
-                return new UpdateApartmentCommandResponse
-                {
-                    Message = "No such apartment was found.",
-                    IsSuccess = false
-                };
+                throw new NotFoundException(nameof(Apartment), request.Id);
             }
 
             _mapper.Map(request, updateApartment, typeof(UpdateApartmentCommandRequest), typeof(Apartment));

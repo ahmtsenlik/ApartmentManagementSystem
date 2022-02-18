@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Apartments.Create;
+using ApartmentManagement.Application.Features.Commands.Apartments.Remove;
 using ApartmentManagement.Application.Features.Commands.Apartments.Update;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -39,5 +40,12 @@ namespace ApartmentManagement.WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+        [HttpDelete]
+        public async Task<IActionResult> RemoveApartment(RemoveApartmentCommandRequest request)
+        {
+            var result = await _mediator.Send(request);
+         
+            return BadRequest(result);
+            }
     }
 }

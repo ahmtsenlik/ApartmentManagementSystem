@@ -22,7 +22,14 @@ namespace ApartmentManagement.Infrastructure.Middlewares
             var watch = Stopwatch.StartNew();
             try
             {
+                string message = "[Request]  HTTP " + context.Request.Method + " - " + context.Request.Path;
+                Console.WriteLine(message);
+
                 await requestDelegate(context);
+
+                watch.Stop();
+                message = "[Response] HTTP " + context.Request.Method + " - " + context.Request.Path + " responded:" + context.Response.StatusCode + " in:" + watch.Elapsed.TotalMilliseconds + " ms";
+                Console.WriteLine(message);
             }
             catch (Exception ex)
             {
@@ -34,7 +41,7 @@ namespace ApartmentManagement.Infrastructure.Middlewares
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            string message = "[Error]    HTTP " + context.Request.Method + " - " + context.Response.StatusCode + " Error Message " + ex.Message + " in:" + watch.Elapsed.TotalMilliseconds + " ms";
+            string message = "[Error]    HTTP " + context.Request.Method + " - " + context.Response.StatusCode + " Error Message " + ex.Message +" in:" + watch.Elapsed.TotalMilliseconds + " ms";
             Console.WriteLine(message);
 
             var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);

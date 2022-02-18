@@ -33,12 +33,12 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
                     IsSuccess = false
                 };
             }
-            var validateResult = _validator.Validate(request);
-            if (!validateResult.IsValid)
+            var validationResult = _validator.Validate(request);
+            if (!validationResult.IsValid)
             {
                 return new UpdateUserCommandResponse
                 {
-                    Message = validateResult.ToString(),
+                    Message = validationResult.ToString(),
                     IsSuccess = false        
                 };
             }

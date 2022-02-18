@@ -1,6 +1,7 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -27,15 +28,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Create
 
         public async Task<CreateApartmentCommandResponse> Handle(CreateApartmentCommandRequest request, CancellationToken cancellationToken)
         {
-            var validateResult = _validator.Validate(request);
-            if (!validateResult.IsValid)
-            {
-                return new CreateApartmentCommandResponse
-                {
-                    Message = validateResult.ToString(),
-                    IsSuccess = false
-                };      
-            }
+            _validator.ValidateAndThrow(request);
 
             var checkApartment= await _apartmentRepository.GetAsync(apt => apt.Block == request.Block && apt.No == request.No && apt.Floor == request.Floor);
             if (checkApartment.Count!=0)
