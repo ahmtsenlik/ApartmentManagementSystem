@@ -1,5 +1,6 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Apartments.Create;
 using ApartmentManagement.Application.Features.Commands.Apartments.Update;
+using ApartmentManagement.Application.Features.Commands.Bills.Add;
 using ApartmentManagement.Application.Features.Commands.Messages.SendMessage;
 using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
@@ -27,6 +28,8 @@ namespace ApartmentManagement.Application.Mapping
             CreateMap<Apartment, UpdateApartmentCommandRequest>().ReverseMap();
 
             CreateMap<Message, SendMessageCommandRequest>().ReverseMap();
+
+            CreateMap<Bill, AddBillCommandRequest>().ReverseMap();
         }
     }
 }
