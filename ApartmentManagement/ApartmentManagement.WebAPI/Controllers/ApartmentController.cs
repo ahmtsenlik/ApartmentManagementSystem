@@ -1,4 +1,5 @@
-﻿using ApartmentManagement.Application.Features.Commands.Apartments.Create;
+﻿using ApartmentManagement.Application.Features.Commands.Apartments.AddUser;
+using ApartmentManagement.Application.Features.Commands.Apartments.Create;
 using ApartmentManagement.Application.Features.Commands.Apartments.Remove;
 using ApartmentManagement.Application.Features.Commands.Apartments.Update;
 using MediatR;
@@ -33,6 +34,16 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPut]
         public async Task<IActionResult> UpdateApartment(UpdateApartmentCommandRequest request)
+        {
+            var result = await _mediator.Send(request);
+            if (result.IsSuccess)
+                return NoContent();
+
+            return BadRequest(result.Message);
+        }
+        [HttpPut]
+        [Route("AddUser")]
+        public async Task<IActionResult> AddUser(AddUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)

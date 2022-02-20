@@ -35,11 +35,9 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Update
             if (updateApartment is null)
             {
                 throw new NotFoundException(nameof(Apartment), request.Id);
-            }
-
+            } 
             _mapper.Map(request, updateApartment, typeof(UpdateApartmentCommandRequest), typeof(Apartment));
-            updateApartment.IsActive = true;
-            updateApartment.IsEmpty = true;
+ 
             await _apartmentRepository.UpdateAsync(updateApartment);
 
             return new UpdateApartmentCommandResponse

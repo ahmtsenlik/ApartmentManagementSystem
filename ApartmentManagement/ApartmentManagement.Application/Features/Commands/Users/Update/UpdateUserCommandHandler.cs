@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Domain.Entities;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -15,15 +16,26 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
         private readonly UserManager<User> _userManager;
         
         private readonly UpdateUserCommandValidator _validator;
+        private readonly IMapper _mapper;
 
-        public UpdateUserCommandHandler(UserManager<User> userManager, UpdateUserCommandValidator validator)
+        public UpdateUserCommandHandler(UserManager<User> userManager, UpdateUserCommandValidator validator, IMapper mapper)
         {
             _userManager = userManager;
             _validator = validator;
+            _mapper = mapper;
         }
 
         public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommandRequest request, CancellationToken cancellationToken)
         {
+            var validationResult = _validator.Validate(request);
+            if (!validationResult.IsValid)
+            {
+                return new UpdateUserCommandResponse
+                {
+                    Message = validationResult.ToString(),
+                    IsSuccess = false
+                };
+            }
             var updateUser = await _userManager.FindByIdAsync(request.Id);
             if (updateUser is null)
             {
@@ -33,23 +45,9 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
                     IsSuccess = false
                 };
             }
-            var validationResult = _validator.Validate(request);
-            if (!validationResult.IsValid)
-            {
-                return new UpdateUserCommandResponse
-                {
-                    Message = validationResult.ToString(),
-                    IsSuccess = false        
-                };
-            }
-
-            updateUser.TCIdentityNumber = request.TCIdentityNumber;
-            updateUser.FirstName = request.FirstName;
-            updateUser.LastName = request.LastName;
-            updateUser.Email = request.Email;
-            updateUser.PhoneNumber = request.PhoneNumber;
-            updateUser.LicensePlate = request.LicensePlate;
-           
+          
+            _mapper.Map(request, updateUser, typeof(UpdateUserCommandRequest), typeof(User));
+         
             await _userManager.UpdateAsync(updateUser);
             
             return new UpdateUserCommandResponse

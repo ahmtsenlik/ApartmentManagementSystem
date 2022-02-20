@@ -37,7 +37,7 @@ namespace ApartmentManagement.Application.Features.Commands.Bills.Add
                 return new AddBillCommandResponse
                 {
                     IsSuccess = false,
-                    Message = "The apartment was not found.."
+                    Message = "The apartment was not found."
                 };
             }
             var checkBill =await _billRepository.GetAsync(b => b.Type == request.Type && b.Month == request.Month && b.Year == request.Year && b.Apartment.Id == request.ApartmentId);
