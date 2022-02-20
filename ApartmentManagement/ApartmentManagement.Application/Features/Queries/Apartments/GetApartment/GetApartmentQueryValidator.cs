@@ -11,7 +11,7 @@ namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartme
     {
         public GetApartmentQueryValidator()
         {
-            RuleFor(c => c.ApartmentId).NotEmpty().WithMessage("{ApartmentId} is required.");
+            RuleFor(c => c.Id).NotEmpty().WithMessage("{ApartmentId} is required.");
         }
     }
 }

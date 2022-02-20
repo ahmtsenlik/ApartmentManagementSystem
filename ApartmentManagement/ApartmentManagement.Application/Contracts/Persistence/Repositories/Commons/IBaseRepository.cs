@@ -17,7 +17,7 @@ namespace ApartmentManagement.Application.Contracts.Persistence.Repositories.Com
 
         Task<IReadOnlyList<T>> GetAllAsync();
         Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate);
-        Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, string includeString = null, bool disableTracking = true);
+        Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes);
         Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate = null,params Expression<Func<T, object>>[] includes);
         Task<T> GetByIdAsync(int id);
 

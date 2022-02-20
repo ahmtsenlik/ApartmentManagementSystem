@@ -33,17 +33,16 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
             return await _dbContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
         }
                                                 
-        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, string includeString = null, bool disableTracking = true)
+        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
         {
 
             IQueryable<T> query = _dbContext.Set<T>();
-            if (disableTracking) query = query.AsNoTracking();
 
-            if (!string.IsNullOrWhiteSpace(includeString)) query = query.Include(includeString);
+            if (includes != null) query = includes.Aggregate(query, (current, include) => current.Include(include));
 
             if (predicate != null) query = query.Where(predicate);
 
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync();
         }
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
         {

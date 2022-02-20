@@ -9,6 +9,6 @@ namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartme
 {
     public class GetApartmentQueryRequest:IRequest<GetApartmentQueryResponse>
     {
-        public int ApartmentId { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using ApartmentManagement.Application.Models;
-using ApartmentManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartment
+namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartments
 {
-    public class GetApartmentQueryResponse
+    public class GetApartmentsQueryResponse
     {
         public bool IsEmpty { get; set; }
         public string Block { get; set; }
@@ -18,7 +17,6 @@ namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartme
         public bool IsOwner { get; set; }
         public ApartmentUserModel User { get; set; }
 
-    
     }
     
 }
