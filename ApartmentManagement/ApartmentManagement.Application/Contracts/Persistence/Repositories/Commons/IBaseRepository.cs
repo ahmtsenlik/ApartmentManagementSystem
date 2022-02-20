@@ -17,19 +17,9 @@ namespace ApartmentManagement.Application.Contracts.Persistence.Repositories.Com
 
         Task<IReadOnlyList<T>> GetAllAsync();
         Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate);
-        Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null,
-                                        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-                                        string includeString = null,
-                                        bool disableTracking = true);
-        Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null,
-                                       Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-                                       List<Expression<Func<T, object>>> includes = null,
-                                       bool disableTracking = true);
+        Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, string includeString = null, bool disableTracking = true);
+        Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate = null,params Expression<Func<T, object>>[] includes);
         Task<T> GetByIdAsync(int id);
-
-        Task<IEnumerable<T>> GetByIdsAsync(IEnumerable<int> ids);
-
-        Task<int> CountAsync();
 
         #endregion
 
@@ -54,10 +44,7 @@ namespace ApartmentManagement.Application.Contracts.Persistence.Repositories.Com
 
         #endregion
 
-        #region Caching
-        Task RefreshCache();
-
-        #endregion
+     
 
     }
 }

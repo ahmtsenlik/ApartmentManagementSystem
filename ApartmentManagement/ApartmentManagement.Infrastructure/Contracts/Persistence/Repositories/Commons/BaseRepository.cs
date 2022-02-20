@@ -22,30 +22,6 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        #region Properties
-
-        public virtual IQueryable<T> Table
-        {
-            get
-            {
-                return _dbContext.Set<T>();
-            }
-        }
-
-        /// <summary>
-        /// Gets a table with "no tracking" enabled (EF feature) Use it only when you load record(s) only for read-only operations
-        /// </summary>
-        public virtual IQueryable<T> TableNoTracking
-        {
-            get
-            {
-                return _dbContext.Set<T>().AsNoTracking();
-            }
-        }
-
-        #endregion
-
-        #region Select
 
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
@@ -56,9 +32,10 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
         {
             return await _dbContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
         }
-
-        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeString = null, bool disableTracking = true)
+                                                
+        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, string includeString = null, bool disableTracking = true)
         {
+
             IQueryable<T> query = _dbContext.Set<T>();
             if (disableTracking) query = query.AsNoTracking();
 
@@ -66,44 +43,24 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
 
             if (predicate != null) query = query.Where(predicate);
 
-            if (orderBy != null)
-                return await orderBy(query).ToListAsync();
             return await query.ToListAsync();
         }
-
-        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<Expression<Func<T, object>>> includes = null, bool disableTracking = true)
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
         {
+
             IQueryable<T> query = _dbContext.Set<T>();
-            if (disableTracking) query = query.AsNoTracking();
 
             if (includes != null) query = includes.Aggregate(query, (current, include) => current.Include(include));
 
             if (predicate != null) query = query.Where(predicate);
 
-            if (orderBy != null)
-                return await orderBy(query).ToListAsync();
-            return await query.ToListAsync();
+            return await query.AsNoTracking().SingleOrDefaultAsync();
         }
 
         public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
-
-        public virtual async Task<IEnumerable<T>> GetByIdsAsync(IEnumerable<int> ids)
-        {
-            return await _dbContext.Set<IEnumerable<T>>().FindAsync(ids);
-        }
-
-        public virtual async Task<int> CountAsync()
-        {
-            return await _dbContext.Set<T>().CountAsync();
-        }
-
-
-        #endregion
-
-        #region Insert
 
         public async Task<T> AddAsync(T entity)
         {
@@ -118,9 +75,8 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
             await _dbContext.SaveChangesAsync();
         }
 
-        #endregion
 
-        #region Update
+
         public async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
@@ -134,9 +90,6 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
             await _dbContext.SaveChangesAsync();
         }
 
-        #endregion
-
-        #region Delete
         public async Task RemoveAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
@@ -148,19 +101,6 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
             _dbContext.Set<T>().RemoveRange(entities);
             await _dbContext.SaveChangesAsync();
         }
-
-        #endregion
-
-        #region Caching
-
-        public async Task RefreshCache()
-        {
-            //_cacheService.Remove(cacheKey);
-            var cachedList = await _dbContext.Set<T>().ToListAsync();
-            //_cacheService.Set(cacheKey, cachedList);
-        }
-
-        #endregion
     }
 
 }

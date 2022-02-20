@@ -2,6 +2,7 @@
 using ApartmentManagement.Application.Features.Commands.Apartments.Create;
 using ApartmentManagement.Application.Features.Commands.Apartments.Remove;
 using ApartmentManagement.Application.Features.Commands.Apartments.Update;
+using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,13 @@ namespace ApartmentManagement.WebAPI.Controllers
         {
             _mediator = mediator;
         }
-
+        [HttpGet]
+        public async Task<IActionResult> GetApartment([FromQuery]GetApartmentQueryRequest request)
+        {
+            var result = await _mediator.Send(request);
+            return Ok(result);
+            
+        }
         [HttpPost]
         public async Task<IActionResult> CreateApartment(CreateApartmentCommandRequest request)
         {

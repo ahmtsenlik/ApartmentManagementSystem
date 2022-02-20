@@ -69,6 +69,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
             
             _mapper.Map(request, updateApartment, typeof(AddUserCommandRequest), typeof(Apartment));
             updateApartment.User = checkUser;
+            updateApartment.IsEmpty = false;
             await _apartmentRepository.UpdateAsync(updateApartment);
             return new AddUserCommandResponse
             {
