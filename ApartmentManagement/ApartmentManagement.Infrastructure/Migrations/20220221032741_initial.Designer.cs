@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220216220526_updateEntities")]
-    partial class updateEntities
+    [Migration("20220221032741_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,13 +34,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsEmpty")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsOwner")
                         .HasColumnType("bit");
 
                     b.Property<int>("No")
@@ -72,9 +66,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<int?>("ApartmentId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
@@ -104,8 +95,8 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -181,7 +172,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsOwner")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")

@@ -21,8 +21,7 @@ namespace ApartmentManagement.Domain.Entities
         public ICollection<Message> SentMessages { get; set; }
         [InverseProperty("Receiver")]
         public ICollection<Message> ReceivedMessages { get; set; }
-        public bool IsActive { get; set; }
-
+        public bool IsOwner { get; set; }
         [IgnoreDataMember]
         public string FullName
         {

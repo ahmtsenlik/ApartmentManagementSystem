@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220216133957_initial")]
-    partial class initial
+    [Migration("20220221160416_seed_data")]
+    partial class seed_data
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,13 +34,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsEmpty")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsOwner")
                         .HasColumnType("bit");
 
                     b.Property<int>("No")
@@ -49,9 +43,52 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<string>("NumberOfRooms")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Apartments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Block = "A",
+                            Floor = 1,
+                            IsEmpty = true,
+                            No = 1,
+                            NumberOfRooms = "3+1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Block = "A",
+                            Floor = 2,
+                            IsEmpty = true,
+                            No = 4,
+                            NumberOfRooms = "4+1"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Block = "B",
+                            Floor = 4,
+                            IsEmpty = true,
+                            No = 11,
+                            NumberOfRooms = "3+1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Block = "C2",
+                            Floor = 2,
+                            IsEmpty = true,
+                            No = 5,
+                            NumberOfRooms = "2+1"
+                        });
                 });
 
             modelBuilder.Entity("ApartmentManagement.Domain.Entities.Bill", b =>
@@ -66,9 +103,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
 
                     b.Property<int?>("ApartmentId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
@@ -99,8 +133,8 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -150,6 +184,22 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "2",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("ApartmentManagement.Domain.Entities.User", b =>
@@ -160,9 +210,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ApartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -179,7 +226,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsOwner")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -226,8 +273,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApartmentId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -237,6 +282,83 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9174cb1f-9855-430f-bf26-03136ae2b538",
+                            Email = "ahmtsenlik@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Ahmet",
+                            IsOwner = false,
+                            LastName = "Şenlik",
+                            LicensePlate = "41 YZ 299",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEBZNc2qq1NMoLyWXeffkePI2uv268leYBUxpT9pIHV9aj8G+zYdWviWTTX+13ayb6Q==",
+                            PhoneNumber = "05369102782",
+                            PhoneNumberConfirmed = false,
+                            TCIdentityNumber = "16597722874",
+                            TwoFactorEnabled = false,
+                            UserName = "ahmetsenlik"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "caabb415-fa52-4b89-99fe-d7fe36d7327d",
+                            Email = "erdidemir@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Erdi",
+                            IsOwner = false,
+                            LastName = "Demir",
+                            LicensePlate = "06 EF 184",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAENJ8uhop6PeAWdbhxMn+lvStVZh65ZhkytAOUvfam3cDE9C9+cBUP4NxYoUfO74ckg==",
+                            PhoneNumber = "05369448796",
+                            PhoneNumberConfirmed = false,
+                            TCIdentityNumber = "12697864166",
+                            TwoFactorEnabled = false,
+                            UserName = "erdidemir"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "396ec3c8-f8a3-4d5a-9085-645ed8a7d368",
+                            Email = "selimaydin@hotmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Selim",
+                            IsOwner = false,
+                            LastName = "Aydın",
+                            LicensePlate = "34 KM 9514",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIKJXaI26rcToBw8B1ntLB+5N+9iWe7fimfYGInj0sHbMwLiGZd0OYmUaJ3y/Fkciw==",
+                            PhoneNumber = "05058971123",
+                            PhoneNumberConfirmed = false,
+                            TCIdentityNumber = "32548764166",
+                            TwoFactorEnabled = false,
+                            UserName = "selimaydin"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "07ee5c5b-2ea4-470d-ab46-f38da5421cff",
+                            Email = "feyzademir@hotmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Feyza",
+                            IsOwner = false,
+                            LastName = "Demir",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAENae1Nwz9IJc3O974MDNil25oElDxEVw2Q3KrzNRzHudy6SU1aeJMyiLc13bB+rvhQ==",
+                            PhoneNumber = "05426179925",
+                            PhoneNumberConfirmed = false,
+                            TCIdentityNumber = "79211961462",
+                            TwoFactorEnabled = false,
+                            UserName = "feyzademir"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -319,6 +441,28 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 2
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -338,6 +482,15 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("ApartmentManagement.Domain.Entities.Apartment", b =>
+                {
+                    b.HasOne("ApartmentManagement.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ApartmentManagement.Domain.Entities.Bill", b =>
@@ -362,15 +515,6 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Navigation("Receiver");
 
                     b.Navigation("Sender");
-                });
-
-            modelBuilder.Entity("ApartmentManagement.Domain.Entities.User", b =>
-                {
-                    b.HasOne("ApartmentManagement.Domain.Entities.Apartment", "Apartment")
-                        .WithMany()
-                        .HasForeignKey("ApartmentId");
-
-                    b.Navigation("Apartment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

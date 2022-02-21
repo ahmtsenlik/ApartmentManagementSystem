@@ -13,6 +13,5 @@ namespace ApartmentManagement.Application.Models
         public int No { get; set; }
         public string NumberOfRooms { get; set; }
         public int Floor { get; set; }
-        public bool IsOwner { get; set; }
     }
 }

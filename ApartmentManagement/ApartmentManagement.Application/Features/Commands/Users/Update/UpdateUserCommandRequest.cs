@@ -16,6 +16,7 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string LicensePlate { get; set; }
-       
+        public bool IsOwner { get; set; }
+
     }
 }

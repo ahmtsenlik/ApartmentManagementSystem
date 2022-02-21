@@ -10,12 +10,12 @@ namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartme
 {
     public class GetApartmentQueryResponse
     {
+        public int Id { get; set; }
         public bool IsEmpty { get; set; }
         public string Block { get; set; }
         public int No { get; set; }
         public string NumberOfRooms { get; set; }
         public int Floor { get; set; }
-        public bool IsOwner { get; set; }
         public ApartmentUserModel User { get; set; }
 
     

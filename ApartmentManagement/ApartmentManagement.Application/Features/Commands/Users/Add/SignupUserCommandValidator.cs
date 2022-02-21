@@ -11,6 +11,8 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
     {
         public SignupUserCommandValidator()
         {
+            RuleFor(c => c.IsOwner).NotEmpty().WithMessage("{IsOwner} is required..");
+
             RuleFor(c => c.TCIdentityNumber).Length(11).WithMessage("TR Identity Number must be 11 characters.");
 
             RuleFor(c => c.Username).NotEmpty().WithMessage("{User Name} is required.")

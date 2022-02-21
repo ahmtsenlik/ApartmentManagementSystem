@@ -14,7 +14,6 @@ namespace ApartmentManagement.Domain.Entities
         public int No { get; set; }
         public string NumberOfRooms { get; set; }
         public int Floor { get; set; }
-        public bool IsOwner { get; set; }
         public User User { get; set; }
         public ICollection<Bill> Bills { get; set; }
     }
