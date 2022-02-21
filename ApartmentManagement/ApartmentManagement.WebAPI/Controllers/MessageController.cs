@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Messages.SendMessage;
+using ApartmentManagement.Application.Features.Queries.Messages.GetMessages;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,12 @@ namespace ApartmentManagement.WebAPI.Controllers
             else
                 return BadRequest(result.Message);
 
+        }
+        [HttpGet("{userId}")] 
+        public async Task<IActionResult> GetMessages(int userId)
+        {
+            var result = await _mediator.Send(new GetMessagesRequest() { UserId=userId});
+            return Ok(result);
         }
     }
 }
