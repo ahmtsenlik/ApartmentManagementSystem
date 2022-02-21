@@ -7,6 +7,7 @@ using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartments;
+using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using ApartmentManagement.Application.Models;
 using ApartmentManagement.Domain.Entities;
@@ -40,7 +41,7 @@ namespace ApartmentManagement.Application.Mapping
 
             CreateMap<Bill, AddBillCommandRequest>().ReverseMap();
             CreateMap<Bill, GetBillsQueryResponse>().ReverseMap();
-            
+            CreateMap<Bill, GetBillQueryResponse>().ReverseMap();
 
         }
     }

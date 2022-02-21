@@ -22,7 +22,6 @@
   <ItemGroup>
     <Folder Include="Features\Commands\Bills\" />
     <Folder Include="Features\Queries\Bills\GetBills\" />
-    <Folder Include="Features\Queries\Bills\GetBill\" />
     <Folder Include="Features\Queries\Messages\" />
     <Folder Include="Features\Queries\Users\" />
   </ItemGroup>

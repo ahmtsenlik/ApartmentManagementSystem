@@ -24,11 +24,11 @@ namespace ApartmentManagement.WebAPI.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet]
-        [Route("id")]
-        public async Task<IActionResult> GetApartment([FromQuery]GetApartmentQueryRequest request)
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetApartment(int id)
         {
-            var result = await _mediator.Send(request);
+            var result = await _mediator.Send(new GetApartmentQueryRequest(){ Id = id });
             return Ok(result);
             
         }
