@@ -74,6 +74,6 @@ namespace ApartmentManagement.WebAPI.Controllers
             var result = await _mediator.Send(request);
          
             return BadRequest(result);
-            }
+        }
     }
 }

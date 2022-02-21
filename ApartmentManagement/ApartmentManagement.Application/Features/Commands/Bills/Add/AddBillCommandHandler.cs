@@ -50,8 +50,7 @@ namespace ApartmentManagement.Application.Features.Commands.Bills.Add
                 };
             }
 
-            var bill = _mapper.Map<Bill>(request);
-            bill.IsActive = true;
+            var bill = _mapper.Map<Bill>(request); 
             bill.IsPaid = false;
             bill.Apartment = apartment;
 

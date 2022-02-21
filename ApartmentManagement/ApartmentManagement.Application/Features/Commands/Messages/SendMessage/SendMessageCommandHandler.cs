@@ -55,7 +55,6 @@ namespace ApartmentManagement.Application.Features.Commands.Messages.SendMessage
             //var user = _mapper.Map<User>(request);
 
             message.CreatedDate = DateTime.Now;
-            message.IsActive = true;
             message.IsRead = false;
             message.Sender = sender;
             message.Receiver = receiver;

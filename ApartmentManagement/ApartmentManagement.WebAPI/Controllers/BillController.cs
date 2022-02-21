@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Bills.Add;
+using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,13 @@ namespace ApartmentManagement.WebAPI.Controllers
             else
                 return BadRequest(result.Message);
 
+        }
+        [HttpGet]
+        [Route("List")]
+        public async Task<IActionResult> GetBills()
+        {
+            var result = await _mediator.Send(new GetBillsQueryRequest());
+            return Ok(result);
         }
     }
 }

@@ -41,7 +41,6 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Create
             }
             
             var apartment = _mapper.Map<Apartment>(request);
-            apartment.IsActive = true;
             apartment.IsEmpty = true;
             await _apartmentRepository.AddAsync(apartment);
 
