@@ -17,11 +17,11 @@ namespace ApartmentManagement.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApartmentController : ControllerBase
+    public class ApartmentsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public ApartmentController(IMediator mediator)
+        public ApartmentsController(IMediator mediator)
         {
             _mediator = mediator;
         }

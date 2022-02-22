@@ -8,23 +8,23 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ApartmentManagement.Application.Features.Queries.Bills.GetBills
+namespace ApartmentManagement.Application.Features.Queries.Bills.GetUnPaidBills
 {
-    public class GetBillsQueryHandler : IRequestHandler<GetBillsQueryRequest, IList<GetBillsQueryResponse>>
+    public class GetUnPaidBillsQueryHandler : IRequestHandler<GetUnPaidBillsQueryRequest, IList<GetUnPaidBillsQueryResponse>>
     {
         private readonly IBillRepository _billRepository;
         private readonly IMapper _mapper;
 
-        public GetBillsQueryHandler(IBillRepository billRepository, IMapper mapper)
+        public GetUnPaidBillsQueryHandler(IBillRepository billRepository, IMapper mapper)
         {
             _billRepository = billRepository;
             _mapper = mapper;
         }
 
-        public async Task<IList<GetBillsQueryResponse>> Handle(GetBillsQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IList<GetUnPaidBillsQueryResponse>> Handle(GetUnPaidBillsQueryRequest request, CancellationToken cancellationToken)
         {
             var unPaidBillList = await _billRepository.GetAsync(x=>x.IsPaid==false, x => x.Apartment);
-            return _mapper.Map<IList<GetBillsQueryResponse>>(unPaidBillList);
+            return _mapper.Map<IList<GetUnPaidBillsQueryResponse>>(unPaidBillList);
         }
     }
 }

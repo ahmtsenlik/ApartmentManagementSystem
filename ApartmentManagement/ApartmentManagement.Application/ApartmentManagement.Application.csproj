@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Commands\Bills\" />
-    <Folder Include="Features\Queries\Bills\GetBills\" />
     <Folder Include="Features\Queries\Users\" />
   </ItemGroup>
 

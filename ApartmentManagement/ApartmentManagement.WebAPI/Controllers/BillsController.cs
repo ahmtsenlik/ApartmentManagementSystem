@@ -1,6 +1,7 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Bills.Add;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
-using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
+using ApartmentManagement.Application.Features.Queries.Bills.GetPaidBills;
+using ApartmentManagement.Application.Features.Queries.Bills.GetUnPaidBills;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,11 @@ namespace ApartmentManagement.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillController : ControllerBase
+    public class BillsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public BillController(IMediator mediator)
+        public BillsController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -32,10 +33,17 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpGet]
-        [Route("List")]
-        public async Task<IActionResult> GetBills()
+        [Route("UnPaidList")]
+        public async Task<IActionResult> GetUnPaidBills()
         {
-            var result = await _mediator.Send(new GetBillsQueryRequest());
+            var result = await _mediator.Send(new GetUnPaidBillsQueryRequest());
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("PaidList")]
+        public async Task<IActionResult> GetPaidBills()
+        {
+            var result = await _mediator.Send(new GetPaidBillsQueryRequest());
             return Ok(result);
         }
         [HttpGet("{userId}")]

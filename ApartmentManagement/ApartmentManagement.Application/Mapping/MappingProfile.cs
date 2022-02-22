@@ -8,7 +8,8 @@ using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartments;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
-using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
+using ApartmentManagement.Application.Features.Queries.Bills.GetUnPaidBills;
+using ApartmentManagement.Application.Features.Queries.Bills.GetPaidBills;
 using ApartmentManagement.Application.Features.Queries.Messages.GetMessages;
 using ApartmentManagement.Application.Models;
 using ApartmentManagement.Domain.Entities;
@@ -42,7 +43,7 @@ namespace ApartmentManagement.Application.Mapping
             CreateMap<Message, SendMessageCommandRequest>().ReverseMap(); 
             CreateMap<Message, GetMessagesResponse>().ReverseMap();
             CreateMap<Bill, AddBillCommandRequest>().ReverseMap();
-            CreateMap<Bill, GetBillsQueryResponse>().ReverseMap();
+            CreateMap<Bill, GetUnPaidBillsQueryResponse>().ReverseMap();
             CreateMap<Bill, GetBillQueryResponse>().ReverseMap();
 
         }

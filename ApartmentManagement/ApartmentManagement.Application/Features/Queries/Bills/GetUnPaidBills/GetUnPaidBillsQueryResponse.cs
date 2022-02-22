@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static ApartmentManagement.Domain.Enum.BaseEnum;
 
-namespace ApartmentManagement.Application.Features.Queries.Bills.GetBills
+namespace ApartmentManagement.Application.Features.Queries.Bills.GetUnPaidBills
 {
-    public class GetBillsQueryResponse
+    public class GetUnPaidBillsQueryResponse
     {
         public int Id { get; set; }
         public BillType Type { get; set; }
