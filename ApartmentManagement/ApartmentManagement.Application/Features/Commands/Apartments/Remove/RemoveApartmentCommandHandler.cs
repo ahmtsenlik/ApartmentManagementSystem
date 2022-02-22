@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.Application.Features.Commands.Apartments.Remove
 {
-    public class RemoveApartmentCommandHandler : IRequestHandler<RemoveApartmentCommandRequest>
+    public class RemoveApartmentCommandHandler : IRequestHandler<RemoveApartmentCommandRequest,RemoveApartmentCommandResponse>
     {
         private readonly IApartmentRepository _apartmentRepository;
         private readonly RemoveApartmentCommandValidator _validator;
@@ -22,22 +22,45 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Remove
             _validator=validator;
         }
 
-        public async Task<Unit> Handle(RemoveApartmentCommandRequest request, CancellationToken cancellationToken)
+        public async Task<RemoveApartmentCommandResponse> Handle(RemoveApartmentCommandRequest request, CancellationToken cancellationToken)
         {
-             _validator.ValidateAndThrow(request);
-            
-            var removeApartment = await _apartmentRepository.GetByIdAsync(request.Id);
+            var validationResult = _validator.Validate(request);
+
+            if (!validationResult.IsValid)
+            {
+                return new RemoveApartmentCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "This apartment has already been registered"
+                };
+            }
+
+            var removeApartment = await _apartmentRepository.GetByIdAsync(request.ApartmentId);
+
             if (removeApartment is null)
             {
-                throw new NotFoundException(nameof(Apartment), request.Id);
+                return new RemoveApartmentCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "The apartment with this id could not be found."       
+                };
             }
-            if (removeApartment is not null && removeApartment.IsEmpty)
+
+            if (removeApartment is not null && !removeApartment.IsEmpty)
             {
-                await _apartmentRepository.RemoveAsync(removeApartment);
-                
+                return new RemoveApartmentCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "Apartment is full, remove user first."
+                };
             }
-            return Unit.Value;
-            
+
+            await _apartmentRepository.RemoveAsync(removeApartment);
+
+            return new RemoveApartmentCommandResponse
+            {
+                IsSuccess = true
+            };
         }
     }
 }

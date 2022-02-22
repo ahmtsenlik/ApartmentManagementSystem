@@ -11,6 +11,5 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
     {
         public string UserId { get; set; }
         public int  ApartmentId { get; set; }
-        public bool IsOwner { get; set; }
     }
 }

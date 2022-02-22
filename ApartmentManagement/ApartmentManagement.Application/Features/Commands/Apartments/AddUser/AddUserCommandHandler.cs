@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +39,9 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
                     IsSuccess = false
                 };
             }
+            
             var checkUser = await _userManager.FindByIdAsync(request.UserId);
+        
             if (checkUser is null)
             {
                 return new AddUserCommandResponse
@@ -48,7 +51,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
                 };
             }
             
-            var updateApartment = await _apartmentRepository.GetByIdAsync(request.ApartmentId);
+            var updateApartment = await _apartmentRepository.GetSingleAsync(x=>x.Id==request.ApartmentId,x=>x.User);
             if (updateApartment is null)
             {
                 return new AddUserCommandResponse
@@ -57,7 +60,18 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
                     Message = "The apartment was not found."
                 };
             }
-            if (updateApartment.User is not null)
+
+            if (!updateApartment.IsEmpty)
+            {
+                return new AddUserCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "This apartment is already full."
+                };
+            }
+            //User başka bir dairede mi?
+            var checkApartment = await _apartmentRepository.GetSingleAsync(x => x.UserId == checkUser.Id);
+            if(checkApartment is not null)
             {
                 return new AddUserCommandResponse
                 {
@@ -65,8 +79,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
                     Message = "There is a user who lives here."
                 };
             }
-            
-            
+
             _mapper.Map(request, updateApartment, typeof(AddUserCommandRequest), typeof(Apartment));
             updateApartment.User = checkUser;
             updateApartment.IsEmpty = false;

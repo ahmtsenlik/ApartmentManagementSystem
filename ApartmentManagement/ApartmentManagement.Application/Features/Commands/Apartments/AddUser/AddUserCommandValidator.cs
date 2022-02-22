@@ -14,8 +14,6 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
             RuleFor(c => c.UserId).NotEmpty().WithMessage("{UserId} is required.");
 
             RuleFor(c => c.ApartmentId).NotEmpty().WithMessage("{ApartmentId} is required.");
-
-            RuleFor(c => c.IsOwner).NotEmpty().WithMessage("{IsOwner} is required.");
         }
         
     }

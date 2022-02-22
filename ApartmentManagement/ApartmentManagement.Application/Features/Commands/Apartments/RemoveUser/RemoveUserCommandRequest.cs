@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApartmentManagement.Application.Features.Commands.Apartments.Remove
+namespace ApartmentManagement.Application.Features.Commands.Apartments.RemoveUser
 {
-    public class RemoveApartmentCommandRequest:IRequest<RemoveApartmentCommandResponse>
+    public class RemoveUserCommandRequest:IRequest<RemoveUserCommandResponse>
     {
         public int ApartmentId { get; set; }
     }
 }
-

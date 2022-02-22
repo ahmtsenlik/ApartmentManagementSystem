@@ -237,10 +237,54 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Apartments",
+                columns: new[] { "Id", "Block", "Floor", "IsEmpty", "No", "NumberOfRooms", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "A", 1, true, 1, "3+1", null },
+                    { 2, "A", 2, true, 4, "4+1", null },
+                    { 3, "B", 4, true, 11, "3+1", null },
+                    { 4, "C2", 2, true, 5, "2+1", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, "1", "Admin", "ADMIN" },
+                    { 2, "2", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "IsOwner", "LastName", "LicensePlate", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TCIdentityNumber", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { 1, 0, "279bc048-0a47-4d9f-a4be-e13c029940f2", "ahmtsenlik@gmail.com", false, "Ahmet", false, "Şenlik", "41 YZ 299", false, null, null, null, "AQAAAAEAACcQAAAAEIglfYyyniwZwx4DIZXSrfYv58b+gmObwbe6nrvosQ9ycf8zKk3zCVk3OPSv9thd8Q==", "05369102782", false, null, "16597722874", false, "ahmetsenlik" },
+                    { 2, 0, "63627e07-a7a9-4f19-8455-ef68cfa7e474", "erdidemir@gmail.com", false, "Erdi", false, "Demir", "06 EF 184", false, null, null, null, "AQAAAAEAACcQAAAAEMGSAV9X/tyZpOn5rapOpg+dQTrA5+/WCZoqcs391JjiR3gT2scCDcOAyp6s37/OfA==", "05369448796", false, null, "12697864166", false, "erdidemir" },
+                    { 3, 0, "c2a486ad-2609-4996-a50f-5fc308e56a18", "selimaydin@hotmail.com", false, "Selim", false, "Aydın", "34 KM 9514", false, null, null, null, "AQAAAAEAACcQAAAAEL+P48ppACZmBnlJWKV+LQrCjPy6Rz5yDklKkadynXaTcmGG9ab0B/ZaYo9Fl7yldw==", "05058971123", false, null, "32548764166", false, "selimaydin" },
+                    { 4, 0, "ed7cc5cf-cbfa-4f8a-9cb1-9be1e51b0067", "feyzademir@hotmail.com", false, "Feyza", false, "Demir", null, false, null, null, null, "AQAAAAEAACcQAAAAEG8SOnc3pMFgblcuSRWnvbVE1GhS76/fctA9+9uXqAHzfRfWjgyAgj+fmcx6JDs1Nw==", "05426179925", false, null, "79211961462", false, "feyzademir" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 },
+                    { 2, 3 },
+                    { 2, 4 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Apartments_UserId",
                 table: "Apartments",
-                column: "UserId");
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

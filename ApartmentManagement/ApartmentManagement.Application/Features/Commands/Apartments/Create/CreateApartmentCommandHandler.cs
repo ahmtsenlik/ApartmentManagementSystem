@@ -28,8 +28,16 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Create
 
         public async Task<CreateApartmentCommandResponse> Handle(CreateApartmentCommandRequest request, CancellationToken cancellationToken)
         {
-            _validator.ValidateAndThrow(request);
-
+            var validationResult=_validator.Validate(request);
+            if (!validationResult.IsValid)
+            {
+                return new CreateApartmentCommandResponse
+                {
+                    Message = validationResult.ToString(),
+                    IsSuccess = false
+                };
+            }
+           
             var checkApartment= await _apartmentRepository.GetAsync(apt => apt.Block == request.Block && apt.No == request.No && apt.Floor == request.Floor);
             if (checkApartment.Count!=0)
             {

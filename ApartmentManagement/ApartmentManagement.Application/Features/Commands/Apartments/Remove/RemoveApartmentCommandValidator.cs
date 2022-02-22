@@ -11,7 +11,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Remove
     {
         public RemoveApartmentCommandValidator()
         {
-            RuleFor(c => c.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(c => c.ApartmentId).GreaterThan(0).WithMessage("Id must be greater than 0");
         }
     }
 }

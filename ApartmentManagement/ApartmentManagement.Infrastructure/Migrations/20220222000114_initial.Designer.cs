@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220221160416_seed_data")]
-    partial class seed_data
+    [Migration("20220222000114_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,7 +48,9 @@ namespace ApartmentManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Apartments");
 
@@ -288,7 +290,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9174cb1f-9855-430f-bf26-03136ae2b538",
+                            ConcurrencyStamp = "279bc048-0a47-4d9f-a4be-e13c029940f2",
                             Email = "ahmtsenlik@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ahmet",
@@ -296,7 +298,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                             LastName = "Şenlik",
                             LicensePlate = "41 YZ 299",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEBZNc2qq1NMoLyWXeffkePI2uv268leYBUxpT9pIHV9aj8G+zYdWviWTTX+13ayb6Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIglfYyyniwZwx4DIZXSrfYv58b+gmObwbe6nrvosQ9ycf8zKk3zCVk3OPSv9thd8Q==",
                             PhoneNumber = "05369102782",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "16597722874",
@@ -307,7 +309,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "caabb415-fa52-4b89-99fe-d7fe36d7327d",
+                            ConcurrencyStamp = "63627e07-a7a9-4f19-8455-ef68cfa7e474",
                             Email = "erdidemir@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Erdi",
@@ -315,7 +317,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                             LastName = "Demir",
                             LicensePlate = "06 EF 184",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENJ8uhop6PeAWdbhxMn+lvStVZh65ZhkytAOUvfam3cDE9C9+cBUP4NxYoUfO74ckg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMGSAV9X/tyZpOn5rapOpg+dQTrA5+/WCZoqcs391JjiR3gT2scCDcOAyp6s37/OfA==",
                             PhoneNumber = "05369448796",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "12697864166",
@@ -326,7 +328,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "396ec3c8-f8a3-4d5a-9085-645ed8a7d368",
+                            ConcurrencyStamp = "c2a486ad-2609-4996-a50f-5fc308e56a18",
                             Email = "selimaydin@hotmail.com",
                             EmailConfirmed = false,
                             FirstName = "Selim",
@@ -334,7 +336,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                             LastName = "Aydın",
                             LicensePlate = "34 KM 9514",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIKJXaI26rcToBw8B1ntLB+5N+9iWe7fimfYGInj0sHbMwLiGZd0OYmUaJ3y/Fkciw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL+P48ppACZmBnlJWKV+LQrCjPy6Rz5yDklKkadynXaTcmGG9ab0B/ZaYo9Fl7yldw==",
                             PhoneNumber = "05058971123",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "32548764166",
@@ -345,14 +347,14 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07ee5c5b-2ea4-470d-ab46-f38da5421cff",
+                            ConcurrencyStamp = "ed7cc5cf-cbfa-4f8a-9cb1-9be1e51b0067",
                             Email = "feyzademir@hotmail.com",
                             EmailConfirmed = false,
                             FirstName = "Feyza",
                             IsOwner = false,
                             LastName = "Demir",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENae1Nwz9IJc3O974MDNil25oElDxEVw2Q3KrzNRzHudy6SU1aeJMyiLc13bB+rvhQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG8SOnc3pMFgblcuSRWnvbVE1GhS76/fctA9+9uXqAHzfRfWjgyAgj+fmcx6JDs1Nw==",
                             PhoneNumber = "05426179925",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "79211961462",
@@ -487,8 +489,8 @@ namespace ApartmentManagement.Infrastructure.Migrations
             modelBuilder.Entity("ApartmentManagement.Domain.Entities.Apartment", b =>
                 {
                     b.HasOne("ApartmentManagement.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("Apartment")
+                        .HasForeignKey("ApartmentManagement.Domain.Entities.Apartment", "UserId");
 
                     b.Navigation("User");
                 });
@@ -575,6 +577,8 @@ namespace ApartmentManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("ApartmentManagement.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Apartment");
+
                     b.Navigation("ReceivedMessages");
 
                     b.Navigation("SentMessages");

@@ -30,8 +30,15 @@ namespace ApartmentManagement.Application.Features.Commands.Messages.SendMessage
 
         public async Task<SendMessageCommandResponse> Handle(SendMessageCommandRequest request, CancellationToken cancellationToken)
         {
-            _validator.ValidateAndThrow(request);
-     
+            var validationResult=_validator.Validate(request);
+            if (!validationResult.IsValid)
+            {
+                return new SendMessageCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = validationResult.ToString()
+                };
+            }
             var sender = await _userManager.FindByIdAsync(request.SenderId);
             if (sender is null)
             {

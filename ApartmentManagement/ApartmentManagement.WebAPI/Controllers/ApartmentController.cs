@@ -1,6 +1,7 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Apartments.AddUser;
 using ApartmentManagement.Application.Features.Commands.Apartments.Create;
 using ApartmentManagement.Application.Features.Commands.Apartments.Remove;
+using ApartmentManagement.Application.Features.Commands.Apartments.RemoveUser;
 using ApartmentManagement.Application.Features.Commands.Apartments.Update;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartments;
@@ -68,12 +69,24 @@ namespace ApartmentManagement.WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+        [HttpPut]
+        [Route("RemoveUser")]
+        public async Task<IActionResult> RemoveUser(RemoveUserCommandRequest request)
+        {
+            var result = await _mediator.Send(request);
+            if (result.IsSuccess)
+                return NoContent();
+
+            return BadRequest(result.Message);
+        }
         [HttpDelete]
         public async Task<IActionResult> RemoveApartment(RemoveApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
-         
-            return BadRequest(result);
+            if (result.IsSuccess)
+                return Ok();
+
+            return BadRequest(result.Message);
         }
     }
 }

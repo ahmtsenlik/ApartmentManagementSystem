@@ -25,36 +25,44 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
             _mapper = mapper;
         }
         public async Task<SignupUserCommandResponse> Handle(SignupUserCommandRequest request, CancellationToken cancellationToken)
-        {
-            SignupUserCommandResponse response = new SignupUserCommandResponse();
-
+        { 
             var validationResult=_validator.Validate(request);
             if (!validationResult.IsValid)
             {
-                response.Message = validationResult.ToString();
-                return response;
+                return new SignupUserCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = validationResult.ToString()
+                };
             }
           
             var userExists = await _userManager.FindByNameAsync(request.Username);
             if (userExists is not null)
             {
-                response.Message = "This username is already registered.";
-                response.IsSuccess = false;
-                return response;
+                return new SignupUserCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "This username is already registered."
+                };
             }
 
-            var user= _mapper.Map<User>(request);
-                  
-            var defaultpass = "User!123";
-            
+            var user= _mapper.Map<User>(request);     
+            var defaultpass = "User*123";
             var userCreateResult = await _userManager.CreateAsync(user,defaultpass);
-            if (userCreateResult.Succeeded)
+            if (!userCreateResult.Succeeded)
             {
-                response.Message = "Registration successful.";
-                response.IsSuccess = true;
-            }
+                return new SignupUserCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "An unexpected error occurred"
+                };
 
-            return response;
+            }
+            return new SignupUserCommandResponse
+            {
+                IsSuccess = true,
+                Message = "Registration successful."
+            };
         }
     }
 }

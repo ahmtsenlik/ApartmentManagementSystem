@@ -29,12 +29,24 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Update
 
         public async Task<UpdateApartmentCommandResponse> Handle(UpdateApartmentCommandRequest request, CancellationToken cancellationToken)
         {
-            _validator.ValidateAndThrow(request);
+            var validationResult =_validator.Validate(request);
+            if (!validationResult.IsValid)
+            {
+                return new UpdateApartmentCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = validationResult.ToString()
+                };
+            }
            
             var updateApartment = await _apartmentRepository.GetByIdAsync(request.Id);
             if (updateApartment is null)
             {
-                throw new NotFoundException(nameof(Apartment), request.Id);
+                return new UpdateApartmentCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "The apartment with this id could not be found."
+                };
             } 
             _mapper.Map(request, updateApartment, typeof(UpdateApartmentCommandRequest), typeof(Apartment));
  
