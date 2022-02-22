@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
@@ -29,8 +30,9 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetApartment(int id)
+        public async Task<IActionResult> GetApartment()
         {
+            var id= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var result = await _mediator.Send(new GetApartmentQueryRequest(){ Id = id });
             return Ok(result);
             

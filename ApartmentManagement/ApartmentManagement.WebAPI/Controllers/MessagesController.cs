@@ -26,6 +26,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SendMessage(SendMessageCommandRequest request)
         {
+            request.SenderId= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
                 return Created("", result.Message);

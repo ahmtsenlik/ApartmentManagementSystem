@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
@@ -43,8 +44,9 @@ namespace ApartmentManagement.WebAPI.Controllers
             return Ok(result);
         }
         [HttpGet("{userId}")]
-        public async Task<IActionResult> GetBill(int userId)
+        public async Task<IActionResult> GetBill()
         {
+            var userId=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var result = await _mediator.Send(new GetBillQueryRequest(){UserId=userId});
             return Ok(result);
         }

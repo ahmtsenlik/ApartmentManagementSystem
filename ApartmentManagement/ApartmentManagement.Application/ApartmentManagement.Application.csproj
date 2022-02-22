@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Commands\Bills\" />
+    <Folder Include="Features\Commands\Bills\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -39,7 +39,7 @@ namespace ApartmentManagement.Application.Features.Commands.Messages.SendMessage
                     Message = validationResult.ToString()
                 };
             }
-            var sender = await _userManager.FindByIdAsync(request.SenderId);
+            var sender = await _userManager.FindByIdAsync(request.SenderId.ToString());
             if (sender is null)
             {
                 return new SendMessageCommandResponse
@@ -48,7 +48,7 @@ namespace ApartmentManagement.Application.Features.Commands.Messages.SendMessage
                     Message = "No sender with this id was found."
                 };
             }
-            var receiver = await _userManager.FindByIdAsync(request.ReceiverId);
+            var receiver = await _userManager.FindByIdAsync(request.ReceiverId.ToString());
             if (sender is null)
             {
                 return new SendMessageCommandResponse
