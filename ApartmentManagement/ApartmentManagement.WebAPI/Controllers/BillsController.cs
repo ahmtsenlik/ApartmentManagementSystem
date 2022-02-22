@@ -1,7 +1,6 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Bills.Add;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
-using ApartmentManagement.Application.Features.Queries.Bills.GetPaidBills;
-using ApartmentManagement.Application.Features.Queries.Bills.GetUnPaidBills;
+using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,17 +32,10 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpGet]
-        [Route("UnPaidList")]
-        public async Task<IActionResult> GetUnPaidBills()
+        [Route("List")]
+        public async Task<IActionResult> GetPaidBills([FromQuery]GetBillsQueryRequest request)
         {
-            var result = await _mediator.Send(new GetUnPaidBillsQueryRequest());
-            return Ok(result);
-        }
-        [HttpGet]
-        [Route("PaidList")]
-        public async Task<IActionResult> GetPaidBills()
-        {
-            var result = await _mediator.Send(new GetPaidBillsQueryRequest());
+            var result = await _mediator.Send(request);
             return Ok(result);
         }
         [HttpGet("{userId}")]

@@ -38,6 +38,8 @@ namespace ApartmentManagement.WebAPI
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             var jwt = Configuration.GetSection("JWT").Get<JwtSettings>();
 
+            services.AddMemoryCache();
+            services.Configure<CacheConfiguration>(Configuration.GetSection("CacheConfiguration"));
 
             services.AddIdentity<User, Role>(options =>
             {

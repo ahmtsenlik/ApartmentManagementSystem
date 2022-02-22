@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Application.Services;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -19,13 +20,14 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
         private readonly IMapper _mapper;
         private readonly AddUserCommandValidator _validator;
         private readonly UserManager<User> _userManager;
-
-        public AddUserCommandHandler(IApartmentRepository apartmentRepository, IMapper mapper, AddUserCommandValidator validator, UserManager<User> userManager)
+        private readonly ICacheService _cacheService;
+        public AddUserCommandHandler(IApartmentRepository apartmentRepository, IMapper mapper, AddUserCommandValidator validator, UserManager<User> userManager, ICacheService cacheService)
         {
             _apartmentRepository = apartmentRepository;
             _mapper = mapper;
             _validator = validator;
             _userManager = userManager;
+            _cacheService = cacheService;
         }
 
         public async Task<AddUserCommandResponse> Handle(AddUserCommandRequest request, CancellationToken cancellationToken)
@@ -84,6 +86,8 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
             updateApartment.User = checkUser;
             updateApartment.IsEmpty = false;
             await _apartmentRepository.UpdateAsync(updateApartment);
+
+            _cacheService.Remove("ApartmentList");
             return new AddUserCommandResponse
             {
                 IsSuccess =true         

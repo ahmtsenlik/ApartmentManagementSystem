@@ -17,7 +17,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.RemoveUse
         private readonly IApartmentRepository _apartmentRepository;
         private readonly RemoveUserCommandValidator _validator;
 
-        public RemoveUserCommandHandler(IApartmentRepository apartmentRepository, RemoveUserCommandValidator validator, IMapper mapper)
+        public RemoveUserCommandHandler(IApartmentRepository apartmentRepository, RemoveUserCommandValidator validator)
         {
             _apartmentRepository = apartmentRepository;
             _validator = validator;

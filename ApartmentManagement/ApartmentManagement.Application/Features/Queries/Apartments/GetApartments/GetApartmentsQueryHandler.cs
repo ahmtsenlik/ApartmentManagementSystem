@@ -1,4 +1,6 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Application.Services;
+using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using MediatR;
 using System;
@@ -14,17 +16,28 @@ namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartme
     {
         private readonly IApartmentRepository _apartmentRepository;
         private readonly IMapper _mapper;
-
-        public GetApartmentsQueryHandler(IApartmentRepository apartmentRepository, IMapper mapper)
+        private readonly ICacheService _cacheService;
+        public GetApartmentsQueryHandler(IApartmentRepository apartmentRepository, IMapper mapper, ICacheService cacheService)
         {
             _apartmentRepository = apartmentRepository;
             _mapper = mapper;
+            _cacheService = cacheService;
         }
 
         public async Task<IList<GetApartmentsQueryResponse>> Handle(GetApartmentsQueryRequest request, CancellationToken cancellationToken)
         {
-            var apartmentList = await _apartmentRepository.GetAsync(null,x=>x.User);
-            return _mapper.Map<IList<GetApartmentsQueryResponse>>(apartmentList);
+            var cacheKey = "ApartmentList";
+            
+            if (_cacheService.TryGet(cacheKey, out List<GetApartmentsQueryResponse> cacheList))
+            {
+                return cacheList;
+            }
+            var getList = await _apartmentRepository.GetAsync(null, x => x.User);
+            var apartmentList=_mapper.Map<IList<GetApartmentsQueryResponse>>(getList);
+            _cacheService.Set(cacheKey, apartmentList);
+            return apartmentList;
+            
+        
         }
     }
 }
