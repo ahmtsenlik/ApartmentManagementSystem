@@ -16,7 +16,7 @@ namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartme
         public int No { get; set; }
         public string NumberOfRooms { get; set; }
         public int Floor { get; set; }
-        public ApartmentUserModel User { get; set; }
+        public UserModel User { get; set; }
 
     
     }

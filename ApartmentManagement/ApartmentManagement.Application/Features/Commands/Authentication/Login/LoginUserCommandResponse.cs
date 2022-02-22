@@ -12,6 +12,6 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
         public bool IsSuccess { get; set; }
         public string Token { get; set; }
         public IList<string> Roles { get; set; }
-        public UserModel User { get; set; }
+        public LoginUserModel User { get; set; }
     }
 }
