@@ -43,7 +43,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             var result = await _mediator.Send(request);
             return Ok(result);
         }
-        [HttpGet("{userId}")]
+        [HttpGet("userId")]
         public async Task<IActionResult> GetBill()
         {
             var userId=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);

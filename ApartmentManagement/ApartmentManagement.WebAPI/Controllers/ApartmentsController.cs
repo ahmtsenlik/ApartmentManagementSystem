@@ -29,7 +29,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             _mediator = mediator;
         }
         
-        [HttpGet("{id}")]
+        [HttpGet("id")]
         public async Task<IActionResult> GetApartment()
         {
             var id= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
