@@ -2,6 +2,7 @@
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BillsController : ControllerBase
@@ -22,7 +24,8 @@ namespace ApartmentManagement.WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        public async Task<IActionResult> SendMessage(AddBillCommandRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddBill(AddBillCommandRequest request)
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
@@ -33,6 +36,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpGet]
         [Route("List")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPaidBills([FromQuery]GetBillsQueryRequest request)
         {
             var result = await _mediator.Send(request);

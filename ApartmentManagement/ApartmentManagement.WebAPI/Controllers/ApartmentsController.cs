@@ -6,6 +6,7 @@ using ApartmentManagement.Application.Features.Commands.Apartments.Update;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ApartmentsController : ControllerBase
@@ -35,6 +37,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpGet]
         [Route("List")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetApartments()
         {
             var result = await _mediator.Send(new GetApartmentsQueryRequest());
@@ -42,6 +45,7 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateApartment(CreateApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -51,6 +55,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateApartment(UpdateApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -61,6 +66,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPut]
         [Route("AddUser")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddUser(AddUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -71,6 +77,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPut]
         [Route("RemoveUser")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveUser(RemoveUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -80,6 +87,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveApartment(RemoveApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);

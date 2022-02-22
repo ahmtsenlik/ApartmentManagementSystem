@@ -2,6 +2,7 @@
 using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Features.Queries.Users.GetUsers;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -24,6 +26,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpGet]
         [Route("List")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsers()
         {
             var result = await _mediator.Send(new GetUsersQueryRequest());
@@ -31,6 +34,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
 
         [HttpPost("Register")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SignUpUser(SignupUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -40,8 +44,9 @@ namespace ApartmentManagement.WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
-
+        
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser(UpdateUserCommandRequest request)
         {
            var result= await _mediator.Send(request);

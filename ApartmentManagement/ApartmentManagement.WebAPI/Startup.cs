@@ -4,6 +4,7 @@ using ApartmentManagement.Domain.Entities;
 using ApartmentManagement.Infrastructure;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
 using ApartmentManagement.Infrastructure.Middlewares;
+using ApartmentManagement.WebAPI.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,11 +36,13 @@ namespace ApartmentManagement.WebAPI
         {
             services.AddInfrastructureService(Configuration);
             services.AddApplicationServices();
+
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             var jwt = Configuration.GetSection("JWT").Get<JwtSettings>();
-
-            services.AddMemoryCache();
+            
+           
             services.Configure<CacheConfiguration>(Configuration.GetSection("CacheConfiguration"));
+            services.AddMemoryCache();
 
             services.AddIdentity<User, Role>(options =>
             {
@@ -52,9 +55,43 @@ namespace ApartmentManagement.WebAPI
             }).AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+
+            services.AddAuth(jwt);
+
+            services.AddSwaggerGen(swagger =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApartmentManagement.WebAPI", Version = "v1" });
+                //This is to generate the Default UI of Swagger Documentation    
+                swagger.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ASP.NET 5 Web API",
+                    Description = "Authentication and Authorization in ASP.NET 5 with JWT and Swagger"
+                });
+                // To Enable authorization using Swagger (JWT)    
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                });
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+
+                    }
+                });
             });
         }
 

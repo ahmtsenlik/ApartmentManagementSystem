@@ -1,5 +1,6 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Authentication.Login;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.NewFolder
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
