@@ -1,4 +1,5 @@
-﻿using ApartmentManagement.Application.Features.Commands.Users.Signup;
+﻿using ApartmentManagement.Application.Features.Commands.Users.ChangePass;
+using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Features.Queries.Users.GetUser;
 using ApartmentManagement.Application.Features.Queries.Users.GetUsers;
@@ -64,6 +65,16 @@ namespace ApartmentManagement.WebAPI.Controllers
             if (result.IsSuccess)
                 return NoContent();
             
+            return BadRequest(result.Message);
+        }
+        [HttpPut("ChangePass")]
+        public async Task<IActionResult> UpdatePass(ChangePassCommandRequest request)
+        {
+            request.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var result = await _mediator.Send(request);
+            if (result.IsSuccess)
+                return NoContent();
+
             return BadRequest(result.Message);
         }
     }

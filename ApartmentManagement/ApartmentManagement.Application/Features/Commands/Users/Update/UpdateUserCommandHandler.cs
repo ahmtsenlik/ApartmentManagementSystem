@@ -50,7 +50,7 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
             }
           
             _mapper.Map(request, updateUser, typeof(UpdateUserCommandRequest), typeof(User));
-         
+            await _userManager.AddToRoleAsync(updateUser, request.Role);
             await _userManager.UpdateAsync(updateUser);
 
             _cacheService.Remove("UserList");

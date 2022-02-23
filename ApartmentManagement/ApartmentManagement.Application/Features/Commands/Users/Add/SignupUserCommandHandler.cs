@@ -51,6 +51,7 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
             var user= _mapper.Map<User>(request);     
             var defaultpass = "User*123";
             var userCreateResult = await _userManager.CreateAsync(user,defaultpass);
+            
             if (!userCreateResult.Succeeded)
             {
                 return new SignupUserCommandResponse
@@ -64,7 +65,7 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
             return new SignupUserCommandResponse
             {
                 IsSuccess = true,
-                Message = "Registration successful."
+                Message = "Registration successful. /n Your Password:User*123 /n Do not forget to change your password."
             };
         }
     }

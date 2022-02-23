@@ -18,7 +18,6 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
         public string PhoneNumber { get; set; } 
         public string LicensePlate { get; set; }
         public bool IsOwner { get; set; }
-        public string Role { get; set; }
 
 
     }
