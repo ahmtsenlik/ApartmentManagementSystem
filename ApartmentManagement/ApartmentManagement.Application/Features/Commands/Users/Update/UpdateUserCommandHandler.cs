@@ -1,4 +1,5 @@
-﻿using ApartmentManagement.Domain.Entities;
+﻿using ApartmentManagement.Application.Services;
+using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -17,12 +18,14 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
         
         private readonly UpdateUserCommandValidator _validator;
         private readonly IMapper _mapper;
+        private readonly ICacheService _cacheService;
 
-        public UpdateUserCommandHandler(UserManager<User> userManager, UpdateUserCommandValidator validator, IMapper mapper)
+        public UpdateUserCommandHandler(UserManager<User> userManager, UpdateUserCommandValidator validator, IMapper mapper, ICacheService cacheService)
         {
             _userManager = userManager;
             _validator = validator;
             _mapper = mapper;
+            _cacheService = cacheService;
         }
 
         public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommandRequest request, CancellationToken cancellationToken)
@@ -49,7 +52,8 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
             _mapper.Map(request, updateUser, typeof(UpdateUserCommandRequest), typeof(User));
          
             await _userManager.UpdateAsync(updateUser);
-            
+
+            _cacheService.Remove("UserList");
             return new UpdateUserCommandResponse
             {
                 IsSuccess = true

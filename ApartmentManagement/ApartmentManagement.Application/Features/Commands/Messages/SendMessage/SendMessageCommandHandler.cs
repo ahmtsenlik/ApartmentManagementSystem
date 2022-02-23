@@ -39,6 +39,14 @@ namespace ApartmentManagement.Application.Features.Commands.Messages.SendMessage
                     Message = validationResult.ToString()
                 };
             }
+            if (request.SenderId==request.ReceiverId)
+            {
+                return new SendMessageCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "The receiver and sender cannot be the same person."
+                };
+            }
             var sender = await _userManager.FindByIdAsync(request.SenderId.ToString());
             if (sender is null)
             {

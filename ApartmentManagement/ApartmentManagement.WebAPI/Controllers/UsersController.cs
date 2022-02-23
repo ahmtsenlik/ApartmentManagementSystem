@@ -1,5 +1,6 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
+using ApartmentManagement.Application.Features.Queries.Users.GetUser;
 using ApartmentManagement.Application.Features.Queries.Users.GetUsers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
@@ -30,6 +32,15 @@ namespace ApartmentManagement.WebAPI.Controllers
         public async Task<IActionResult> GetUsers()
         {
             var result = await _mediator.Send(new GetUsersQueryRequest());
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("Id")]
+        public async Task<IActionResult> GetUser()
+        {
+            var id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var result = await _mediator.Send(new GetUserQueryRequest { Id=id});
             return Ok(result);
         }
 

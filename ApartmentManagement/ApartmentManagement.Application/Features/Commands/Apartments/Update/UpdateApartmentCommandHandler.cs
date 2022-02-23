@@ -1,5 +1,6 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
 using ApartmentManagement.Application.Exceptions;
+using ApartmentManagement.Application.Services;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using FluentValidation;
@@ -19,12 +20,14 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Update
         private readonly IApartmentRepository _apartmentRepository;
         private readonly IMapper _mapper;
         private readonly UpdateApartmentCommandValidator _validator;
+        private readonly ICacheService _cacheService;
 
-        public UpdateApartmentCommandHandler(IApartmentRepository apartmentRepository, IMapper mapper, UpdateApartmentCommandValidator validator)
+        public UpdateApartmentCommandHandler(IApartmentRepository apartmentRepository, IMapper mapper, UpdateApartmentCommandValidator validator, ICacheService cacheService)
         {
             _apartmentRepository = apartmentRepository;
             _mapper = mapper;
             _validator = validator;
+            _cacheService = cacheService;
         }
 
         public async Task<UpdateApartmentCommandResponse> Handle(UpdateApartmentCommandRequest request, CancellationToken cancellationToken)
@@ -52,6 +55,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Update
  
             await _apartmentRepository.UpdateAsync(updateApartment);
 
+            _cacheService.Remove("ApartmentList");
             return new UpdateApartmentCommandResponse
             {
                 IsSuccess = true

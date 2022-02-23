@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Application.Services;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using FluentValidation;
@@ -17,13 +18,14 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Create
         private readonly IApartmentRepository _apartmentRepository;
         private readonly IMapper _mapper;
         private readonly CreateApartmentCommandValidator _validator;
+        private readonly ICacheService _cacheService;
 
-
-        public CreateApartmentCommandHandler(IApartmentRepository apartmentRepository,IMapper mapper, CreateApartmentCommandValidator validator)
+        public CreateApartmentCommandHandler(IApartmentRepository apartmentRepository,IMapper mapper, CreateApartmentCommandValidator validator, ICacheService cacheService)
         {
             _apartmentRepository = apartmentRepository;
             _mapper = mapper;
             _validator = validator; 
+            _cacheService = cacheService;
         }
 
         public async Task<CreateApartmentCommandResponse> Handle(CreateApartmentCommandRequest request, CancellationToken cancellationToken)
@@ -52,6 +54,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Create
             apartment.IsEmpty = true;
             await _apartmentRepository.AddAsync(apartment);
 
+            _cacheService.Remove("ApartmentList");
             return new CreateApartmentCommandResponse
             {
                 IsSuccess = true,

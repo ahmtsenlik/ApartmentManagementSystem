@@ -1,5 +1,6 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
 using ApartmentManagement.Application.Exceptions;
+using ApartmentManagement.Application.Services;
 using ApartmentManagement.Domain.Entities;
 using FluentValidation;
 using MediatR;
@@ -16,10 +17,12 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Remove
     {
         private readonly IApartmentRepository _apartmentRepository;
         private readonly RemoveApartmentCommandValidator _validator;
-        public RemoveApartmentCommandHandler(IApartmentRepository apartmentRepository, RemoveApartmentCommandValidator validator)
+        private readonly ICacheService _cacheService;
+        public RemoveApartmentCommandHandler(IApartmentRepository apartmentRepository, RemoveApartmentCommandValidator validator, ICacheService cacheService)
         {
             _apartmentRepository = apartmentRepository;
             _validator=validator;
+            _cacheService = cacheService;
         }
 
         public async Task<RemoveApartmentCommandResponse> Handle(RemoveApartmentCommandRequest request, CancellationToken cancellationToken)
@@ -56,7 +59,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.Remove
             }
 
             await _apartmentRepository.RemoveAsync(removeApartment);
-
+            _cacheService.Remove("ApartmentList");
             return new RemoveApartmentCommandResponse
             {
                 IsSuccess = true

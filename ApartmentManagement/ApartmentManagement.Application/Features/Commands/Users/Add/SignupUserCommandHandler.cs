@@ -1,4 +1,5 @@
-﻿using ApartmentManagement.Domain.Entities;
+﻿using ApartmentManagement.Application.Services;
+using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -17,12 +18,13 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly SignupUserCommandValidator _validator;
-
-        public SignupUserCommandHandler(UserManager<User> userManager, IMapper mapper, SignupUserCommandValidator validator)
+        private readonly ICacheService _cacheService;
+        public SignupUserCommandHandler(UserManager<User> userManager, IMapper mapper, SignupUserCommandValidator validator, ICacheService cacheService)
         {
             _userManager = userManager;
             _validator = validator;
             _mapper = mapper;
+            _cacheService = cacheService;
         }
         public async Task<SignupUserCommandResponse> Handle(SignupUserCommandRequest request, CancellationToken cancellationToken)
         { 
@@ -58,6 +60,7 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
                 };
 
             }
+            _cacheService.Remove("UserList");
             return new SignupUserCommandResponse
             {
                 IsSuccess = true,

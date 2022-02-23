@@ -28,8 +28,11 @@ namespace ApartmentManagement.Application.Features.Queries.Users.GetUsers
         public async Task<IList<GetUsersQueryResponse>> Handle(GetUsersQueryRequest request, CancellationToken cancellationToken)
         {
             var cacheKey = "UserList";
-      
-            var users = _userManager.Users.ToList();
+            if (_cacheService.TryGet(cacheKey, out List<GetUsersQueryResponse> cacheList))
+            {
+                return cacheList;
+            }
+            var users =  _userManager.Users.ToList();
             var userList = _mapper.Map<IList<GetUsersQueryResponse>>(users);
             _cacheService.Set(cacheKey, userList);
             return userList;
