@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Bills.Add;
+using ApartmentManagement.Application.Features.Commands.Bills.AddBulk;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using MediatR;
@@ -27,6 +28,18 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddBill(AddBillCommandRequest request)
+        {
+            var result = await _mediator.Send(request);
+            if (result.IsSuccess)
+                return Created("", result.Message);
+            else
+                return BadRequest(result.Message);
+
+        }
+        [HttpPost]
+        [Route("Bulk")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddBulkBill(AddBulkBillCommandRequest request)
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)

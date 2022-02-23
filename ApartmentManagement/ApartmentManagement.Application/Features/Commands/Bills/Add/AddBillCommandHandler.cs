@@ -30,7 +30,16 @@ namespace ApartmentManagement.Application.Features.Commands.Bills.Add
 
         public async Task<AddBillCommandResponse> Handle(AddBillCommandRequest request, CancellationToken cancellationToken)
         {
-            _validator.ValidateAndThrow(request);
+            var validationResult=_validator.Validate(request);
+            if (validationResult.IsValid)
+            {
+                return new AddBillCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = validationResult.ToString()
+                };
+            }
+           
             var apartment = await _apartmentRepository.GetByIdAsync(request.ApartmentId);
             if (apartment is null)
             {

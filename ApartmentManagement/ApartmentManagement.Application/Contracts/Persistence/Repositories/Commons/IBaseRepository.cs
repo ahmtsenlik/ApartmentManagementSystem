@@ -15,7 +15,6 @@ namespace ApartmentManagement.Application.Contracts.Persistence.Repositories.Com
 
         #region Select
 
-        Task<IReadOnlyList<T>> GetAllAsync();
         Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate);
         Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes);
         Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate = null,params Expression<Func<T, object>>[] includes);
@@ -26,21 +25,18 @@ namespace ApartmentManagement.Application.Contracts.Persistence.Repositories.Com
         #region Insert
 
         Task<T> AddAsync(T entity);
-        Task AddRangeAsync(IEnumerable<T> entities);
 
         #endregion
 
         #region Update
 
         Task UpdateAsync(T entity);
-        Task UpdateRangeAsync(IEnumerable<T> entities);
 
         #endregion
 
         #region Delete
 
-        Task RemoveAsync(T entity);
-        Task RemoveRangeAsync(IEnumerable<T> entities);
+        Task RemoveAsync(T entity); 
 
         #endregion
 

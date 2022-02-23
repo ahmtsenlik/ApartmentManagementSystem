@@ -22,12 +22,6 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-
-        public async Task<IReadOnlyList<T>> GetAllAsync()
-        {
-            return await _dbContext.Set<T>().AsNoTracking().ToListAsync();
-        }
-
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
@@ -68,14 +62,6 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
             return entity;
         }
 
-        public virtual async Task AddRangeAsync(IEnumerable<T> entities)
-        {
-            await _dbContext.Set<T>().AddRangeAsync(entities);
-            await _dbContext.SaveChangesAsync();
-        }
-
-
-
         public async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
@@ -83,21 +69,9 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.
 
         }
 
-        public async Task UpdateRangeAsync(IEnumerable<T> entities)
-        {
-            _dbContext.Entry(entities).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-        }
-
         public async Task RemoveAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task RemoveRangeAsync(IEnumerable<T> entities)
-        {
-            _dbContext.Set<T>().RemoveRange(entities);
             await _dbContext.SaveChangesAsync();
         }
     }

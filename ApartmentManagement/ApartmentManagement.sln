@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagement.Domain", "ApartmentManagement.Domain\ApartmentManagement.Domain.csproj", "{AA41F618-8139-4A08-BBCB-EBEB47DC220F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagement.Domain", "ApartmentManagement.Domain\ApartmentManagement.Domain.csproj", "{AA41F618-8139-4A08-BBCB-EBEB47DC220F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagement.Application", "ApartmentManagement.Application\ApartmentManagement.Application.csproj", "{522D2F45-59F8-480D-A654-EBE9E4EC4F64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagement.Application", "ApartmentManagement.Application\ApartmentManagement.Application.csproj", "{522D2F45-59F8-480D-A654-EBE9E4EC4F64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagement.Infrastructure", "ApartmentManagement.Infrastructure\ApartmentManagement.Infrastructure.csproj", "{5B17451A-98AA-4472-9705-88A27268DE8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagement.Infrastructure", "ApartmentManagement.Infrastructure\ApartmentManagement.Infrastructure.csproj", "{5B17451A-98AA-4472-9705-88A27268DE8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagement.WebAPI", "ApartmentManagement.WebAPI\ApartmentManagement.WebAPI.csproj", "{6D1102D6-425C-45D4-B794-DBBCB1967DA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagement.WebAPI", "ApartmentManagement.WebAPI\ApartmentManagement.WebAPI.csproj", "{6D1102D6-425C-45D4-B794-DBBCB1967DA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment.WebAPI", "Payment.WebAPI\Payment.WebAPI.csproj", "{DBA0287C-1825-4795-9626-F5BA940070EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6D1102D6-425C-45D4-B794-DBBCB1967DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D1102D6-425C-45D4-B794-DBBCB1967DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D1102D6-425C-45D4-B794-DBBCB1967DA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA0287C-1825-4795-9626-F5BA940070EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA0287C-1825-4795-9626-F5BA940070EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA0287C-1825-4795-9626-F5BA940070EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA0287C-1825-4795-9626-F5BA940070EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

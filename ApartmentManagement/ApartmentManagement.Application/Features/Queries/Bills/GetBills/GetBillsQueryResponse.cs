@@ -13,7 +13,7 @@ namespace ApartmentManagement.Application.Features.Queries.Bills.GetBills
     {
         public int Id { get; set; }
         public BillType Type { get; set; }
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
         public bool IsPaid { get; set; }
