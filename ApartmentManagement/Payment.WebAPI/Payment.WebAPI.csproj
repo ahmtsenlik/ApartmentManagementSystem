@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Interfaces\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

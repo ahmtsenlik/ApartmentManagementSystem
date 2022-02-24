@@ -10,7 +10,7 @@ namespace Payment.WebAPI.Models.Entities
     public abstract class BaseEntity
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Guid Id { get; set; }
     }
 }
