@@ -1,10 +1,7 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Messages;
 using AutoMapper;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

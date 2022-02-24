@@ -1,7 +1,6 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Commons;
 using ApartmentManagement.Domain.Common;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
