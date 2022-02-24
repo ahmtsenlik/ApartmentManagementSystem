@@ -1,4 +1,10 @@
-﻿using MediatR;
+﻿using ApartmentManagement.Domain.Entities;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using static ApartmentManagement.Domain.Enum.BaseEnum;
 
 namespace ApartmentManagement.Application.Features.Commands.Bills.Add

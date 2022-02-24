@@ -1,5 +1,12 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
+using ApartmentManagement.Domain.Entities;
+using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
