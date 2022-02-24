@@ -1,13 +1,8 @@
 ﻿using ApartmentManagement.Application.Contracts.Persistence.Repositories.Apartments;
 using ApartmentManagement.Application.Contracts.Persistence.Repositories.Bills;
-using ApartmentManagement.Application.Features.Commands.Bills.Add;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
