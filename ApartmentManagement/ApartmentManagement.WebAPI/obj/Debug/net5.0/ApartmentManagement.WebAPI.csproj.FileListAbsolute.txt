@@ -84,3 +84,16 @@ D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.We
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Automatonymous.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\GreenPipes.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MassTransit.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MassTransit.RabbitMqTransport.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\NewId.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\RabbitMQ.Client.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\ApartmentManagement.MessageContracts.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\ApartmentManagement.MessageContracts.pdb
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MassTransit.AspNetCoreIntegration.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MassTransit.ExtensionsDependencyInjectionIntegration.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\System.Text.Json.dll

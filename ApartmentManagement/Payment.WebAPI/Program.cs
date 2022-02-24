@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Payment.WebAPI
+namespace AparmentManagement.PaymentWebAPI
 {
     public class Program
     {

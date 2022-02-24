@@ -1,3 +1,8 @@
+
+using AparmentManagement.PaymentWebAPI.consumer;
+using ApartmentManagement.MessageContracts;
+using GreenPipes;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Payment.WebAPI
+namespace AparmentManagement.PaymentWebAPI
 {
     public class Startup
     {
@@ -28,6 +33,28 @@ namespace Payment.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region MassTransit
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<TodoConsumer>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                {
+                    cfg.Host(new Uri(RabbitMqConsts.RabbitMqRootUri), h =>
+                    {
+                        h.Username(RabbitMqConsts.UserName);
+                        h.Password(RabbitMqConsts.Password);
+                    });
+                    cfg.ReceiveEndpoint("todoQueue", ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<TodoConsumer>(provider);
+                    });
+                }));
+            });
+            services.AddMassTransitHostedService();
+            #endregion
+
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
 
             services.AddSingleton<IMongoDbSettings>(serviceProvider => serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);

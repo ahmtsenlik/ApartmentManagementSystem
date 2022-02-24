@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="7.3.1" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.14">
       <PrivateAssets>all</PrivateAssets>
@@ -16,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ApartmentManagement.Application\ApartmentManagement.Application.csproj" />
     <ProjectReference Include="..\ApartmentManagement.Infrastructure\ApartmentManagement.Infrastructure.csproj" />
+    <ProjectReference Include="..\ApartmentManagement.MessageContracts\ApartmentManagement.MessageContracts.csproj" />
   </ItemGroup>
 
 </Project>

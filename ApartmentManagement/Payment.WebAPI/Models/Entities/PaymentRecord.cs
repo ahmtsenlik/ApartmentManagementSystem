@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Payment.WebAPI.Models.Entities
 {
-    [BsonCollection("Payments")]
-    public class Payment
+    [BsonCollection("PaymentRecords")]
+    public class PaymentRecord:BaseEntity
     {
         public DateTime CreateDate { get; set; }
         public string CardNumber { get; set; }

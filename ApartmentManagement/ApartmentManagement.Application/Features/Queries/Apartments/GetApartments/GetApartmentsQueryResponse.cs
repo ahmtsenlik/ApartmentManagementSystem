@@ -1,5 +1,5 @@
 ﻿using ApartmentManagement.Application.Models;
-;
+
 
 namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartments
 {

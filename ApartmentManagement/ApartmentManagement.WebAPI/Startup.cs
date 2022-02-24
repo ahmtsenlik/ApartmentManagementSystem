@@ -4,7 +4,9 @@ using ApartmentManagement.Domain.Entities;
 using ApartmentManagement.Infrastructure;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
 using ApartmentManagement.Infrastructure.Middlewares;
+using ApartmentManagement.MessageContracts;
 using ApartmentManagement.WebAPI.Extensions;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -57,6 +59,21 @@ namespace ApartmentManagement.WebAPI
             services.AddControllers();
 
             services.AddAuth(jwt);
+
+            #region MassTransit
+            services.AddMassTransit(x =>
+            {
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
+                {
+                    config.Host(new Uri(RabbitMqConsts.RabbitMqRootUri), h =>
+                    {
+                        h.Username(RabbitMqConsts.UserName);
+                        h.Password(RabbitMqConsts.Password);
+                    });
+                }));
+            });
+            services.AddMassTransitHostedService();
+            #endregion
 
             services.AddSwaggerGen(swagger =>
             {

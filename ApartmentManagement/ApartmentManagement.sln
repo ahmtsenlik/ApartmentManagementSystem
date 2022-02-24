@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagement.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagement.WebAPI", "ApartmentManagement.WebAPI\ApartmentManagement.WebAPI.csproj", "{6D1102D6-425C-45D4-B794-DBBCB1967DA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment.WebAPI", "Payment.WebAPI\Payment.WebAPI.csproj", "{DBA0287C-1825-4795-9626-F5BA940070EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AparmentManagement.PaymentWebAPI", "Payment.WebAPI\AparmentManagement.PaymentWebAPI.csproj", "{DBA0287C-1825-4795-9626-F5BA940070EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagement.MessageContracts", "ApartmentManagement.MessageContracts\ApartmentManagement.MessageContracts.csproj", "{6DD54493-9F52-4490-8E01-7C57F43C79B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DBA0287C-1825-4795-9626-F5BA940070EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA0287C-1825-4795-9626-F5BA940070EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA0287C-1825-4795-9626-F5BA940070EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD54493-9F52-4490-8E01-7C57F43C79B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD54493-9F52-4490-8E01-7C57F43C79B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD54493-9F52-4490-8E01-7C57F43C79B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD54493-9F52-4490-8E01-7C57F43C79B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,6 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Messages.SendMessage;
 using ApartmentManagement.Application.Features.Queries.Messages.GetMessages;
+using ApartmentManagement.MessageContracts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
@@ -41,5 +42,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             var result = await _mediator.Send(new GetMessagesRequest() { UserId=userId});
             return Ok(result);
         }
+       
+      
     }
 }
