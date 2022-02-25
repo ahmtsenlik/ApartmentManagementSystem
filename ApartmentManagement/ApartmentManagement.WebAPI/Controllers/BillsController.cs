@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BillsController : ControllerBase
@@ -26,7 +26,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddBill(AddBillCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -38,7 +38,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPost]
         [Route("Bulk")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddBulkBill(AddBulkBillCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -50,13 +50,13 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpGet]
         [Route("List")]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPaidBills([FromQuery]GetBillsQueryRequest request)
         {
             var result = await _mediator.Send(request);
             return Ok(result);
         }
-        [HttpGet("userId")]
+        [HttpGet("User")]
         public async Task<IActionResult> GetBill()
         {
             var userId=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);

@@ -26,7 +26,7 @@ namespace ApartmentManagement.Application.Features.Commands.Bills.Add
         public async Task<AddBillCommandResponse> Handle(AddBillCommandRequest request, CancellationToken cancellationToken)
         {
             var validationResult=_validator.Validate(request);
-            if (validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
                 return new AddBillCommandResponse
                 {
@@ -54,7 +54,8 @@ namespace ApartmentManagement.Application.Features.Commands.Bills.Add
                 };
             }
 
-            var bill = _mapper.Map<Bill>(request); 
+            var bill = _mapper.Map<Bill>(request);
+            bill.Type = request.Type;
             bill.IsPaid = false;
             bill.Apartment = apartment;
 

@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagement.Message
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{0E0DB94F-EE09-4CED-90C0-EA21E78B4639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagementClient", "ApartmentManagementClient\ApartmentManagementClient.csproj", "{6764AB1B-9D4C-4C14-ACE4-EDF60A5D598B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagementClient", "ApartmentManagementClient\ApartmentManagementClient.csproj", "{6764AB1B-9D4C-4C14-ACE4-EDF60A5D598B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

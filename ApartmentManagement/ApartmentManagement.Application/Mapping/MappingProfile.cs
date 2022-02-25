@@ -16,7 +16,7 @@ using ApartmentManagement.Application.Features.Queries.Users.GetUsers;
 using ApartmentManagement.Application.Models;
 using ApartmentManagement.Domain.Entities;
 using AutoMapper;
-
+using static ApartmentManagement.Domain.Enum.BaseEnum;
 
 namespace ApartmentManagement.Application.Mapping
 {

@@ -1,0 +1,49 @@
+﻿@page
+@model ApartmentManagementClient.Pages.Apartment.IndexModel
+@{
+}
+<h1>Apartment List</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Apartment ID</th>
+            <th scope="col">Is Empty</th>
+            <th scope="col">Block</th>
+            <th scope="col">Apartment Number</th>
+            <th scope="col">Number Of Rooms</th>
+            <th scope="col">Floor</th>
+            <th scope="col">User ID</th>
+            <th scope="col">TC Identity Number</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Licence Plate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var apartment in Model.ApartmentsViewModel)
+        {
+        <tr>
+            <th scope="row">@apartment.Id</th>
+            <td>@apartment.IsEmpty</td>
+            <td>@apartment.Block</td>
+            <td>@apartment.No</td>
+            <td>@apartment.NumberOfRooms</td>
+            <td>@apartment.Floor</td>
+            @if(apartment.User!=null)
+            {
+            <td>@apartment.User.Id</td>
+            <td>@apartment.User.TCIdentityNumber</td>
+            <td>@apartment.User.FullName</td>
+            <td>@apartment.User.UserName</td>
+            <td>@apartment.User.Email</td>
+            <td>@apartment.User.PhoneNumber</td>
+            <td>@apartment.User.LicensePlate</td>
+            }
+            <td>
+            </td>
+        </tr>}
+    </tbody>
+</table>

@@ -21,6 +21,7 @@ namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill
         public async Task<IList<GetBillQueryResponse>> Handle(GetBillQueryRequest request, CancellationToken cancellationToken)
         {       
             var bills = await _billRepository.GetAsync(x => x.Apartment.User.Id == request.UserId,x=>x.Apartment);
+            
             if (bills is null)
             {
                 throw new NotFoundException(nameof(bills), request.UserId);

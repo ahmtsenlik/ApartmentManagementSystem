@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ApartmentsController : ControllerBase
@@ -28,18 +28,19 @@ namespace ApartmentManagement.WebAPI.Controllers
         {
             _mediator = mediator;
         }
-        
-        [HttpGet("id")]
+
+        [HttpGet("User")]
         public async Task<IActionResult> GetApartment()
         {
-            var id= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //var id= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var id = 1;
             var result = await _mediator.Send(new GetApartmentQueryRequest(){ Id = id });
             return Ok(result);
             
         }
         [HttpGet]
         [Route("List")]
-        [Authorize(Roles ="Admin")]
+       // [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetApartments()
         {
             var result = await _mediator.Send(new GetApartmentsQueryRequest());
@@ -47,7 +48,7 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateApartment(CreateApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -57,7 +58,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateApartment(UpdateApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -68,7 +69,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPut]
         [Route("AddUser")]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddUser(AddUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -79,7 +80,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPut]
         [Route("RemoveUser")]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveUser(RemoveUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -89,7 +90,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveApartment(RemoveApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);

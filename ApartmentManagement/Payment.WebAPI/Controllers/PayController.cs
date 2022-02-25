@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.MessageContracts;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Payment.WebAPI.Data.Repository.Abstractions;
 using Payment.WebAPI.Models;
@@ -13,7 +14,7 @@ namespace Payment.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PayController : ControllerBase
+    public class PayController : ControllerBase,IConsumer<PaymentRequest>
     {
         private readonly ICardRepository _cardRepository;
         private readonly IPaymentRecordRepository _paymentRecordRepository;
@@ -27,6 +28,11 @@ namespace Payment.WebAPI.Controllers
         {
             await _cardRepository.AddAsync(card);
             return Ok();
+        }
+
+        public Task Consume(ConsumeContext<PaymentRequest> context)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]
