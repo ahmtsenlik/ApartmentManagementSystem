@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.MessageContracts
 {
-    public class Todo
+    public class PaymentResponse
     {
-        public string mesaj { get; set; }
+        public bool IsPaid { get; set; }
+        public int UserId { get; set; }
     }
 }

@@ -50,7 +50,7 @@ namespace AparmentManagement.PaymentWebAPI
                         h.Username(RabbitMqConsts.UserName);
                         h.Password(RabbitMqConsts.Password);
                     });
-                    cfg.ReceiveEndpoint("todoQueue", ep =>
+                    cfg.ReceiveEndpoint(RabbitMqConsts.RequestQueue, ep =>
                     {
                         ep.PrefetchCount = 16;
                         ep.UseMessageRetry(r => r.Interval(2, 100));

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ApartmentManagement.MessageContracts\ApartmentManagement.MessageContracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\" />
+  </ItemGroup>
+
 </Project>

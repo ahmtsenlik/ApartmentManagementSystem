@@ -12,22 +12,21 @@ namespace ApartmentManagement.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestController : ControllerBase
+    public class PaymentController : ControllerBase
     {
         private readonly IBus _bus;
-        public TestController(IBus bus)
+        public PaymentController(IBus bus)
         {
             _bus = bus;
         }
-        [HttpPost("rabbit")]
-        public async Task<IActionResult> Rabbit([FromBody] Todo denememodel)
+        [HttpPost("Payment")]
+        public async Task<IActionResult> Pay([FromBody] PaymentRequest paymentModel)
         {
-            if (denememodel is not null)
+            if (paymentModel is not null)
             {
-                Uri uri = new Uri(RabbitMqConsts.RabbitMqUri);
+                Uri uri = new Uri(RabbitMqConsts.RabbitMqUri+RabbitMqConsts.RequestQueue);
                 var endPoint = await _bus.GetSendEndpoint(uri);
-                denememodel.mesaj = "Ahmet Şenlik";
-                await endPoint.Send(denememodel);
+                await endPoint.Send(paymentModel);
                 return Ok();
             }
             return BadRequest();

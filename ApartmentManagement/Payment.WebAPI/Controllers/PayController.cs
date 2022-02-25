@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApartmentManagement.MessageContracts;
+using Microsoft.AspNetCore.Mvc;
 using Payment.WebAPI.Data.Repository.Abstractions;
 using Payment.WebAPI.Models;
 using Payment.WebAPI.Models.Entities;
@@ -21,10 +22,15 @@ namespace Payment.WebAPI.Controllers
             _cardRepository = cardRepository;
             _paymentRecordRepository = paymentRecordRepository;
         }
-     
-      
+        [HttpPost("AddCard")]
+        public async Task<ActionResult> AddCard(Card card)
+        {
+            await _cardRepository.AddAsync(card);
+            return Ok();
+        }
+
         [HttpPost]
-        public async Task<ActionResult> Pay(PaymentModel pay)
+        public async Task<ActionResult> Pay(PaymentRequest pay)
         {
             var isPaid = false;
             var getCard = await _cardRepository.GetOneAsync(x => x.CardNumber == pay.CardNumber);

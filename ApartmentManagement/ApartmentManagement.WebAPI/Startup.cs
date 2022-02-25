@@ -6,6 +6,7 @@ using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
 using ApartmentManagement.Infrastructure.Middlewares;
 using ApartmentManagement.MessageContracts;
 using ApartmentManagement.WebAPI.Extensions;
+using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -61,14 +62,22 @@ namespace ApartmentManagement.WebAPI
             services.AddAuth(jwt);
 
             #region MassTransit
+           
             services.AddMassTransit(x =>
             {
+                x.AddConsumer<CheckConsume>();
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
                 {
                     config.Host(new Uri(RabbitMqConsts.RabbitMqRootUri), h =>
                     {
                         h.Username(RabbitMqConsts.UserName);
                         h.Password(RabbitMqConsts.Password);
+                    });
+                    config.ReceiveEndpoint(RabbitMqConsts.ResponseQueue, ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<CheckConsume>(provider);
                     });
                 }));
             });
