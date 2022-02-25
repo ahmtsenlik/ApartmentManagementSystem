@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Payment.WebAPI.Data.Repository.Abstractions
 {
-    public interface ICardRepository:IBaseRepository<Card>
+    public interface IPaymentRecordRepository : IBaseRepository<PaymentRecord>
     {
     }
 }

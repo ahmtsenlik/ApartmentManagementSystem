@@ -12,6 +12,8 @@ namespace Payment.WebAPI.Models
         public string CardNumber { get; set; }
         public int ExpMonth { get; set; }
         public int ExpYear { get; set; }
+        public double Amount { get; set; }
+        public string Description { get; set; }
         public int SecurityCode { get; set; }
     }
 }

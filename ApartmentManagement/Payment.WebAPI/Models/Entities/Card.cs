@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Payment.WebAPI.Models.Entities
 {
-    [BsonCollection("Cards")]
+   // [BsonCollection("Cards")]
     public class Card:BaseEntity
     {
         public string FirstName { get; set; }

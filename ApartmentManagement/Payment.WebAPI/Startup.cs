@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Payment.WebAPI.Data.Repository.Abstractions;
+using Payment.WebAPI.Data.Repository.Implementations;
 using Payment.WebAPI.Settings;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,10 @@ namespace AparmentManagement.PaymentWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<MongoDbSettings>(Configuration.GetSection("DatabaseSettings"));
+
+            services.AddSingleton<IMongoDbSettings>(serviceProvider => serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
+
             #region MassTransit
             services.AddMassTransit(x =>
             {
@@ -54,11 +60,8 @@ namespace AparmentManagement.PaymentWebAPI
             });
             services.AddMassTransitHostedService();
             #endregion
-
-            services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
-
-            services.AddSingleton<IMongoDbSettings>(serviceProvider => serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
-
+            services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<IPaymentRecordRepository, PaymentRecordRepository>();
             //services.AddSingleton<IMongoDBContext, MongoDBContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>

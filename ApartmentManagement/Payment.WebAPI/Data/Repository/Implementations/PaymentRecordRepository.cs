@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Payment.WebAPI.Data.Repository.Implementations
 {
-    public class CardRepository : BaseRepository<Card>, ICardRepository
+    public class PaymentRecordRepository : BaseRepository<PaymentRecord>, IPaymentRecordRepository
     {
-        public CardRepository(IMongoDbSettings settings) : base(settings)
+        public PaymentRecordRepository(IMongoDbSettings settings) : base(settings)
         {
         }
     }

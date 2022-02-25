@@ -39,7 +39,7 @@ namespace Payment.WebAPI.Data.Repository
 
         public Task<T> GetOneAsync(Expression<Func<T, bool>> filter)
         {
-            return _dbCollection.Find(filter).FirstOrDefaultAsync();
+            return  _dbCollection.Find(filter).FirstOrDefaultAsync();
         }
 
         public Task RemoveByIdAsync(Guid id)
@@ -49,7 +49,7 @@ namespace Payment.WebAPI.Data.Repository
 
         public Task Update(T entity)
         {
-           return _dbCollection.ReplaceOneAsync(Builders<T>.Filter.Eq("_id", entity.Id), entity);
+           return _dbCollection.ReplaceOneAsync(m=>m.Id==entity.Id, entity);
         }
 
         private protected string GetCollectionName(Type documentType)
