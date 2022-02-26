@@ -18,3 +18,5 @@ D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.In
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Infrastructure\bin\Debug\net5.0\ApartmentManagement.Infrastructure.runtimeconfig.json
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Infrastructure\bin\Debug\net5.0\ApartmentManagement.Infrastructure.runtimeconfig.dev.json
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Infrastructure\obj\Debug\net5.0\ApartmentManagement.Infrastructure.genruntimeconfig.cache
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Infrastructure\bin\Debug\net5.0\ApartmentManagement.MessageContracts.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Infrastructure\bin\Debug\net5.0\ApartmentManagement.MessageContracts.pdb

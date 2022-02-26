@@ -4,17 +4,20 @@ using ApartmentManagement.Application.Features.Commands.Apartments.Update;
 using ApartmentManagement.Application.Features.Commands.Bills.Add;
 using ApartmentManagement.Application.Features.Commands.Bills.AddBulk;
 using ApartmentManagement.Application.Features.Commands.Messages.SendMessage;
+using ApartmentManagement.Application.Features.Commands.Payments;
 using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartments;
-using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
+using ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using ApartmentManagement.Application.Features.Queries.Messages.GetMessages;
+using ApartmentManagement.Application.Features.Queries.Payments;
 using ApartmentManagement.Application.Features.Queries.Users.GetUser;
 using ApartmentManagement.Application.Features.Queries.Users.GetUsers;
 using ApartmentManagement.Application.Models;
 using ApartmentManagement.Domain.Entities;
+using ApartmentManagement.MessageContracts;
 using AutoMapper;
 using static ApartmentManagement.Domain.Enum.BaseEnum;
 
@@ -44,10 +47,13 @@ namespace ApartmentManagement.Application.Mapping
             CreateMap<Message, GetMessagesResponse>().ReverseMap();
             CreateMap<Bill, AddBillCommandRequest>().ReverseMap();
             CreateMap<Bill, GetBillsQueryResponse>().ReverseMap();
-            CreateMap<Bill, GetBillQueryResponse>().ReverseMap();
+            CreateMap<Bill, GetBillByUserIdResponse>().ReverseMap();
             CreateMap<Bill, AddBulkBillCommandRequest>().ReverseMap();
-            
 
+            CreateMap<PaymentResponse, PaymentRecordCommandRequest>().ReverseMap();
+            CreateMap<Payment, PaymentRecordCommandRequest>().ReverseMap();
+            CreateMap<Payment, GetPaymentQueryResponse>().ReverseMap();
+            
         }
     }
 }

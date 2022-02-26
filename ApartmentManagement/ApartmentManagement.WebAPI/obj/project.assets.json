@@ -2800,6 +2800,7 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "ApartmentManagement.Domain": "1.0.0",
+          "ApartmentManagement.MessageContracts": "1.0.0",
           "AutoMapper": "11.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "FluentValidation": "10.3.6",

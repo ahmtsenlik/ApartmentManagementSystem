@@ -14,7 +14,7 @@ namespace ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Message> Messages { get; set; }
-
+        public DbSet<Payment> Payments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

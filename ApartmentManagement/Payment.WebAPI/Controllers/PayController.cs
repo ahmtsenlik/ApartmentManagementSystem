@@ -14,7 +14,7 @@ namespace Payment.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PayController : ControllerBase,IConsumer<PaymentRequest>
+    public class PayController : ControllerBase
     {
         private readonly ICardRepository _cardRepository;
         private readonly IPaymentRecordRepository _paymentRecordRepository;
@@ -28,11 +28,6 @@ namespace Payment.WebAPI.Controllers
         {
             await _cardRepository.AddAsync(card);
             return Ok();
-        }
-
-        public Task Consume(ConsumeContext<PaymentRequest> context)
-        {
-            throw new NotImplementedException();
         }
 
         [HttpPost]

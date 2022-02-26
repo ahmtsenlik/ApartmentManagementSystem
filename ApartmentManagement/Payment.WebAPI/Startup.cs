@@ -42,7 +42,7 @@ namespace AparmentManagement.PaymentWebAPI
             #region MassTransit
             services.AddMassTransit(x =>
             {
-                x.AddConsumer<TodoConsumer>();
+                x.AddConsumer<PaymentConsumer>();
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
                     cfg.Host(new Uri(RabbitMqConsts.RabbitMqRootUri), h =>
@@ -54,7 +54,7 @@ namespace AparmentManagement.PaymentWebAPI
                     {
                         ep.PrefetchCount = 16;
                         ep.UseMessageRetry(r => r.Interval(2, 100));
-                        ep.ConfigureConsumer<TodoConsumer>(provider);
+                        ep.ConfigureConsumer<PaymentConsumer>(provider);
                     });
                 }));
             });

@@ -1,14 +1,9 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Bills.Add;
 using ApartmentManagement.Application.Features.Commands.Bills.AddBulk;
-using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
+using ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -60,7 +55,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         public async Task<IActionResult> GetBill()
         {
             var userId=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var result = await _mediator.Send(new GetBillQueryRequest(){UserId=userId});
+            var result = await _mediator.Send(new GetBillByUserIdRequest(){UserId=userId});
             return Ok(result);
         }
     }

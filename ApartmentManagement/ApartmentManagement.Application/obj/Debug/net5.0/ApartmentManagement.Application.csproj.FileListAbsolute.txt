@@ -13,3 +13,5 @@ D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Ap
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ref\ApartmentManagement.Application.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\obj\Debug\net5.0\ApartmentManagement.Application.pdb
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ApartmentManagement.MessageContracts.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.Application\bin\Debug\net5.0\ApartmentManagement.MessageContracts.pdb

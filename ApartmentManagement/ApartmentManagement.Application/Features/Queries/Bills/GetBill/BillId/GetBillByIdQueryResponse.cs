@@ -2,9 +2,9 @@
 using System.Text.Json.Serialization;
 using static ApartmentManagement.Domain.Enum.BaseEnum;
 
-namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill
+namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill.BillId
 {
-    public class GetBillQueryResponse
+    public class GetBillByIdQueryResponse
     {
         public int Id { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]

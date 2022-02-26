@@ -30,6 +30,9 @@
             "projectReferences": {
               "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.Domain\\ApartmentManagement.Domain.csproj": {
                 "projectPath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.Domain\\ApartmentManagement.Domain.csproj"
+              },
+              "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\ApartmentManagement.MessageContracts.csproj": {
+                "projectPath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\ApartmentManagement.MessageContracts.csproj"
               }
             }
           }
@@ -135,6 +138,66 @@
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.14, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\ApartmentManagement.MessageContracts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\ApartmentManagement.MessageContracts.csproj",
+        "projectName": "ApartmentManagement.MessageContracts",
+        "projectPath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\ApartmentManagement.MessageContracts.csproj",
+        "packagesPath": "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\",
+        "outputPath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ahmet Şenlik\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "MassTransit.RabbitMQ": {
+              "target": "Package",
+              "version": "[7.2.0, )"
             }
           },
           "imports": [

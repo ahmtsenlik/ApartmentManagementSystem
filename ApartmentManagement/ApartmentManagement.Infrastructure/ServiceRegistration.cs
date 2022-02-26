@@ -2,12 +2,14 @@
 using ApartmentManagement.Application.Contracts.Persistence.Repositories.Bills;
 using ApartmentManagement.Application.Contracts.Persistence.Repositories.Commons;
 using ApartmentManagement.Application.Contracts.Persistence.Repositories.Messages;
+using ApartmentManagement.Application.Contracts.Persistence.Repositories.Payments;
 using ApartmentManagement.Application.Services;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.DbContext;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Apartments;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Bills;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Commons;
 using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Messages;
+using ApartmentManagement.Infrastructure.Contracts.Persistence.Repositories.Payments;
 using ApartmentManagement.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +33,7 @@ namespace ApartmentManagement.Infrastructure
             services.AddScoped<IApartmentRepository, ApartmentRepository>();
             services.AddScoped<IBillRepository, BillRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddTransient<ICacheService, MemoryCacheService>();
             return services;
         }

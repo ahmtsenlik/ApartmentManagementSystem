@@ -30,6 +30,9 @@
             "projectReferences": {
               "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.Domain\\ApartmentManagement.Domain.csproj": {
                 "projectPath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.Domain\\ApartmentManagement.Domain.csproj"
+              },
+              "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\ApartmentManagement.MessageContracts.csproj": {
+                "projectPath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.MessageContracts\\ApartmentManagement.MessageContracts.csproj"
               }
             }
           }

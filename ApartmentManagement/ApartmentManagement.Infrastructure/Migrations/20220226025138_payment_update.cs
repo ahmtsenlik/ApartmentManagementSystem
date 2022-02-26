@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ApartmentManagement.Infrastructure.Migrations
 {
-    public partial class initial : Migration
+    public partial class payment_update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,6 +51,25 @@ namespace ApartmentManagement.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BillId = table.Column<int>(type: "int", nullable: false),
+                    Guid = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,10 +281,10 @@ namespace ApartmentManagement.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "IsOwner", "LastName", "LicensePlate", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TCIdentityNumber", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "279bc048-0a47-4d9f-a4be-e13c029940f2", "ahmtsenlik@gmail.com", false, "Ahmet", false, "Şenlik", "41 YZ 299", false, null, null, null, "AQAAAAEAACcQAAAAEIglfYyyniwZwx4DIZXSrfYv58b+gmObwbe6nrvosQ9ycf8zKk3zCVk3OPSv9thd8Q==", "05369102782", false, null, "16597722874", false, "ahmetsenlik" },
-                    { 2, 0, "63627e07-a7a9-4f19-8455-ef68cfa7e474", "erdidemir@gmail.com", false, "Erdi", false, "Demir", "06 EF 184", false, null, null, null, "AQAAAAEAACcQAAAAEMGSAV9X/tyZpOn5rapOpg+dQTrA5+/WCZoqcs391JjiR3gT2scCDcOAyp6s37/OfA==", "05369448796", false, null, "12697864166", false, "erdidemir" },
-                    { 3, 0, "c2a486ad-2609-4996-a50f-5fc308e56a18", "selimaydin@hotmail.com", false, "Selim", false, "Aydın", "34 KM 9514", false, null, null, null, "AQAAAAEAACcQAAAAEL+P48ppACZmBnlJWKV+LQrCjPy6Rz5yDklKkadynXaTcmGG9ab0B/ZaYo9Fl7yldw==", "05058971123", false, null, "32548764166", false, "selimaydin" },
-                    { 4, 0, "ed7cc5cf-cbfa-4f8a-9cb1-9be1e51b0067", "feyzademir@hotmail.com", false, "Feyza", false, "Demir", null, false, null, null, null, "AQAAAAEAACcQAAAAEG8SOnc3pMFgblcuSRWnvbVE1GhS76/fctA9+9uXqAHzfRfWjgyAgj+fmcx6JDs1Nw==", "05426179925", false, null, "79211961462", false, "feyzademir" }
+                    { 1, 0, "95a0bc1b-5fbe-45a0-bcf3-17df1cbc06b4", "ahmtsenlik@gmail.com", false, "Ahmet", false, "Şenlik", "41 YZ 299", false, null, null, null, "AQAAAAEAACcQAAAAEKCDTD8RQwLW2UrlTIM2BUOqVARe6BlL18Af/4gImYsApVvMG/CEKmgqjk9CKvCEFg==", "05369102782", false, null, "16597722874", false, "ahmetsenlik" },
+                    { 2, 0, "2ba30967-9e6d-455a-9596-ca3139768132", "erdidemir@gmail.com", false, "Erdi", false, "Demir", "06 EF 184", false, null, null, null, "AQAAAAEAACcQAAAAEC0NT5XNxRaNlkASvygEYlTLvyWfYNCjPRLbhsCqzlnayxgGTFD/QO+NXU6/9JGOkA==", "05369448796", false, null, "12697864166", false, "erdidemir" },
+                    { 3, 0, "30eb42d9-44fd-4f01-82ec-7f4661430987", "selimaydin@hotmail.com", false, "Selim", false, "Aydın", "34 KM 9514", false, null, null, null, "AQAAAAEAACcQAAAAEDYjs8RF5rTcv22a2r1v23GKm6bwea8kGFtJyFbVxNsUrDpvg9TI/M3Tzw5trUA9XQ==", "05058971123", false, null, "32548764166", false, "selimaydin" },
+                    { 4, 0, "b6f3a1bd-7dad-46b2-8812-310f9380d534", "feyzademir@hotmail.com", false, "Feyza", false, "Demir", null, false, null, null, null, "AQAAAAEAACcQAAAAELad5zjcJ4tAk6qCw1aagSHI3DLpD2sEKwjleBCAl6fUJMwD0yGKvIw1WCE4rtf/bA==", "05426179925", false, null, "79211961462", false, "feyzademir" }
                 });
 
             migrationBuilder.InsertData(
@@ -363,6 +382,9 @@ namespace ApartmentManagement.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Messages");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

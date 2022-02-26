@@ -67,7 +67,7 @@ namespace ApartmentManagement.WebAPI
            
             services.AddMassTransit(x =>
             {
-                x.AddConsumer<CheckConsume>();
+                x.AddConsumer<CheckPaymentConsume>();
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
                 {
                     config.Host(new Uri(RabbitMqConsts.RabbitMqRootUri), h =>
@@ -79,7 +79,7 @@ namespace ApartmentManagement.WebAPI
                     {
                         ep.PrefetchCount = 16;
                         ep.UseMessageRetry(r => r.Interval(2, 100));
-                        ep.ConfigureConsumer<CheckConsume>(provider);
+                        ep.ConfigureConsumer<CheckPaymentConsume>(provider);
                     });
                 }));
             });

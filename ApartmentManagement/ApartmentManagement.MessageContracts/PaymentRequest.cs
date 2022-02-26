@@ -8,6 +8,7 @@ namespace ApartmentManagement.MessageContracts
 {
     public class PaymentRequest
     {
+        public int BillId { get; set; }
         public string CardNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,7 +17,7 @@ namespace ApartmentManagement.MessageContracts
         public int SecurityCode { get; set; }
         public string Description { get; set; }
         public double Amount { get; set; }
-        public int UserId { get; set; }
+        public string Guid { get; set; }
 
     }
 }
