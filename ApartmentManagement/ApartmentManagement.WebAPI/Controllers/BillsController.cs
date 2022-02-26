@@ -26,9 +26,9 @@ namespace ApartmentManagement.WebAPI.Controllers
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
-                return Created("", result.Message);
+                return Created("", result);
             else
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
         }
         [HttpPost]
@@ -38,9 +38,9 @@ namespace ApartmentManagement.WebAPI.Controllers
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
-                return Created("", result.Message);
+                return Created("", result);
             else
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
         }
         [HttpGet]
@@ -51,11 +51,16 @@ namespace ApartmentManagement.WebAPI.Controllers
             var result = await _mediator.Send(request);
             return Ok(result);
         }
-        [HttpGet("User")]
-        public async Task<IActionResult> GetBill()
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetBill(int Id)
         {
-            var userId=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var result = await _mediator.Send(new GetBillByUserIdRequest(){UserId=userId});
+            //var billByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+            //{
+            //    billByUserId = Id;
+            //}
+            
+            var result = await _mediator.Send(new GetBillByUserIdRequest(){UserId= Id });
             return Ok(result);
         }
     }

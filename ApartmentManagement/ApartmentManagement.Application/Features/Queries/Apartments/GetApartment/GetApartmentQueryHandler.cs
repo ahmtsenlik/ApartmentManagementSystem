@@ -25,7 +25,7 @@ namespace ApartmentManagement.Application.Features.Queries.Apartments.GetApartme
         {
             _validator.ValidateAndThrow(request);
 
-            var apartment = await _apartmentRepository.GetSingleAsync(x => x.UserId == request.Id, x=>x.User);
+            var apartment = await _apartmentRepository.GetSingleAsync(x => x.Id == request.Id, x=>x.User);
             if (apartment is null)
             {
                 throw new NotFoundException(nameof(apartment), request.Id);

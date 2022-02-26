@@ -56,10 +56,11 @@ namespace ApartmentManagement.WebAPI.Controllers
             var response= await _mediator.Send(new GetPaymentQueryRequest{Guid=paymentModel.Guid});
             if (response.IsPaid)
             {
-                return Ok(response.Message);
+                return Ok(response);
+               
             }  
 
-            return BadRequest(response.Message);
+            return BadRequest(response);
         }
     }
 }

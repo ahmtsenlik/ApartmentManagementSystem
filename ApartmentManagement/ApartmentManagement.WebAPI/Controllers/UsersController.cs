@@ -36,12 +36,17 @@ namespace ApartmentManagement.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [Route("Id")]
-        public async Task<IActionResult> GetUser()
+        [HttpGet("{Id}")]
+        
+        public async Task<IActionResult> GetUser(int Id)
         {
-            var id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var result = await _mediator.Send(new GetUserQueryRequest { Id=id});
+            //var ByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+            //{
+            //    ByUserId = Id;
+            //}
+        
+            var result = await _mediator.Send(new GetUserQueryRequest { Id= Id });
             return Ok(result);
         }
 
@@ -52,9 +57,9 @@ namespace ApartmentManagement.WebAPI.Controllers
             var result = await _mediator.Send(request);
 
             if (result.IsSuccess)
-                return Created("", result.Message);
+                return Created("", result);
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
         
         [HttpPut]
@@ -65,7 +70,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             if (result.IsSuccess)
                 return NoContent();
             
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
         [HttpPut("ChangePass")]
         public async Task<IActionResult> UpdatePass(ChangePassCommandRequest request)
@@ -75,7 +80,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             if (result.IsSuccess)
                 return NoContent();
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
     }
 }

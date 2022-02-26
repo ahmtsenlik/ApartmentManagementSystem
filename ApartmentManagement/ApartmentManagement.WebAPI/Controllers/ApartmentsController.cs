@@ -29,18 +29,25 @@ namespace ApartmentManagement.WebAPI.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("User")]
-        public async Task<IActionResult> GetApartment()
+
+        [HttpGet("{Id}")]
+
+        public async Task<IActionResult> GetApartment(int Id)
         {
-            //var id= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var id = 1;
-            var result = await _mediator.Send(new GetApartmentQueryRequest(){ Id = id });
+            //var apartmentByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin") 
+            //{
+            //    apartmentByUserId = Id;
+            //}
+
+
+            var result = await _mediator.Send(new GetApartmentQueryRequest() { Id = Id });
             return Ok(result);
-            
+
         }
         [HttpGet]
         [Route("List")]
-       // [Authorize(Roles ="Admin")]
+        // [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetApartments()
         {
             var result = await _mediator.Send(new GetApartmentsQueryRequest());
@@ -48,14 +55,14 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpPost]
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateApartment(CreateApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
-                return Created("", result.Message);
+                return Created("", result);
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
         [HttpPut]
         //[Authorize(Roles = "Admin")]
@@ -65,39 +72,39 @@ namespace ApartmentManagement.WebAPI.Controllers
             if (result.IsSuccess)
                 return NoContent();
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
         [HttpPut]
         [Route("AddUser")]
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddUser(AddUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
                 return NoContent();
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
         [HttpPut]
         [Route("RemoveUser")]
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveUser(RemoveUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
                 return NoContent();
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
-        [HttpDelete]
+        [HttpDelete("{Id}")]
        // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RemoveApartment(RemoveApartmentCommandRequest request)
+        public async Task<IActionResult> RemoveApartment(int Id)
         {
-            var result = await _mediator.Send(request);
+            var result = await _mediator.Send(new RemoveApartmentCommandRequest {ApartmentId=Id});
             if (result.IsSuccess)
                 return Ok();
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
     }
 }
