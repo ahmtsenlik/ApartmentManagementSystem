@@ -35,7 +35,16 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
                     IsSuccess = false
                 };
             }
-            var updateUser = await _userManager.FindByIdAsync(request.Id);
+            if (!(request.Role=="Admin"|| request.Role == "User"))
+            {
+
+                return new UpdateUserCommandResponse
+                {
+                    Message = "The role must be Admin or User.",
+                    IsSuccess = false
+                };
+            }
+            var updateUser = await _userManager.FindByIdAsync(request.Id.ToString());
             if (updateUser is null)
             {
                 return new UpdateUserCommandResponse

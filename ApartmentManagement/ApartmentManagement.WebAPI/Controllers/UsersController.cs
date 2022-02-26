@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Users.ChangePass;
+using ApartmentManagement.Application.Features.Commands.Users.DeleteUser;
 using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Features.Queries.Users.GetUser;
@@ -81,6 +82,19 @@ namespace ApartmentManagement.WebAPI.Controllers
                 return NoContent();
 
             return BadRequest(result);
+        }
+        // [Authorize(Roles = "Admin")]
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteUser(int Id)
+        {
+            //var ByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+            //{
+            //    ByUserId = Id;
+            //}
+
+            var result = await _mediator.Send(new DeleteUserCommandRequest { Id = Id });
+            return Ok(result);
         }
     }
 }

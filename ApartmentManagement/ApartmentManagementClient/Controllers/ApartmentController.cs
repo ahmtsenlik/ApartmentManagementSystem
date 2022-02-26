@@ -14,12 +14,18 @@ namespace ApartmentManagementClient.Controllers
 {
     public class ApartmentController : Controller
     {
-        Api _api=new Api();
+     
+        HttpClient _client;
+
+        public ApartmentController(IHttpClientFactory client)
+        {
+            _client = client.CreateClient("api");
+        }
 
         public IActionResult Index()
         {
             List<ApartmentViewModel> apartments = new List<ApartmentViewModel>();
-            HttpClient _client = _api.Initial();
+            
 
             HttpResponseMessage response = _client.GetAsync("/api/Apartments/List").Result;
             if (response.IsSuccessStatusCode)
@@ -33,7 +39,7 @@ namespace ApartmentManagementClient.Controllers
         public ActionResult Details(int Id)
         {
             var apartment = new ApartmentDetailViewModel();
-            HttpClient _client = _api.Initial();
+            
             HttpResponseMessage response =_client.GetAsync($"/api/Apartments/{Id}").Result;
             
             if (response.IsSuccessStatusCode)
@@ -47,7 +53,7 @@ namespace ApartmentManagementClient.Controllers
         public ActionResult Create(CreateApartmentModel apartment)
         {
             
-            HttpClient _client = _api.Initial();
+            
             var addApartment = _client.PostAsJsonAsync<CreateApartmentModel>("api/Apartments", apartment);
             addApartment.Wait();
 
@@ -61,11 +67,11 @@ namespace ApartmentManagementClient.Controllers
             
             return View();
         }
-        public ActionResult Edit(CreateApartmentModel apartment)
+        public ActionResult Edit(ApartmentViewModel apartment)
         {
 
-            HttpClient _client = _api.Initial();
-            var editApartment = _client.PutAsJsonAsync<CreateApartmentModel>("api/Apartments", apartment);
+         
+            var editApartment = _client.PutAsJsonAsync<ApartmentViewModel>("api/Apartments", apartment);
             editApartment.Wait();
 
             var result = editApartment.Result;
@@ -80,8 +86,7 @@ namespace ApartmentManagementClient.Controllers
         }
         public ActionResult Delete(int Id)
         {
-
-            HttpClient _client = _api.Initial();
+           
             var deleteApartment = _client.DeleteAsync($"api/Apartments/{Id}");
 
            

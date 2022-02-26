@@ -10,6 +10,7 @@ namespace ApartmentManagementClient.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string LicensePlate { get; set; }
+        public bool IsOwner { get; set; }
 
     }
 }

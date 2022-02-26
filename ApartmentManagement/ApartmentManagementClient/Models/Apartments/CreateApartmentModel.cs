@@ -12,5 +12,6 @@ namespace ApartmentManagementClient.Models.Apartments
         public string NumberOfRooms { get; set; }
         public int Floor { get; set; }
 
+
     }
 }

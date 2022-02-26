@@ -46,7 +46,8 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Signup
             var user= _mapper.Map<User>(request);     
             var defaultpass = "User*123";
             var userCreateResult = await _userManager.CreateAsync(user,defaultpass);
-            
+            await _userManager.AddToRoleAsync(user, "User");
+
             if (!userCreateResult.Succeeded)
             {
                 return new SignupUserCommandResponse

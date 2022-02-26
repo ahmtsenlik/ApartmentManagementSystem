@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-
-namespace ApartmentManagement.Application.Features.Commands.Users.Update
+namespace ApartmentManagementClient.Models.Users
 {
-    public class UpdateUserCommandRequest:IRequest<UpdateUserCommandResponse>
+    public class UserUpdateModel
     {
         public int Id { get; set; }
         public string TCIdentityNumber { get; set; }
@@ -14,6 +16,5 @@ namespace ApartmentManagement.Application.Features.Commands.Users.Update
         public string LicensePlate { get; set; }
         public bool IsOwner { get; set; }
         public string Role { get; set; }
-
     }
 }
