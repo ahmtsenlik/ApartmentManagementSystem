@@ -14,47 +14,45 @@ namespace ApartmentManagementClient.Controllers
     public class PaymentController : Controller
     {
         HttpClient _client;
-
+        
         public PaymentController(IHttpClientFactory client)
         {
             _client = client.CreateClient("api");
         }
-        public async Task<IActionResult> Index(PaymentModel payment)
+        
+        public IActionResult Index()
+        {    
+            return View();
+        }
+        public IActionResult Back()
         {
-            HttpResponseMessage billResponse = await _client.GetAsync($"/api/Bills/{payment.BillId}");
+            return Redirect("~/Bill");
+        }
+        [Route("Bill/Payment/{id}")]
+        public async Task<IActionResult>Pay(PaymentModel payment,int id)
+        {
+            HttpResponseMessage billResponse = await _client.GetAsync($"/api/Bills/{id}");
             var result = billResponse.Content.ReadAsStringAsync().Result;
 
             var bill = JsonConvert.DeserializeObject<BillDetailViewModel>(result);
-
+            payment.BillId = bill.Id;
             payment.Description = bill.Type;
             payment.Amount = bill.Amount;
             //userid eksik
 
-            var response= await _client.PostAsJsonAsync<PaymentModel>("api/Payments/pay", payment);
+            var response = await _client.PostAsJsonAsync<PaymentModel>("api/Payments/Pay", payment);
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return Redirect("~/Bill");
             }
-
-            ViewData["ErrorMessage"] = Validation(response);
+            if (response.StatusCode==System.Net.HttpStatusCode.BadRequest)
+            {
+                ViewData["ErrorMessage"] = "The information you entered is incorrect, please check your information.";
+            }
 
             return View();
         }
-        public string Validation(HttpResponseMessage check)
-        {
-            var httpErrorObject = check.Content.ReadAsStringAsync().Result;
-
-            // Create an anonymous object to use as the template for deserialization:
-            var anonymousErrorObject =
-                new { message = "", ModelState = new Dictionary<string, string[]>() };
-
-            // Deserialize:
-            var deserializedErrorObject =
-                JsonConvert.DeserializeAnonymousType(httpErrorObject, anonymousErrorObject);
-
-            return deserializedErrorObject.message;
-
-        }
+     
     }
 }

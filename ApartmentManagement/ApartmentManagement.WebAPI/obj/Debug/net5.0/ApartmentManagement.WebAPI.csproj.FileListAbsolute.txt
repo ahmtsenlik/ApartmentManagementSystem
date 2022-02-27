@@ -97,3 +97,4 @@ D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.We
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\MassTransit.ExtensionsDependencyInjectionIntegration.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\System.Text.Json.dll
+D:\Projeler\ApartmentManagementSystem\ApartmentManagement\ApartmentManagement.WebAPI\bin\Debug\net5.0\FluentValidation.AspNetCore.dll

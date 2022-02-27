@@ -1,17 +1,14 @@
-﻿
-using ApartmentManagement.Application.Features.Commands.Payments;
+﻿using ApartmentManagement.Application.Features.Commands.Payments;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill.BillId;
 using ApartmentManagement.Application.Features.Queries.Payments;
 using ApartmentManagement.MessageContracts;
+using ApartmentManagement.WebAPI.Helper;
 using AutoMapper;
 using MassTransit;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,20 +16,23 @@ namespace ApartmentManagement.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PaymentController : ControllerBase
+    public class PaymentsController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IBus _bus;
         private readonly IMapper _mapper;
-        public PaymentController(IBus bus, IMediator mediator, IMapper mapper)
+
+        public PaymentsController(IBus bus, IMediator mediator, IMapper mapper)
         {
             _bus = bus;
             _mediator = mediator;
             _mapper = mapper;
+
         }
-        [HttpPost("Payment")]
+        [HttpPost("Pay")]
         public async Task<IActionResult> Pay([FromBody] PaymentRequest paymentModel)
         {
+          
             paymentModel.Guid = Guid.NewGuid().ToString();
             Uri uri = new Uri(RabbitMqConsts.RabbitMqUri+RabbitMqConsts.RequestQueue);
             var endPoint = await _bus.GetSendEndpoint(uri);

@@ -91,9 +91,11 @@ namespace ApartmentManagementClient.Controllers
         //    return View();
         //}
         public async Task<IActionResult> Delete(int Id)
-        {      
+        {
+       
             var response =await _client.DeleteAsync($"api/Apartments/{Id}");
-        
+
+           
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

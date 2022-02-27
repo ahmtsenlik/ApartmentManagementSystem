@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "I/6o7sx56MOX3PtNVP5/kJ1Brse6CeBjEMNxgXUt/YxiZqpOEg9F33Qu3Y+7LCgrQ4uJH+jhIIBoDUnzK8WX3g==",
+  "dgSpecHash": "+67caTM1s56dj7WrpVFvhXUQ/CZ0QoYwGdxHdc28mGqT6kXYAkCHTPwpf6z8MUmqQlpmudEr9cC1bwaVJJENow==",
   "success": true,
   "projectFilePath": "D:\\Projeler\\ApartmentManagementSystem\\ApartmentManagement\\ApartmentManagement.WebAPI\\ApartmentManagement.WebAPI.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\automatonymous\\5.1.3\\automatonymous.5.1.3.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
+    "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.6\\fluentvalidation.aspnetcore.10.3.6.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.6\\fluentvalidation.dependencyinjectionextensions.10.3.6.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\greenpipes\\4.0.1\\greenpipes.4.0.1.nupkg.sha512",
     "C:\\Users\\Ahmet Şenlik\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

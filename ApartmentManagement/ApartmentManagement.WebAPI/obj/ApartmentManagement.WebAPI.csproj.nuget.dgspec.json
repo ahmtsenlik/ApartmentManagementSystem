@@ -358,6 +358,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[10.3.6, )"
+            },
             "MassTransit": {
               "target": "Package",
               "version": "[7.3.1, )"

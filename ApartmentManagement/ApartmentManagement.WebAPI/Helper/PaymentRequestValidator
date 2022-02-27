@@ -1,0 +1,25 @@
+﻿using ApartmentManagement.MessageContracts;
+using FluentValidation;
+
+
+namespace ApartmentManagement.WebAPI.Helper
+{
+    public class PaymentRequestValidator:AbstractValidator<PaymentRequest>
+    {
+        public PaymentRequestValidator()
+        {
+            RuleFor(c => c.CardNumber).Length(16).WithMessage("{The card number must be 16 characters.");
+
+            RuleFor(c => c.FirstName).NotEmpty().WithMessage("{Firstame} is required.");
+
+            RuleFor(c => c.LastName).NotEmpty().WithMessage("{Lastname} is required.");
+
+            RuleFor(c => c.ExpMonth).GreaterThanOrEqualTo(1).LessThanOrEqualTo(12).WithMessage("{ExpMonth} must be between 100 and 999.");
+
+            RuleFor(c => c.ExpYear).GreaterThanOrEqualTo(2021).LessThanOrEqualTo(2040).WithMessage("The year must be greater than 2021.");
+
+            RuleFor(c => c.SecurityCode).GreaterThanOrEqualTo(100).LessThanOrEqualTo(999).WithMessage("{SecurityCod} must be between 100 and 999.");
+        }
+
+    }
+}

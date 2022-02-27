@@ -36,6 +36,7 @@
           "ApartmentManagement.Application": "1.0.0",
           "ApartmentManagement.Infrastructure": "1.0.0",
           "ApartmentManagement.MessageContracts": "1.0.0",
+          "FluentValidation.AspNetCore": "10.3.6",
           "MassTransit": "7.3.1",
           "MassTransit.AspNetCore": "7.3.1",
           "MassTransit.RabbitMQ": "7.3.1",
@@ -374,6 +375,21 @@
         },
         "compile": {
           "lib/net5.0/FluentValidation.dll": {}
+        }
+      },
+      "FluentValidation.AspNetCore/10.3.6": {
+        "dependencies": {
+          "FluentValidation": "10.3.6",
+          "FluentValidation.DependencyInjectionExtensions": "10.3.6"
+        },
+        "runtime": {
+          "lib/net5.0/FluentValidation.AspNetCore.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "10.3.6.0"
+          }
+        },
+        "compile": {
+          "lib/net5.0/FluentValidation.AspNetCore.dll": {}
         }
       },
       "FluentValidation.DependencyInjectionExtensions/10.3.6": {
@@ -3901,6 +3917,13 @@
       "sha512": "sha512-iMd370ZDx6ydm8t7bIFdRbSKX0e42lpvCtifUSbTSXOk5iKjmgl7HU0PXBhIWQAyIRi3gCwfMI9luj8H6K+byw==",
       "path": "fluentvalidation/10.3.6",
       "hashPath": "fluentvalidation.10.3.6.nupkg.sha512"
+    },
+    "FluentValidation.AspNetCore/10.3.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xUgEjm+aqQPiVyZHmIq1HCShjlu17Rm1iV6yuL9CFWAl9YPvMxJL7vB+A1CqFUeWsx3LH8fM8ivA/5q5jPmcJg==",
+      "path": "fluentvalidation.aspnetcore/10.3.6",
+      "hashPath": "fluentvalidation.aspnetcore.10.3.6.nupkg.sha512"
     },
     "FluentValidation.DependencyInjectionExtensions/10.3.6": {
       "type": "package",

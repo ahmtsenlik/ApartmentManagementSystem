@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace ApartmentManagementClient.Models.Payment
     {
         public int BillId { get; set; }
         public int UserId { get; set; }
+        [CreditCard]
         public string CardNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

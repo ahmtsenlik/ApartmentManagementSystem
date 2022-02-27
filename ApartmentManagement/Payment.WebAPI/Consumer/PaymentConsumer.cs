@@ -36,15 +36,8 @@ namespace AparmentManagement.PaymentWebAPI.consumer
             var isPaid = false;
 
             var getCard = await _cardRepository.GetOneAsync(x => x.CardNumber == pay.CardNumber);
-
-            if (getCard is not null&& getCard.FirstName == pay.FirstName && getCard.LastName == pay.LastName && getCard.ExpMonth == pay.ExpMonth && getCard.ExpYear == pay.ExpYear && getCard.SecurityCode == pay.SecurityCode)
+            if (getCard is null)
             {
-                if (getCard.Balance > pay.Amount)
-                {
-                    getCard.Balance -= pay.Amount;
-                    isPaid = true;
-                    await _cardRepository.Update(getCard);
-                }
                 await endPoint.Send(new PaymentResponse
                 {
                     BillId = pay.BillId,
@@ -56,6 +49,20 @@ namespace AparmentManagement.PaymentWebAPI.consumer
                     Guid = pay.Guid
                 });
                 return;
+            }
+
+            if (getCard.FirstName == pay.FirstName &&
+                getCard.LastName == pay.LastName &&
+                getCard.ExpMonth == pay.ExpMonth &&
+                getCard.ExpYear == pay.ExpYear &&
+                getCard.SecurityCode == pay.SecurityCode)
+            {
+                if (getCard.Balance > pay.Amount)
+                {
+                    getCard.Balance -= pay.Amount;
+                    isPaid = true;
+                    await _cardRepository.Update(getCard);
+                }
             }
             else
             {
@@ -69,7 +76,7 @@ namespace AparmentManagement.PaymentWebAPI.consumer
                     Message = "Card information is incorrect.",
                     Guid = pay.Guid
                 });
-                return;
+                return;      
             }
 
             //payment record 
