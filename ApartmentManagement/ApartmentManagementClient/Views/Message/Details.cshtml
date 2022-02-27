@@ -1,0 +1,84 @@
+﻿@model ApartmentManagementClient.Models.Message.MessageDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Message Detail</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsRead)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsRead)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+        <dt class="col-sm-2">
+            Sender @Html.DisplayNameFor(model => model.Sender.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sender.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            Sender @Html.DisplayNameFor(model => model.Sender.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sender.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            Sender  @Html.DisplayNameFor(model => model.Sender.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sender.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Receiver  @Html.DisplayNameFor(model => model.Receiver.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Receiver.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            Receiver @Html.DisplayNameFor(model => model.Receiver.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Receiver.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            Receiver    @Html.DisplayNameFor(model => model.Receiver.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Receiver.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+  
+    <a asp-action="Index">Back to List</a>
+</div>

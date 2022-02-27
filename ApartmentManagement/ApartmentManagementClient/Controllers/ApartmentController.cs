@@ -1,6 +1,8 @@
-﻿using ApartmentManagementClient.Models.Apartments;
+﻿using ApartmentManagementClient.Models;
+using ApartmentManagementClient.Models.Apartments;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -74,22 +76,61 @@ namespace ApartmentManagementClient.Controllers
             return View();
         }
 
-        //public ActionResult AddUser(ApartmentViewModel apartment)
-        //{
+        public async Task<IActionResult> SelectUser(int id)
+        {
+            List<UserViewModel> users = new List<UserViewModel>();
+            HttpResponseMessage responseUser = await _client.GetAsync("/api/Users/List");
+            if (responseUser.IsSuccessStatusCode)
+            {
+                string result = responseUser.Content.ReadAsStringAsync().Result;
+                users = JsonConvert.DeserializeObject<List<UserViewModel>>(result);
+                
+            }
 
-        //    var editApartment = _client.PutAsJsonAsync<ApartmentViewModel>("api/Apartments", apartment);
-        //    editApartment.Wait();
+            List<ApartmentDetailViewModel> apartments = new List<ApartmentDetailViewModel>();
+            HttpResponseMessage responseApartment = await _client.GetAsync("/api/Apartments/List");
+            if (responseApartment.IsSuccessStatusCode)
+            {
+                string result = responseApartment.Content.ReadAsStringAsync().Result;
+                apartments = JsonConvert.DeserializeObject<List<ApartmentDetailViewModel>>(result);
+            }
+            List<UserViewModel> removeUser = new List<UserViewModel>();
+            for (int i = 0; i < users.Count; i++)
+            {
+                for (int j = 0; j<apartments.Count ; j++)
+                {
+                    if (apartments[j].User is not null)
+                    {
+                        if (users[i].Id == apartments[j].User.Id)
+                        {
+                            removeUser.Add(users[i]);
+                        }
+                    }                  
+                }                
+            }
+            for (int i = 0; i < removeUser.Count; i++)
+            {
+                users.Remove(removeUser[i]);
+            }
+            ViewData["Id"] = id;
+            return View(users);
+        }
+        public async Task<IActionResult> AddUser(int userId, int apartmentId)
+        {
+            AddUserModel addUserModel = new AddUserModel();
+            addUserModel.ApartmentId = apartmentId;
+            addUserModel.UserId = userId;
+            var response = await _client.PutAsJsonAsync<AddUserModel>("api/Apartments/AddUser", addUserModel);
 
-        //    var result = editApartment.Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
 
-        //    if (result.IsSuccessStatusCode)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    Validation(result);
+            ViewData["ErrorMessage"] = Validation(response);
+            return View();
+        }
 
-        //    return View();
-        //}
         public async Task<IActionResult> Delete(int Id)
         {
        
@@ -101,6 +142,19 @@ namespace ApartmentManagementClient.Controllers
                 return RedirectToAction("Index");
             }
             
+            return View();
+        }
+        public async Task<IActionResult> RemoveUser(int id)
+        {
+
+            var response = await _client.DeleteAsync($"api/Apartments/RemoveUser/{id}");
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
         public string Validation (HttpResponseMessage check)

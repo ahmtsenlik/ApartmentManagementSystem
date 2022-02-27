@@ -102,5 +102,13 @@
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (Model.User is null)
+    {
+        @Html.ActionLink("Add User", "SelectUser", new { id = Model.Id })
+    }
+    else {
+        @Html.ActionLink("Remove User", "RemoveUser", new { id = Model.Id })
+    }
+    |
     <a asp-action="Index">Back to List</a>
 </div>

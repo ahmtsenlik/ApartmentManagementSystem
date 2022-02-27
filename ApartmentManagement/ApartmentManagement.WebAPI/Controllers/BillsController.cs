@@ -47,7 +47,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpGet]
         [Route("List")]
        // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetBills([FromQuery]bool? isPaid )
+        public async Task<IActionResult> GetBills([FromQuery]bool? isPaid)
         {
             var result = await _mediator.Send(new GetBillsQueryRequest { IsPaid=isPaid});
             return Ok(result);

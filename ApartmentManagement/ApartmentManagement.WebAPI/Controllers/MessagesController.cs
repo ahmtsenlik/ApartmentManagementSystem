@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Messages.SendMessage;
+using ApartmentManagement.Application.Features.Queries.Messages.GetMessage;
 using ApartmentManagement.Application.Features.Queries.Messages.GetMessages;
 using ApartmentManagement.MessageContracts;
 using MediatR;
@@ -27,7 +28,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SendMessage(SendMessageCommandRequest request)
         {
-            request.SenderId= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //request.SenderId= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var result = await _mediator.Send(request);
             if (result.IsSuccess)
                 return Created("", result);
@@ -38,11 +39,18 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpGet("User")] 
         public async Task<IActionResult> GetMessages()
         {
-            var userId= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var result = await _mediator.Send(new GetMessagesRequest() { UserId=userId});
+            //var userId= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var result = await _mediator.Send(new GetMessagesRequest() { UserId=1});
             return Ok(result);
         }
-       
-      
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetMessages(int Id)
+        {
+            //var userId= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var result = await _mediator.Send(new GetMessageRequest() { MessageId = Id , UserId=1});
+            return Ok(result);
+        }
+
+
     }
 }

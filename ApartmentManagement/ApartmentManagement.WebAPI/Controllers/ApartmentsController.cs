@@ -85,12 +85,11 @@ namespace ApartmentManagement.WebAPI.Controllers
 
             return BadRequest(result);
         }
-        [HttpPut]
-        [Route("RemoveUser")]
+        [HttpDelete("RemoveUser/{ApartmentId}")]
         // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RemoveUser(RemoveUserCommandRequest request)
+        public async Task<IActionResult> RemoveUser(int ApartmentId)
         {
-            var result = await _mediator.Send(request);
+            var result = await _mediator.Send(new RemoveUserCommandRequest{ ApartmentId=ApartmentId});
             if (result.IsSuccess)
                 return NoContent();
 

@@ -1,5 +1,5 @@
-﻿using ApartmentManagementClient.Models.Apartments;
-using ApartmentManagementClient.Models.Bills;
+﻿using ApartmentManagementClient.Models;
+using ApartmentManagementClient.Models.Message;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -11,48 +11,48 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementClient.Controllers
 {
-    public class BillController : Controller
+    public class MessageController : Controller
     {
 
         HttpClient _client;
 
-        public BillController(IHttpClientFactory client)
+        public MessageController(IHttpClientFactory client)
         {
             _client = client.CreateClient("api");
         }
-        public async Task<IActionResult> Index(bool? isPaid)
+        public async Task<IActionResult> Index()
         {
-            List<BillViewModel> apartments = new List<BillViewModel>();
+            List<MessageViewModel> messages = new List<MessageViewModel>();
 
 
-            HttpResponseMessage response = await _client.GetAsync($"/api/Bills/List{isPaid}");
+            HttpResponseMessage response = await _client.GetAsync("/api/Messages/User");
             if (response.IsSuccessStatusCode)
             {
                 string result = response.Content.ReadAsStringAsync().Result;
-                apartments = JsonConvert.DeserializeObject<List<BillViewModel>>(result);
+                messages = JsonConvert.DeserializeObject<List<MessageViewModel>>(result);
             }
-            return View(apartments);
+            return View(messages);
         }
         public async Task<IActionResult> Details(int Id)
         {
-            var bill = new BillDetailViewModel();
+            var message = new MessageDetailViewModel();
 
-            HttpResponseMessage response = await  _client.GetAsync($"/api/Bills/{Id}");
+            HttpResponseMessage response = await _client.GetAsync($"/api/Messages/{Id}");
 
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                bill = JsonConvert.DeserializeObject<BillDetailViewModel>(result);
-
-                return View(bill);
+                message = JsonConvert.DeserializeObject<MessageDetailViewModel>(result);
+                return View(message);
             }
-            return View(bill);
+
+            return View(message);
 
         }
-        public async Task<IActionResult> Create(CreateBillModel bill)
+        public async Task<IActionResult> Create(CreateMessageModel message)
         {
 
-            var response =await _client.PostAsJsonAsync<CreateBillModel>("api/Bills", bill);  
+            var response = await _client.PostAsJsonAsync<CreateMessageModel>("api/Messages", message);
 
             if (response.IsSuccessStatusCode)
             {
@@ -61,23 +61,7 @@ namespace ApartmentManagementClient.Controllers
             ViewData["ErrorMessage"] = Validation(response);
 
             return View();
-        }  
-
-        //public async Task<IActionResult> CreateBulk(CreateBillModel bill)
-        //{
-
-        //    var response = await _client.PostAsJsonAsync<CreateBillModel>("api/Bills", bill);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewData["ErrorMessage"] = Validation(response);
-
-        //    return View();
-        //}
-   
-  
+        }
         public string Validation(HttpResponseMessage check)
         {
             var httpErrorObject = check.Content.ReadAsStringAsync().Result;
@@ -95,4 +79,3 @@ namespace ApartmentManagementClient.Controllers
         }
     }
 }
-

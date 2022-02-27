@@ -37,7 +37,7 @@ namespace ApartmentManagement.Application.Features.Commands.Apartments.AddUser
                 };
             }
             
-            var checkUser = await _userManager.FindByIdAsync(request.UserId);
+            var checkUser = await _userManager.FindByIdAsync(request.UserId.ToString());
         
             if (checkUser is null)
             {

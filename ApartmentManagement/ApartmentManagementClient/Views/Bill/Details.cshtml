@@ -120,7 +120,8 @@
     
     @if (!Model.IsPaid)
     {
-    @Html.ActionLink("Pay", "Payment", new { id = Model.Id }) 
-    }|
+    @Html.ActionLink("Pay", "Payment", new { id = Model.Id })
+
+    } |
 <a asp-action="Index">Back to List</a>
 </div>

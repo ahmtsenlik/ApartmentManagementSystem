@@ -42,7 +42,9 @@ namespace ApartmentManagementClient.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["ErrorMessage"] = Validation(response);
+            ViewData["Password"] = "User Password: User*123";
             return View();
+
         }
         public async Task<IActionResult> Edit(UserUpdateModel user)
         {
