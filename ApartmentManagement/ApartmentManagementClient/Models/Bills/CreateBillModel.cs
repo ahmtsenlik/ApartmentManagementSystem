@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementClient.Models.Bills
 {
-    public class GetBillViewModel
+    public class CreateBillModel
     {
-        public int Id { get; set; }
         public string Type { get; set; }
         public double Amount { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
-        public bool IsPaid { get; set; }
-        public ApartmentBillViewModel Apartment { get; set; }
+        public int ApartmentId { get; set; }
     }
 }

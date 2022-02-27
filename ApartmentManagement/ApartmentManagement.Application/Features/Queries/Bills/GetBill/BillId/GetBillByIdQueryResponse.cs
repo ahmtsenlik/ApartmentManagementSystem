@@ -14,6 +14,7 @@ namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill.BillId
         public int Year { get; set; }
         public bool IsPaid { get; set; }
         public ApartmentBillModel Apartment { get; set; }
+        
 
     }
 }

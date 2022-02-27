@@ -53,7 +53,8 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
                         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.FirstName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.Role,user.Id.ToString())
                     };
 
                 foreach (var userRole in userRoles)
@@ -71,9 +72,7 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                response.Token = new JwtSecurityTokenHandler().WriteToken(token);
-                response.Roles = userRoles;
-                response.User = _mapper.Map<LoginUserModel>(user);
+                response.Token = new JwtSecurityTokenHandler().WriteToken(token);  
                 response.IsSuccess = true;
 
             }   

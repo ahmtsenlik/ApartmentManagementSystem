@@ -6,6 +6,7 @@ namespace ApartmentManagement.Domain.Entities
     public class Payment:BaseEntity
     {
         public int BillId { get; set; }
+        public int UserId { get; set; }
         public string Guid { get; set; }
         public DateTime CreateDate { get; set; }
         public string Message { get; set; }

@@ -9,6 +9,7 @@ using ApartmentManagement.Application.Features.Commands.Users.Signup;
 using ApartmentManagement.Application.Features.Commands.Users.Update;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartments;
+using ApartmentManagement.Application.Features.Queries.Bills.GetBill.BillId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using ApartmentManagement.Application.Features.Queries.Messages.GetMessages;
@@ -47,7 +48,8 @@ namespace ApartmentManagement.Application.Mapping
             CreateMap<Message, GetMessagesResponse>().ReverseMap();
             CreateMap<Bill, AddBillCommandRequest>().ReverseMap();
             CreateMap<Bill, GetBillsQueryResponse>().ReverseMap();
-            CreateMap<Bill, GetBillByUserIdResponse>().ReverseMap();
+            CreateMap<Bill, GetBillByUserIdQueryResponse>().ReverseMap();
+            CreateMap<Bill, GetBillByIdQueryResponse>().ReverseMap();
             CreateMap<Bill, AddBulkBillCommandRequest>().ReverseMap();
 
             CreateMap<PaymentResponse, PaymentRecordCommandRequest>().ReverseMap();

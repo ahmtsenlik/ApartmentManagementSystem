@@ -36,11 +36,19 @@ namespace AparmentManagement.PaymentWebAPI.consumer
             var isPaid = false;
 
             var getCard = await _cardRepository.GetOneAsync(x => x.CardNumber == pay.CardNumber);
-            if (getCard is null)
+
+            if (getCard is not null&& getCard.FirstName == pay.FirstName && getCard.LastName == pay.LastName && getCard.ExpMonth == pay.ExpMonth && getCard.ExpYear == pay.ExpYear && getCard.SecurityCode == pay.SecurityCode)
             {
+                if (getCard.Balance > pay.Amount)
+                {
+                    getCard.Balance -= pay.Amount;
+                    isPaid = true;
+                    await _cardRepository.Update(getCard);
+                }
                 await endPoint.Send(new PaymentResponse
                 {
                     BillId = pay.BillId,
+                    UserId=pay.UserId,
                     FirstName = pay.FirstName,
                     LastName = pay.LastName,
                     IsPaid = false,
@@ -49,32 +57,19 @@ namespace AparmentManagement.PaymentWebAPI.consumer
                 });
                 return;
             }
-
-            if (getCard.FirstName == pay.FirstName &&
-                getCard.LastName == pay.LastName &&
-                getCard.ExpMonth == pay.ExpMonth &&
-                getCard.ExpYear == pay.ExpYear &&
-                getCard.SecurityCode == pay.SecurityCode)
-            {
-                if (getCard.Balance > pay.Amount)
-                {
-                    getCard.Balance -= pay.Amount;
-                    isPaid = true;
-                    await _cardRepository.Update(getCard);
-                }
-            }
             else
             {
                 await endPoint.Send(new PaymentResponse
                 {
                     BillId = pay.BillId,
+                    UserId = pay.UserId,
                     FirstName = pay.FirstName,
                     LastName = pay.LastName,
                     IsPaid = false,
                     Message = "Card information is incorrect.",
                     Guid = pay.Guid
                 });
-                return;      
+                return;
             }
 
             //payment record 
@@ -94,6 +89,7 @@ namespace AparmentManagement.PaymentWebAPI.consumer
                 await endPoint.Send(new PaymentResponse
                 {
                     BillId = pay.BillId,
+                    UserId = pay.UserId,
                     FirstName = pay.FirstName,
                     LastName = pay.LastName,
                     IsPaid = true,
@@ -106,6 +102,7 @@ namespace AparmentManagement.PaymentWebAPI.consumer
             await endPoint.Send(new PaymentResponse
             {
                 BillId = pay.BillId,
+                UserId = pay.UserId,
                 FirstName = pay.FirstName,
                 LastName = pay.LastName,
                 IsPaid = false,

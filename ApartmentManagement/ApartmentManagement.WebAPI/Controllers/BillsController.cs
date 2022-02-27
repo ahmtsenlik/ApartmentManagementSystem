@@ -1,5 +1,6 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Bills.Add;
 using ApartmentManagement.Application.Features.Commands.Bills.AddBulk;
+using ApartmentManagement.Application.Features.Queries.Bills.GetBill.BillId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using MediatR;
@@ -46,13 +47,14 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpGet]
         [Route("List")]
        // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetPaidBills([FromQuery]GetBillsQueryRequest request)
+        public async Task<IActionResult> GetBills([FromQuery]bool? isPaid )
         {
-            var result = await _mediator.Send(request);
+            var result = await _mediator.Send(new GetBillsQueryRequest { IsPaid=isPaid});
             return Ok(result);
         }
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> GetBill(int Id)
+        
+        [HttpGet("User/{Id}")]
+        public async Task<IActionResult> GetBillByUserId(int Id)
         {
             //var billByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             //if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
@@ -60,7 +62,13 @@ namespace ApartmentManagement.WebAPI.Controllers
             //    billByUserId = Id;
             //}
             
-            var result = await _mediator.Send(new GetBillByUserIdRequest(){UserId= Id });
+            var result = await _mediator.Send(new GetBillByUserIdQueryRequest(){UserId= Id });
+            return Ok(result);
+        }
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetBillById(int Id)
+        {
+            var result = await _mediator.Send(new GetBillByIdQueryRequest() { Id = Id });
             return Ok(result);
         }
     }

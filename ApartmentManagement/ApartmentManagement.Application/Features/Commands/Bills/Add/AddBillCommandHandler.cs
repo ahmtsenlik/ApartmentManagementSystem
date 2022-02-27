@@ -44,6 +44,14 @@ namespace ApartmentManagement.Application.Features.Commands.Bills.Add
                     Message = "The apartment was not found."
                 };
             }
+            if (apartment.IsEmpty)
+            {
+                return new AddBillCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "This apartment is empty, invoice cannot be added here."
+                };
+            }
             var checkBill =await _billRepository.GetAsync(b => b.Type == request.Type && b.Month == request.Month && b.Year == request.Year && b.Apartment.Id == request.ApartmentId);
             if (checkBill.Count!=0)
             {
@@ -53,7 +61,9 @@ namespace ApartmentManagement.Application.Features.Commands.Bills.Add
                     Message = "This bill has already been added."
                 };
             }
-
+          
+                
+            
             var bill = _mapper.Map<Bill>(request);
             bill.Type = request.Type;
             bill.IsPaid = false;

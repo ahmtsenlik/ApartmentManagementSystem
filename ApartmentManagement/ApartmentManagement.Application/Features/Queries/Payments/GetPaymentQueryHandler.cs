@@ -2,6 +2,7 @@
 using ApartmentManagement.Application.Contracts.Persistence.Repositories.Payments;
 using AutoMapper;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,6 +29,7 @@ namespace ApartmentManagement.Application.Features.Queries.Payments
             {
                 var bill = await _billRepository.GetByIdAsync(payment.BillId);
                 bill.IsPaid = true;
+                bill.PaymentTime = DateTime.Now;
                 await _billRepository.UpdateAsync(bill);
             }
 

@@ -1,11 +1,8 @@
-﻿using ApartmentManagementClient.Helper;
-using ApartmentManagementClient.Models;
+﻿using ApartmentManagementClient.Models;
 using ApartmentManagementClient.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -21,12 +18,12 @@ namespace ApartmentManagementClient.Controllers
             _client = client.CreateClient("api");
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<UserViewModel> users = new List<UserViewModel>();
    
 
-            HttpResponseMessage response = _client.GetAsync("/api/Users/List").Result;
+            HttpResponseMessage response =await _client.GetAsync("/api/Users/List");
             if (response.IsSuccessStatusCode)
             {
                 string result = response.Content.ReadAsStringAsync().Result;
@@ -34,50 +31,45 @@ namespace ApartmentManagementClient.Controllers
 
             }
             return View(users);
-        }
-   
-        public ActionResult Create(UserSignUpModel user)
+        }  
+        public async Task<IActionResult> Create(UserSignUpModel user)
         {
 
-            var addUser = _client.PostAsJsonAsync<UserSignUpModel>("api/Users/Register", user);
-            addUser.Wait();
+            var response = await _client.PostAsJsonAsync<UserSignUpModel>("api/Users/Register", user);
 
-            var result = addUser.Result;
-
-            if (result.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-               Validation(result);
+            ViewData["ErrorMessage"] = Validation(response);
             return View();
         }
-        public async Task<ActionResult> Edit(UserUpdateModel user)
+        public async Task<IActionResult> Edit(UserUpdateModel user)
         {
-
-            var editUser = await _client.PutAsJsonAsync<UserUpdateModel>("api/Users", user);
+            var response = await _client.PutAsJsonAsync<UserUpdateModel>("api/Users", user);
             
-            if (editUser.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
 
-            Validation(editUser);
+            ViewData["ErrorMessage"] = Validation(response);
 
             return View();
         }
-        public ActionResult Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
 
-            var deleteUser = _client.DeleteAsync($"api/Users/{Id}");
+            var response = await _client.DeleteAsync($"api/Users/{Id}");
 
-            if (deleteUser.Result.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            Validation(deleteUser.Result);
+            ViewData["ErrorMessage"] = Validation(response);
             return View();
         }
-        public void Validation(HttpResponseMessage check)
+        public string Validation(HttpResponseMessage check)
         {
             var httpErrorObject = check.Content.ReadAsStringAsync().Result;
 
@@ -89,7 +81,7 @@ namespace ApartmentManagementClient.Controllers
             var deserializedErrorObject =
                 JsonConvert.DeserializeAnonymousType(httpErrorObject, anonymousErrorObject);
 
-            ModelState.AddModelError("", deserializedErrorObject.message.ToString());
+            return deserializedErrorObject.message;
 
         }
     }

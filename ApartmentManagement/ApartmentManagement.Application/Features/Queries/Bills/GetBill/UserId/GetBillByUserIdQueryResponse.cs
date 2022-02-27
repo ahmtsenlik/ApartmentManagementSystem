@@ -4,7 +4,7 @@ using static ApartmentManagement.Domain.Enum.BaseEnum;
 
 namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId
 {
-    public class GetBillByUserIdResponse
+    public class GetBillByUserIdQueryResponse
     {
         public int Id { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]

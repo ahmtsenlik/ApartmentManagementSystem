@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId
 {
-    public class GetBillByUserIdQueryHandler : IRequestHandler<GetBillByUserIdRequest, IList<GetBillByUserIdResponse>>
+    public class GetBillByUserIdQueryHandler : IRequestHandler<GetBillByUserIdQueryRequest, IList<GetBillByUserIdQueryResponse>>
     {
         private readonly IBillRepository _billRepository;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId
             _billRepository = billRepository;
             _mapper = mapper;
         }
-        public async Task<IList<GetBillByUserIdResponse>> Handle(GetBillByUserIdRequest request, CancellationToken cancellationToken)
+        public async Task<IList<GetBillByUserIdQueryResponse>> Handle(GetBillByUserIdQueryRequest request, CancellationToken cancellationToken)
         {       
             var bills = await _billRepository.GetAsync(x => x.Apartment.User.Id == request.UserId,x=>x.Apartment);
             
@@ -27,7 +27,7 @@ namespace ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId
                 throw new NotFoundException(nameof(bills), request.UserId);
             }
 
-            return _mapper.Map<IList<GetBillByUserIdResponse>>(bills);
+            return _mapper.Map<IList<GetBillByUserIdQueryResponse>>(bills);
             
         }
     }

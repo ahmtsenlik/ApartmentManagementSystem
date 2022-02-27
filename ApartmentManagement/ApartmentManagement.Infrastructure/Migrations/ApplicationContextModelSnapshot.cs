@@ -110,6 +110,9 @@ namespace ApartmentManagement.Infrastructure.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("PaymentTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -184,6 +187,9 @@ namespace ApartmentManagement.Infrastructure.Migrations
 
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -321,7 +327,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "95a0bc1b-5fbe-45a0-bcf3-17df1cbc06b4",
+                            ConcurrencyStamp = "02e380bb-b1f7-4113-918f-7fdfe4ffae92",
                             Email = "ahmtsenlik@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ahmet",
@@ -329,7 +335,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                             LastName = "Şenlik",
                             LicensePlate = "41 YZ 299",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEKCDTD8RQwLW2UrlTIM2BUOqVARe6BlL18Af/4gImYsApVvMG/CEKmgqjk9CKvCEFg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDFuK5wcIbrm3sHmICcBWJCgRU++1YNpPqGGXKgLfDPPdtSelEg29ojBDK/SCq5RuA==",
                             PhoneNumber = "05369102782",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "16597722874",
@@ -340,7 +346,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2ba30967-9e6d-455a-9596-ca3139768132",
+                            ConcurrencyStamp = "d687c5dc-d0f8-4664-b9e3-9a75555f7c75",
                             Email = "erdidemir@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Erdi",
@@ -348,7 +354,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                             LastName = "Demir",
                             LicensePlate = "06 EF 184",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEC0NT5XNxRaNlkASvygEYlTLvyWfYNCjPRLbhsCqzlnayxgGTFD/QO+NXU6/9JGOkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEPJVABEWPTSjRSWzFLnFkA36UjsC2SY4dJAaEMUKyCPXvFNq6jGeHX9TPYZnqH/gg==",
                             PhoneNumber = "05369448796",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "12697864166",
@@ -359,7 +365,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "30eb42d9-44fd-4f01-82ec-7f4661430987",
+                            ConcurrencyStamp = "b31b48f3-173c-4a94-85a6-b92cdb1b8a7c",
                             Email = "selimaydin@hotmail.com",
                             EmailConfirmed = false,
                             FirstName = "Selim",
@@ -367,7 +373,7 @@ namespace ApartmentManagement.Infrastructure.Migrations
                             LastName = "Aydın",
                             LicensePlate = "34 KM 9514",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDYjs8RF5rTcv22a2r1v23GKm6bwea8kGFtJyFbVxNsUrDpvg9TI/M3Tzw5trUA9XQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENAMY5KkJ+MebM/hZ++OF/ZDyGovL7t4/5VdH7MgL90laphlFEzRxxoe6zwKl14+dg==",
                             PhoneNumber = "05058971123",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "32548764166",
@@ -378,14 +384,14 @@ namespace ApartmentManagement.Infrastructure.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b6f3a1bd-7dad-46b2-8812-310f9380d534",
+                            ConcurrencyStamp = "4aa6cca1-5875-4841-b448-3d4f90dcf787",
                             Email = "feyzademir@hotmail.com",
                             EmailConfirmed = false,
                             FirstName = "Feyza",
                             IsOwner = false,
                             LastName = "Demir",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAELad5zjcJ4tAk6qCw1aagSHI3DLpD2sEKwjleBCAl6fUJMwD0yGKvIw1WCE4rtf/bA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAlWaCK/NZJrKZ07gll5C7ZQfWQSjVoaNIV783o5vcS9thFvJMsEV2y0h9AOwOsOmg==",
                             PhoneNumber = "05426179925",
                             PhoneNumberConfirmed = false,
                             TCIdentityNumber = "79211961462",

@@ -1,11 +1,7 @@
-﻿using ApartmentManagementClient.Helper;
-using ApartmentManagementClient.Models.Apartments;
-using Microsoft.AspNetCore.Http;
+﻿using ApartmentManagementClient.Models.Apartments;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -22,12 +18,12 @@ namespace ApartmentManagementClient.Controllers
             _client = client.CreateClient("api");
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<ApartmentViewModel> apartments = new List<ApartmentViewModel>();
             
 
-            HttpResponseMessage response = _client.GetAsync("/api/Apartments/List").Result;
+            HttpResponseMessage response = await _client.GetAsync("/api/Apartments/List");
             if (response.IsSuccessStatusCode)
             {
                 string result = response.Content.ReadAsStringAsync().Result;
@@ -36,11 +32,11 @@ namespace ApartmentManagementClient.Controllers
             }
             return View(apartments);
         }
-        public ActionResult Details(int Id)
+        public async Task<IActionResult> Details(int Id)
         {
             var apartment = new ApartmentDetailViewModel();
             
-            HttpResponseMessage response =_client.GetAsync($"/api/Apartments/{Id}").Result;
+            HttpResponseMessage response =await _client.GetAsync($"/api/Apartments/{Id}");
             
             if (response.IsSuccessStatusCode)
             {
@@ -48,56 +44,64 @@ namespace ApartmentManagementClient.Controllers
                 apartment = JsonConvert.DeserializeObject<ApartmentDetailViewModel>(result);
                 return View(apartment);
             }
+          
             return View(apartment);
+            
         }
-        public ActionResult Create(CreateApartmentModel apartment)
+        public async Task<IActionResult> Create(CreateApartmentModel apartment)
         {
             
-            
-            var addApartment = _client.PostAsJsonAsync<CreateApartmentModel>("api/Apartments", apartment);
-            addApartment.Wait();
+            var response =await _client.PostAsJsonAsync<CreateApartmentModel>("api/Apartments", apartment);
 
-            var result = addApartment.Result;
-
-            if (result.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            Validation(result);
+            ViewData["ErrorMessage"] = Validation(response);
+
+            return View();
+        }
+        public async Task<IActionResult> Edit(ApartmentViewModel apartment)
+        {
+            var response = await _client.PutAsJsonAsync<ApartmentViewModel>("api/Apartments", apartment);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            
+            ViewData["ErrorMessage"]= Validation(response);
+            return View();
+        }
+
+        //public ActionResult AddUser(ApartmentViewModel apartment)
+        //{
+
+        //    var editApartment = _client.PutAsJsonAsync<ApartmentViewModel>("api/Apartments", apartment);
+        //    editApartment.Wait();
+
+        //    var result = editApartment.Result;
+
+        //    if (result.IsSuccessStatusCode)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    Validation(result);
+
+        //    return View();
+        //}
+        public async Task<IActionResult> Delete(int Id)
+        {      
+            var response =await _client.DeleteAsync($"api/Apartments/{Id}");
+        
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
             
             return View();
         }
-        public ActionResult Edit(ApartmentViewModel apartment)
-        {
-
-         
-            var editApartment = _client.PutAsJsonAsync<ApartmentViewModel>("api/Apartments", apartment);
-            editApartment.Wait();
-
-            var result = editApartment.Result;
-
-            if (result.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            Validation(result);
-
-            return View();
-        }
-        public ActionResult Delete(int Id)
-        {
-           
-            var deleteApartment = _client.DeleteAsync($"api/Apartments/{Id}");
-
-           
-            if (deleteApartment.Result.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            Validation(deleteApartment.Result);
-            return View();
-        }
-        public void Validation (HttpResponseMessage check)
+        public string Validation (HttpResponseMessage check)
         {
             var httpErrorObject = check.Content.ReadAsStringAsync().Result;
 
@@ -109,7 +113,7 @@ namespace ApartmentManagementClient.Controllers
             var deserializedErrorObject =
                 JsonConvert.DeserializeAnonymousType(httpErrorObject, anonymousErrorObject);
 
-            ModelState.AddModelError("", deserializedErrorObject.message.ToString());
+            return deserializedErrorObject.message;
 
         }
     }
