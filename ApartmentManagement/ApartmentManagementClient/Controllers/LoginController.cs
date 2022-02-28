@@ -42,7 +42,7 @@ namespace ApartmentManagementClient.Controllers
                 return Redirect("Home");
 
             }
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
                 ViewData["ErrorMessage"] = "Incorrect UserName or Password!";
             }

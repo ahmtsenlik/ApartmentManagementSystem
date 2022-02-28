@@ -123,13 +123,16 @@ namespace ApartmentManagementClient.Controllers
                 }
                 ViewData["ErrorMessage"] = Validation(response);
             }
+            else
+            {
+                return RedirectToAction("Index");
+            }
 
+            return View();
 
-
-            return RedirectToAction("Index");
         }  
 
-        //public async Task<IActionResult> CreateBulk(CreateBillModel bill)
+        //public async Task<IActionResult> CreateBulk(CreateBulkModel bill)
         //{
 
         //    var response = await _client.PostAsJsonAsync<CreateBillModel>("api/Bills", bill);

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
-  //  [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -30,7 +30,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpGet]
         [Route("List")]
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsers()
         {
             var result = await _mediator.Send(new GetUsersQueryRequest());
@@ -38,7 +38,6 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
 
         [HttpGet("{Id}")]
-        
         public async Task<IActionResult> GetUser(int Id)
         {
             var ByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -52,7 +51,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
 
         [HttpPost("Register")]
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SignUpUser(SignupUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -64,7 +63,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         
         [HttpPut]
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser(UpdateUserCommandRequest request)
         {
            var result= await _mediator.Send(request);
@@ -83,16 +82,11 @@ namespace ApartmentManagement.WebAPI.Controllers
 
             return BadRequest(result);
         }
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteUser(int Id)
         {
-            //var ByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
-            //{
-            //    ByUserId = Id;
-            //}
-
+           
             var result = await _mediator.Send(new DeleteUserCommandRequest { Id = Id });
             return Ok(result);
         }

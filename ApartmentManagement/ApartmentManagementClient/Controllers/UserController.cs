@@ -96,6 +96,10 @@ namespace ApartmentManagementClient.Controllers
                 ViewData["ErrorMessage"] = Validation(response);
                 ViewData["Password"] = "User Password: User*123";
             }
+            else
+            {
+                return RedirectToAction("Index");
+            }
 
             return View();
 
@@ -127,6 +131,11 @@ namespace ApartmentManagementClient.Controllers
                 ViewData["ErrorMessage"] = Validation(response);
 
             }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
         public async Task<IActionResult> Delete(int Id)
@@ -155,10 +164,39 @@ namespace ApartmentManagementClient.Controllers
                 }
                 ViewData["ErrorMessage"] = Validation(response);
             }
-
+            else
+            {
+                return RedirectToAction("Index");
+            }
 
             return View();
+
+
         }
+
+        public async Task<IActionResult> ChangePassword(ChangePassModel changePass)
+        {
+            #region Token
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
+            {
+                return Redirect("Home");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            #endregion  
+
+            var response = await _client.PutAsJsonAsync<ChangePassModel>("api/Users/ChangePass", changePass);
+            ViewData["ErrorMessage"] = Validation(response);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
+
+        }
+
         public string Validation(HttpResponseMessage check)
         {
             var httpErrorObject = check.Content.ReadAsStringAsync().Result;

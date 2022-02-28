@@ -130,7 +130,12 @@ namespace ApartmentManagementClient.Controllers
                 }
                 ViewData["ErrorMessage"] = Validation(response);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(); ;
         }
         public async Task<IActionResult> Edit(ApartmentViewModel apartment)
         {
@@ -159,8 +164,12 @@ namespace ApartmentManagementClient.Controllers
 
                 ViewData["ErrorMessage"] = Validation(response);
             }
-           
-            return RedirectToAction("Index");
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         public async Task<IActionResult> SelectUser(int id)
@@ -220,7 +229,10 @@ namespace ApartmentManagementClient.Controllers
                 ViewData["Id"] = id;
                 return View(users);
             }
-            return RedirectToAction("Index");
+           
+
+            return View();
+          
         }
         public async Task<IActionResult> AddUser(int userId, int apartmentId)
         {
@@ -253,7 +265,12 @@ namespace ApartmentManagementClient.Controllers
 
                 ViewData["ErrorMessage"] = Validation(response);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         public async Task<IActionResult> Delete(int Id)
@@ -275,16 +292,19 @@ namespace ApartmentManagementClient.Controllers
             if (findRole == "Admin")
             {
 
-
                 var response = await _client.DeleteAsync($"api/Apartments/{Id}");
-
 
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
                 }
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
         public async Task<IActionResult> RemoveUser(int id)
         {
@@ -312,8 +332,12 @@ namespace ApartmentManagementClient.Controllers
                     return RedirectToAction("Index");
                 }
             }
+            else
+            {
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View();
         }
         public string Validation (HttpResponseMessage check)
         {

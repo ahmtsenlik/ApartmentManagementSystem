@@ -4,13 +4,14 @@ using ApartmentManagement.Application.Features.Queries.Bills.GetBill.BillId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill.UserId;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBills;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BillsController : ControllerBase
@@ -22,7 +23,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddBill(AddBillCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -34,7 +35,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPost]
         [Route("Bulk")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddBulkBill(AddBulkBillCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -46,7 +47,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpGet]
         [Route("List")]
-       // [Authorize(Roles = "Admin")]
+        
         public async Task<IActionResult> GetBills(bool? isPaid)
         {
             var result = await _mediator.Send(new GetBillsQueryRequest { IsPaid=isPaid});

@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagement.WebAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ApartmentsController : ControllerBase
@@ -52,7 +52,7 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         [HttpGet]
         [Route("List")]
-        // [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetApartments()
         {
             var result = await _mediator.Send(new GetApartmentsQueryRequest());
@@ -60,7 +60,7 @@ namespace ApartmentManagement.WebAPI.Controllers
 
         }
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateApartment(CreateApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -70,7 +70,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPut]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateApartment(UpdateApartmentCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -81,7 +81,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         }
         [HttpPut]
         [Route("AddUser")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddUser(AddUserCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -91,7 +91,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpDelete("RemoveUser/{ApartmentId}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveUser(int ApartmentId)
         {
             var result = await _mediator.Send(new RemoveUserCommandRequest{ ApartmentId=ApartmentId});
@@ -101,7 +101,7 @@ namespace ApartmentManagement.WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpDelete("{Id}")]
-       // [Authorize(Roles = "Admin")]
+       [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveApartment(int Id)
         {
             var result = await _mediator.Send(new RemoveApartmentCommandRequest {ApartmentId=Id});

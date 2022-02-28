@@ -33,18 +33,10 @@ namespace ApartmentManagementClient.Controllers
             }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var handler = new JwtSecurityTokenHandler();
-            var jwtSecurityToken = handler.ReadJwtToken(accessToken);
-
-            var findRole = jwtSecurityToken.Claims.First(x => x.Value == "Admin" || x.Value == "User").Value;
 
             #endregion
 
-
-
-
             List<MessageViewModel> messages = new List<MessageViewModel>();
-
 
             HttpResponseMessage response = await _client.GetAsync("/api/Messages/User");
             if (response.IsSuccessStatusCode)
@@ -56,10 +48,17 @@ namespace ApartmentManagementClient.Controllers
         }
         public async Task<IActionResult> Delete(int Id)
         {
+            #region Token
             var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
+            {
+                return Redirect("Home");
+            }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var response = await _client.DeleteAsync($"api/Messages/{Id}");
 
+            #endregion
+
+            var response = await _client.DeleteAsync($"api/Messages/{Id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -70,8 +69,15 @@ namespace ApartmentManagementClient.Controllers
         }
         public async Task<IActionResult> Details(int Id)
         {
+            #region Token
             var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
+            {
+                return Redirect("Home");
+            }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            #endregion
+
             var message = new MessageDetailViewModel();
 
             HttpResponseMessage response = await _client.GetAsync($"/api/Messages/{Id}");
@@ -88,8 +94,15 @@ namespace ApartmentManagementClient.Controllers
         }
         public async Task<IActionResult> Create(CreateMessageModel message)
         {
+            #region Token
             var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
+            {
+                return Redirect("Home");
+            }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            #endregion
             var response = await _client.PostAsJsonAsync<CreateMessageModel>("api/Messages", message);
 
             if (response.IsSuccessStatusCode)

@@ -18,7 +18,7 @@ namespace ApartmentManagement.Application.Features.Commands.Users.ChangePass
         public async Task<ChangePassCommandResponse> Handle(ChangePassCommandRequest request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(request.UserId.ToString());
-            var result = await _userManager.ChangePasswordAsync(user, request.OldPass, request.NewPass);
+            var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
             if (!result.Succeeded)
             {
                 return new ChangePassCommandResponse
