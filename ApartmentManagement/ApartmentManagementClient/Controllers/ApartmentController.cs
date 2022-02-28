@@ -72,6 +72,11 @@ namespace ApartmentManagementClient.Controllers
                 apartment = JsonConvert.DeserializeObject<ApartmentViewModel>(result);
                
             }
+            
+            if (apartment.Id==0)
+            {
+                return Redirect("Home");
+            }
             apartments.Add(apartment);
             return View(apartments);
 

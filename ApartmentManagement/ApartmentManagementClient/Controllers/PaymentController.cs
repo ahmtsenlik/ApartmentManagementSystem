@@ -17,7 +17,7 @@ namespace ApartmentManagementClient.Controllers
     public class PaymentController : Controller
     {
         HttpClient _client;
-        
+        bool first = false;
         public PaymentController(IHttpClientFactory client)
         {
             _client = client.CreateClient("api");
@@ -34,6 +34,7 @@ namespace ApartmentManagementClient.Controllers
         [Route("Bill/Payment/{id}")]
         public async Task<IActionResult>Pay(PaymentModel payment,int id)
         {
+            
             #region Token
             var accessToken = HttpContext.Session.GetString("JWToken");
             if (accessToken is null)
@@ -56,18 +57,18 @@ namespace ApartmentManagementClient.Controllers
             payment.Description = bill.Type;
             payment.Amount = bill.Amount;
             payment.UserId = Convert.ToInt32(findUserId);
-
+            
             var response = await _client.PostAsJsonAsync<PaymentModel>("api/Payments/Pay", payment);
 
             if (response.IsSuccessStatusCode)
             {
                 return Redirect("~/Bill");
             }
-            if (response.StatusCode==System.Net.HttpStatusCode.BadRequest)
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
                 ViewData["ErrorMessage"] = "The information you entered is incorrect, please check your information.";
             }
-
+            
             return View();
         }
      

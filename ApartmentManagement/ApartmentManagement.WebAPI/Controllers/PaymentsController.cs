@@ -40,7 +40,11 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpPost("Pay")]
         public async Task<IActionResult> Pay([FromBody] PaymentRequest paymentModel)
         {
-          
+
+            if (paymentModel.CardNumber is null|| paymentModel.SecurityCode<100 || paymentModel.ExpYear<2021 || paymentModel.ExpMonth>12)
+            {
+                return BadRequest("Card information is incorrect.");
+            }
             paymentModel.Guid = Guid.NewGuid().ToString();
             Uri uri = new Uri(RabbitMqConsts.RabbitMqUri+RabbitMqConsts.RequestQueue);
             var endPoint = await _bus.GetSendEndpoint(uri);
