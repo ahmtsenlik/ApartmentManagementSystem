@@ -1,11 +1,14 @@
 ﻿using ApartmentManagementClient.Models.Apartments;
 using ApartmentManagementClient.Models.Bills;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
@@ -22,19 +25,62 @@ namespace ApartmentManagementClient.Controllers
         }
         public async Task<IActionResult> Index(bool? isPaid)
         {
-            List<BillViewModel> apartments = new List<BillViewModel>();
 
-
-            HttpResponseMessage response = await _client.GetAsync($"/api/Bills/List{isPaid}");
-            if (response.IsSuccessStatusCode)
+            #region Token
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
             {
-                string result = response.Content.ReadAsStringAsync().Result;
-                apartments = JsonConvert.DeserializeObject<List<BillViewModel>>(result);
+                return Redirect("Home");
             }
-            return View(apartments);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(accessToken);
+
+            var findRole = jwtSecurityToken.Claims.First(x => x.Value == "Admin" || x.Value == "User").Value;
+      
+            #endregion
+
+            List<BillViewModel> bills = new List<BillViewModel>();
+
+            #region Admin
+            
+            if (findRole=="Admin")
+            {
+                HttpResponseMessage response = await _client.GetAsync($"/api/Bills/List?isPaid={isPaid}");
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    bills = JsonConvert.DeserializeObject<List<BillViewModel>>(result);
+                }
+                return View(bills);
+            }
+            #endregion
+
+            #region User
+            HttpResponseMessage responseSingle = await _client.GetAsync($"/api/Bills/User/{1}");
+            if (responseSingle.IsSuccessStatusCode)
+            {
+                string result = responseSingle.Content.ReadAsStringAsync().Result;
+                bills = JsonConvert.DeserializeObject<List<BillViewModel>>(result);
+            }
+            return View(bills);
+            #endregion
         }
         public async Task<IActionResult> Details(int Id)
         {
+            #region Token
+
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
+            {
+                return Redirect("Home");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            #endregion
+
             var bill = new BillDetailViewModel();
 
             HttpResponseMessage response = await  _client.GetAsync($"/api/Bills/{Id}");
@@ -52,15 +98,35 @@ namespace ApartmentManagementClient.Controllers
         public async Task<IActionResult> Create(CreateBillModel bill)
         {
 
-            var response =await _client.PostAsJsonAsync<CreateBillModel>("api/Bills", bill);  
-
-            if (response.IsSuccessStatusCode)
+            #region Token
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
             {
-                return RedirectToAction("Index");
+                return Redirect("Home");
             }
-            ViewData["ErrorMessage"] = Validation(response);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            return View();
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(accessToken);
+
+            var findRole = jwtSecurityToken.Claims.First(x => x.Value == "Admin" || x.Value == "User").Value;
+
+            #endregion
+
+            if (findRole=="Admin")
+            {
+                var response = await _client.PostAsJsonAsync<CreateBillModel>("api/Bills", bill);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                ViewData["ErrorMessage"] = Validation(response);
+            }
+
+
+
+            return RedirectToAction("Index");
         }  
 
         //public async Task<IActionResult> CreateBulk(CreateBillModel bill)

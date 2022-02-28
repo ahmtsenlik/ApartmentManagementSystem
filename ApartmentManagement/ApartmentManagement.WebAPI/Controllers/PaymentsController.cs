@@ -1,9 +1,8 @@
 ﻿using ApartmentManagement.Application.Features.Commands.Payments;
-using ApartmentManagement.Application.Features.Queries.Bills.GetBill;
 using ApartmentManagement.Application.Features.Queries.Bills.GetBill.BillId;
-using ApartmentManagement.Application.Features.Queries.Payments;
+using ApartmentManagement.Application.Features.Queries.Payments.GetPayment;
+using ApartmentManagement.Application.Features.Queries.Payments.GetPayments;
 using ApartmentManagement.MessageContracts;
-using ApartmentManagement.WebAPI.Helper;
 using AutoMapper;
 using MassTransit;
 using MediatR;
@@ -27,6 +26,13 @@ namespace ApartmentManagement.WebAPI.Controllers
             _bus = bus;
             _mediator = mediator;
             _mapper = mapper;
+
+        }
+        [HttpGet("{isPaid}")]
+        public async Task<IActionResult> GetPayments(bool? isPaid)
+        {
+            var result= await _mediator.Send(new GetPaymentsQueryRequest { IsPaid = isPaid });
+            return Ok(result);
 
         }
         [HttpPost("Pay")]

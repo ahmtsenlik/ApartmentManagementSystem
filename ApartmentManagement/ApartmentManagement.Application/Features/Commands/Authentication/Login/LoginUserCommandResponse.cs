@@ -7,8 +7,7 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
 {
     public class LoginUserCommandResponse
     {
-        public bool IsSuccess { get; set; }
-        public string Token { get; set; }
+         public string Token { get; set; }
        
     }
 }

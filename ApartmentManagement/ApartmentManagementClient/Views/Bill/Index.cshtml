@@ -7,8 +7,11 @@
 <h1>Bill List</h1>
 
 <p>
-    <a asp-action="Create">Add Bill</a>
- 
+    <a asp-action="Create">Add Bill</a> |
+    @Html.ActionLink("Show All Bills", "Index") |
+    @Html.ActionLink("Show Paid Bills", "Index", new { isPaid = true }) |
+    @Html.ActionLink("Show Unpaid Bills", "Index", new { isPaid = false })
+
 </p>
 <table class="table">
     <thead>

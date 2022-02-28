@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ApartmentManagement.Application.Features.Queries.Payments
+namespace ApartmentManagement.Application.Features.Queries.Payments.GetPayment
 {
     public class GetPaymentQueryHandler : IRequestHandler<GetPaymentQueryRequest, GetPaymentQueryResponse>
     {

@@ -73,7 +73,7 @@ namespace ApartmentManagement.Application.Features.Commands.Authentication.Login
                     );
 
                 response.Token = new JwtSecurityTokenHandler().WriteToken(token);  
-                response.IsSuccess = true;
+               
 
             }   
             return response;

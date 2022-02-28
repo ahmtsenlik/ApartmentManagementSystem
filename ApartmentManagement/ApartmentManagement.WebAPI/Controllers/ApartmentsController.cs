@@ -4,6 +4,7 @@ using ApartmentManagement.Application.Features.Commands.Apartments.Remove;
 using ApartmentManagement.Application.Features.Commands.Apartments.RemoveUser;
 using ApartmentManagement.Application.Features.Commands.Apartments.Update;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartment;
+using ApartmentManagement.Application.Features.Queries.Apartments.GetApartmentByUserId;
 using ApartmentManagement.Application.Features.Queries.Apartments.GetApartments;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -31,20 +32,24 @@ namespace ApartmentManagement.WebAPI.Controllers
 
 
         [HttpGet("{Id}")]
-
         public async Task<IActionResult> GetApartment(int Id)
         {
-            //var apartmentByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin") 
-            //{
-            //    apartmentByUserId = Id;
-            //}
-
-
+            
             var result = await _mediator.Send(new GetApartmentQueryRequest() { Id = Id });
             return Ok(result);
-
         }
+        [HttpGet("User/{Id}")]
+        public async Task<IActionResult> GetApartmentByUserId(int Id)
+        {
+            var apartmentByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+            {
+                apartmentByUserId = Id;
+            }
+            var result = await _mediator.Send(new GetApartmentByUserIdQueryRequest() { UserId  = apartmentByUserId });
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("List")]
         // [Authorize(Roles ="Admin")]

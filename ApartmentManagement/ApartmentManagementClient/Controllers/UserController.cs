@@ -1,9 +1,13 @@
 ﻿using ApartmentManagementClient.Models;
 using ApartmentManagementClient.Models.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
@@ -20,55 +24,139 @@ namespace ApartmentManagementClient.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<UserViewModel> users = new List<UserViewModel>();
-   
-
-            HttpResponseMessage response =await _client.GetAsync("/api/Users/List");
-            if (response.IsSuccessStatusCode)
+            #region Token
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
             {
-                string result = response.Content.ReadAsStringAsync().Result;
-                users = JsonConvert.DeserializeObject<List<UserViewModel>>(result);
+                return Redirect("Home");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(accessToken);
+
+            var findRole = jwtSecurityToken.Claims.First(x => x.Value == "Admin" || x.Value == "User").Value;
+
+            #endregion
+
+            List<UserViewModel> users = new List<UserViewModel>();
+
+            #region Admin
+            if (findRole=="Admin")
+            {
+                HttpResponseMessage response = await _client.GetAsync("/api/Users/List");
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    users = JsonConvert.DeserializeObject<List<UserViewModel>>(result);
+
+                }
+                return View(users);
+            }
+            #endregion
+
+            #region User
+            var user = new UserViewModel();
+            HttpResponseMessage responseSingle =await _client.GetAsync($"/api/Users/{1}");
+            if (responseSingle.IsSuccessStatusCode)
+            {
+                string result = responseSingle.Content.ReadAsStringAsync().Result;
+                user = JsonConvert.DeserializeObject<UserViewModel>(result);
 
             }
+             
+            users.Add(user);
             return View(users);
-        }  
+            #endregion
+        }
         public async Task<IActionResult> Create(UserSignUpModel user)
         {
-
-            var response = await _client.PostAsJsonAsync<UserSignUpModel>("api/Users/Register", user);
-
-            if (response.IsSuccessStatusCode)
+            #region Token
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
             {
-                return RedirectToAction("Index");
+                return Redirect("Home");
             }
-            ViewData["ErrorMessage"] = Validation(response);
-            ViewData["Password"] = "User Password: User*123";
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(accessToken);
+
+            var findRole = jwtSecurityToken.Claims.First(x => x.Value == "Admin" || x.Value == "User").Value;
+           
+            #endregion
+            if (findRole=="Admin")
+            {
+                var response = await _client.PostAsJsonAsync<UserSignUpModel>("api/Users/Register", user);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                ViewData["ErrorMessage"] = Validation(response);
+                ViewData["Password"] = "User Password: User*123";
+            }
+
             return View();
 
         }
         public async Task<IActionResult> Edit(UserUpdateModel user)
         {
-            var response = await _client.PutAsJsonAsync<UserUpdateModel>("api/Users", user);
-            
-            if (response.IsSuccessStatusCode)
+            #region Token
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
             {
-                return RedirectToAction("Index");
+                return Redirect("Home");
             }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            ViewData["ErrorMessage"] = Validation(response);
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(accessToken);
 
+            var findRole = jwtSecurityToken.Claims.First(x => x.Value == "Admin" || x.Value == "User").Value;
+
+            #endregion
+            if (findRole=="Admin")
+            {
+                var response = await _client.PutAsJsonAsync<UserUpdateModel>("api/Users", user);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                ViewData["ErrorMessage"] = Validation(response);
+
+            }
             return View();
         }
         public async Task<IActionResult> Delete(int Id)
         {
-
-            var response = await _client.DeleteAsync($"api/Users/{Id}");
-
-            if (response.IsSuccessStatusCode)
+            #region Token
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            if (accessToken is null)
             {
-                return RedirectToAction("Index");
+                return Redirect("Home");
             }
-            ViewData["ErrorMessage"] = Validation(response);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(accessToken);
+
+            var findRole = jwtSecurityToken.Claims.First(x => x.Value == "Admin" || x.Value == "User").Value;
+
+            #endregion
+            if (findRole=="Admin")
+            {
+                var response = await _client.DeleteAsync($"api/Users/{Id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                ViewData["ErrorMessage"] = Validation(response);
+            }
+
+
             return View();
         }
         public string Validation(HttpResponseMessage check)

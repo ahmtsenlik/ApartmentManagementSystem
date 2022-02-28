@@ -47,7 +47,7 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpGet]
         [Route("List")]
        // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetBills([FromQuery]bool? isPaid)
+        public async Task<IActionResult> GetBills(bool? isPaid)
         {
             var result = await _mediator.Send(new GetBillsQueryRequest { IsPaid=isPaid});
             return Ok(result);
@@ -56,13 +56,12 @@ namespace ApartmentManagement.WebAPI.Controllers
         [HttpGet("User/{Id}")]
         public async Task<IActionResult> GetBillByUserId(int Id)
         {
-            //var billByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
-            //{
-            //    billByUserId = Id;
-            //}
-            
-            var result = await _mediator.Send(new GetBillByUserIdQueryRequest(){UserId= Id });
+            var billByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+            {
+                billByUserId = Id;
+            }
+            var result = await _mediator.Send(new GetBillByUserIdQueryRequest(){UserId= billByUserId });
             return Ok(result);
         }
         [HttpGet("{Id}")]

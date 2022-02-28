@@ -23,6 +23,7 @@ namespace ApartmentManagementClient
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddHttpClient("api", c =>
             {
                 c.BaseAddress = new Uri("http://localhost:37901");
@@ -30,6 +31,13 @@ namespace ApartmentManagementClient
                 c.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactoryUsingSample");
             });
             services.AddControllersWithViews();
+
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +56,8 @@ namespace ApartmentManagementClient
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
+        
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

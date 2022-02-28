@@ -41,13 +41,13 @@ namespace ApartmentManagement.WebAPI.Controllers
         
         public async Task<IActionResult> GetUser(int Id)
         {
-            //var ByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            //if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
-            //{
-            //    ByUserId = Id;
-            //}
-        
-            var result = await _mediator.Send(new GetUserQueryRequest { Id= Id });
+            var ByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+            {
+                ByUserId = Id;
+            }
+
+            var result = await _mediator.Send(new GetUserQueryRequest { Id= ByUserId });
             return Ok(result);
         }
 

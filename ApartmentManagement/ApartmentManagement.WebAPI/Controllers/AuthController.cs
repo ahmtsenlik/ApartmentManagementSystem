@@ -27,9 +27,9 @@ namespace ApartmentManagement.WebAPI.NewFolder
         {
             var result=await _mediator.Send(request);
 
-            if (result.IsSuccess)
+            if (result.Token is not null)
             {
-                return Ok(result);
+                return Ok(result.Token);
             }
             
             return BadRequest("Username or Password is incorret.");
