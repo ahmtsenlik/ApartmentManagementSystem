@@ -13,6 +13,7 @@ namespace ApartmentManagementClient.Models.Apartments
         public int No { get; set; }
         public string NumberOfRooms { get; set; }
         public int Floor { get; set; }
+
         public UserViewModel User { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace ApartmentManagementClient.Controllers
     public class PaymentController : Controller
     {
         HttpClient _client;
-        bool first = false;
+        
         public PaymentController(IHttpClientFactory client)
         {
             _client = client.CreateClient("api");

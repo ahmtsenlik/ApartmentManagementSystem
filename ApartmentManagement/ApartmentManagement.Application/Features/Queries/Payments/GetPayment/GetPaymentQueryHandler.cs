@@ -22,9 +22,14 @@ namespace ApartmentManagement.Application.Features.Queries.Payments.GetPayment
 
         public async Task<GetPaymentQueryResponse> Handle(GetPaymentQueryRequest request, CancellationToken cancellationToken)
         {
-     
+            Thread.Sleep(1000);
             var payment = await _paymentRepository.GetSingleAsync(x => x.Guid == request.Guid);
             var result= _mapper.Map<GetPaymentQueryResponse>(payment);
+            if (result is null)
+            {
+                result.IsPaid = false;
+                result.Message = "An unexpected error has occurred. Please try again.";
+            }
             if (result.IsPaid)
             {
                 var bill = await _billRepository.GetByIdAsync(payment.BillId);
